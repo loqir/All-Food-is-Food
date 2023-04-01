@@ -4,6 +4,9 @@ import AboutView from '@/views/AboutView.vue'
 import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import Profile from '@/views/Profile.vue'
+import SellerListingView from '@/views/SellerListingView.vue'
+import BuyerListingView from '@/views/BuyerListingView.vue'
+
 
 const routes = [
   {
@@ -30,6 +33,17 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/sellerlistingview',
+    name: 'SellerListingView',
+    component: SellerListingView
+  },
+  ,
+  {
+    path: '/buyerlistingview',
+    name: 'BuyerListingView',
+    component: BuyerListingView
   }
 ]
 

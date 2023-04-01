@@ -6,6 +6,8 @@
             <router-link to = "/profit"> Profits </router-link>
             <router-link to = "/profit2"> Profits 2 </router-link>
             <router-link to = "/profile"> Profile </router-link>
+            <router-link to = "/sellerlistingview"> SellerListing </router-link>
+
         </div>
     </div>
 </template>

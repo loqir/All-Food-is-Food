@@ -1,6 +1,8 @@
 <template>
     <label for = "searchedfood"> Find your Food </label>
     <input type = "text" v-model = "Entry"  placeholder = "What would you like to find?"><br><br>
+    <button type="submit" @click ="search">Search</button><br><br>
+    <AddListing/>
 </template>
 
 
