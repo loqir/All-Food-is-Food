@@ -4,11 +4,10 @@
       <SearchBar/>
       <div class = "container">
     <div class="left-component">
-      <ListingBuyer/>
-      <ListingBuyer/>
+      <Listing/>
     </div>
     <div class="right-component">     
-        <Cart/>
+      <AddListing/>
     </div>
     </div>
     <Logout/> <br><br>
@@ -20,21 +19,18 @@
   import NavBar from '@/components/NavBar.vue'
   import SearchBar from '@/components/SearchBar.vue'
   import Listing from '@/components/Listing.vue'
-  import ListingBuyer from '@/components/ListingBuyer.vue'
   import AddListing from '@/components/AddListing.vue'
-  import Cart from '@/components/Cart.vue'
   import { getAuth, onAuthStateChanged } from "firebase/auth"
   import firebaseApp from '@/firebase.js'
   
   export default {
-    name: 'BuyerListingView',
+    name: 'SellerListingView',
     components: {
       NavBar,
       Logout,
       SearchBar,
-      ListingBuyer,
-      AddListing,
-      Cart
+      Listing,
+      AddListing
     },
   
     data() {

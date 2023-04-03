@@ -12,17 +12,18 @@
   <input type = "text" v-model = "priceEntry"  placeholder = "Enter listing price"><br><br>
   <p class="name">Description</p>
   <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br><br>
+  
   <img
     alt=""
     class="image-11"
     src="https://static.overlay-tech.com/assets/e4257055-2a1b-4782-94e7-73d4d70f7404.png"
   />
-  <button style = "border:none;" v-on:click = "addlisting"><img
+    <img
     alt=""
     class="image-9"
     src="https://static.overlay-tech.com/assets/e9921e71-ec44-4406-8cd7-3aac4fa3cc95.png"
   />
-</button>
+
 </div>
 //
 </template>
@@ -35,14 +36,15 @@ export default {
         productEntry : ""
         priceEntry : ""
         descriptionEntry: ""
-    },
-    methods: {
-        addlisting() {
-            // this.$emit("findfood", this.Entry)
-            console.log("ADDLISTING")
-        }
+        // selectedFile: null
     }
-}
+    // methods: {
+    //   onFileSelected(event) {
+    //     this.selectedFile = event.target.files[0]
+    //   },
+    //   onUpload() {}
+    //     }
+    }
 </script>
 
 
