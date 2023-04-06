@@ -1,5 +1,4 @@
 <template>
-
   <div class = "container-center-horizontal">
     <div class="landing-page screen">
       <div class="overlap-group" style="background-image: url('/src/assets/landingpage.jpg');">
@@ -8,15 +7,14 @@
             <div class="valign-text-middle">
               <p class="sign">Don't have an account? Click here to sign up!</p>
               <div class="buttonC">
-                <FrameButton class="bt" children="Buyer"/>
-                <FrameButton class="bt" className="seller-sign-up-button" children="Seller"/>
+                <button class="bt">Buyer</button>
+                <button class="bt">Seller</button>
               </div>
             </div>
-
             <div class="valign-text-middle">
               <p class="sign">Already a registered user? Sign in here!</p>
               <div class="buttonC">
-                <FrameButton class="bt" className="sign-in-button" children="Sign in"/>
+                <button class="bt" @click="redirectToLogin">Sign in</button>
               </div>
             </div>
           </div>
@@ -26,13 +24,8 @@
 </template>
 
 <script>
-import FrameButton from './FrameButton.vue';
-
   export default {
     name: "LandingPage",
-    components: {
-      FrameButton
-    },
 
     props: [
       "overlapGroup",
@@ -43,6 +36,11 @@ import FrameButton from './FrameButton.vue';
       "button2",
       "button3",
     ],
+    methods: {
+    redirectToLogin() {
+      this.$router.push('/login');
+    }
+  }
   };
   </script>
 
@@ -131,5 +129,17 @@ import FrameButton from './FrameButton.vue';
 
 p {
   color: white;
+}
+
+button {
+  align-items: center;
+  background-color: #EA6A12;
+  color: white;
+  border-radius: 24px;
+  display: inline;
+  justify-content: center;
+  padding: 8px 24px;
+  position: relative;
+  width: fit-content;
 }
 </style>
