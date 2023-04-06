@@ -7,6 +7,7 @@ import Profile from '@/views/Profile.vue'
 import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
+import LogIn from "../components/LogIn.vue"
 
 
 const routes = [
@@ -19,11 +20,6 @@ const routes = [
     path: '/about',
     name: 'AboutView',
     component: AboutView
-  },
-  {
-    path: "/",
-    name: 'Login',
-    component: Login
   },
   {
     path: '/:catchAll(.*)',
@@ -47,10 +43,15 @@ const routes = [
     component: BuyerListingView
   },
   {
-    path: '/landingpage',
+    path: '/',
     name: 'LandingPage',
     component: LandingPage
-  }
+  },
+  {
+    path: '/login',
+    name: 'LogIn',
+    component: LogIn
+  },
 ]
 
 const router = createRouter({
