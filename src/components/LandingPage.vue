@@ -1,14 +1,14 @@
 <template>
   <div class = "container-center-horizontal">
     <div class="landing-page screen">
-      <div class="overlap-group" style="background-image: url('/src/assets/landingpage.jpg');">
+      <div class="overlap-group" style="background-image: url('/src/assets/landingpage.jpg')">
           <h1 class="welcome-message">Welcome to AF2, where we cherish all food regardless of appeareance</h1>
           <div class="message-container">
             <div class="valign-text-middle">
               <p class="sign">Don't have an account? Click here to sign up!</p>
               <div class="buttonC">
-                <button class="bt">Buyer</button>
-                <button class="bt">Seller</button>
+                <button class="bt" @click="redirectToBuyerSignUp">Buyer</button>
+                <button class="bt" @click="redirectToSellerSignUp">Seller</button>
               </div>
             </div>
             <div class="valign-text-middle">
@@ -39,6 +39,12 @@
     methods: {
     redirectToLogin() {
       this.$router.push('/login');
+    }, 
+    redirectToBuyerSignUp() {
+      this.$router.push('/buyersignup');
+    },
+    redirectToSellerSignUp() {
+      this.$router.push('/sellersignup');
     }
   }
   };

@@ -8,8 +8,10 @@ import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/LogIn.vue"
-import BuyerRegister from '@/views/BuyerRegister.vue'
-import SellerRegister from '@/views/SellerRegister.vue'
+import BuyerSignUp from "../components/BuyerSignUp.vue"
+import SellerSignUp from "../components/SellerSignUp.vue"
+import PasswordResetSuccess from "../components/PasswordResetSuccess.vue"
+import PasswordReset from "../components/PasswordReset.vue"
 
 
 const routes = [
@@ -55,14 +57,24 @@ const routes = [
     component: LogIn
   },
   {
-    path: '/buyerregister',
-    name: 'BuyerRegister',
-    component: BuyerRegister
+    path: '/buyersignup',
+    name: "BuyerSignUp",
+    component: BuyerSignUp
   },
   {
-    path: '/sellerregister',
-    name: 'SellerRegister',
-    component: SellerRegister
+    path: '/sellersignup',
+    name: "SellerSignUp",
+    component: SellerSignUp
+  },
+  {
+    path: '/passwordresetsuccess',
+    name: "PasswordResetSuccess",
+    component: PasswordResetSuccess
+  },
+  {
+    path: '/passwordreset',
+    name: "PasswordReset",
+    component: PasswordReset
   },
 ]
 
