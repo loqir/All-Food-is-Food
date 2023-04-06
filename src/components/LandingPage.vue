@@ -3,10 +3,10 @@
   <div class = "container-center-horizontal">
     <div class="landing-page screen">
       <div class="overlap-group" style="background-image: url('/src/assets/landingpage.jpg');">
-          <h1 class="welcome-message"> {{ welcomeToAf2 }}</h1>
+          <h1 class="welcome-message">Welcome to AF2, where we cherish all food regardless of appeareance</h1>
           <div class="message-container">
             <div class="valign-text-middle">
-              <p class="sign" v-html ="joinUsNowSignUpAs"></p>
+              <p class="sign">Don't have an account? Click here to sign up!</p>
               <div class="buttonC">
                 <FrameButton class="bt" children="Buyer"/>
                 <FrameButton class="bt" className="seller-sign-up-button" children="Seller"/>
@@ -14,24 +14,12 @@
             </div>
 
             <div class="valign-text-middle">
-              <p class="sign"> {{ signInHere }}</p>
+              <p class="sign">Already a registered user? Sign in here!</p>
               <div class="buttonC">
                 <FrameButton class="bt" className="sign-in-button" children="Sign in"/>
               </div>
             </div>
           </div>
-            <!-- This is a comment 
-          <div class="message-container">
-            <p class="sign valign-text-middle" v-html ="joinUsNowSignUpAs"></p>
-            <p class="sign valign-text-middle"> {{ signInHere }}</p>
-          </div>
-            
-          <div class="button-container">
-            <FrameButton  children="Buyer"/>
-            <FrameButton  className="seller-sign-up-button" children="Seller"/>
-            <FrameButton  className="sign-in-button" children="Sign in"/>
-          </div>
-        -->
         </div>
       </div>
     </div>
