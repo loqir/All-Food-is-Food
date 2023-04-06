@@ -1,6 +1,7 @@
 <script>
 import Logout from '@/components/Logout.vue'
 import NavBar from '@/components/NavBar.vue'
+import LandingPage from '@/components/LandingPage.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 
@@ -24,6 +25,7 @@ export default {
 </script>
 
 <template>
+<LadingPage />
 <NavBar/>
 <img id = "bg" src = "@/assets/coins.png" alt = "">
 <Logout/>

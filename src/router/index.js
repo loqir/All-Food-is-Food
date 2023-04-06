@@ -6,6 +6,7 @@ import NotFound from '@/views/NotFound.vue'
 import Profile from '@/views/Profile.vue'
 import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
+import LandingPage from "../components/LandingPage.vue"
 
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
     path: '/buyerlistingview',
     name: 'BuyerListingView',
     component: BuyerListingView
+  },
+  {
+    path: '/landingpage',
+    name: 'LandingPage',
+    component: LandingPage
   }
 ]
 
