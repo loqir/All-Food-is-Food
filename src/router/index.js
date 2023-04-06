@@ -10,6 +10,7 @@ import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/LogIn.vue"
 import BuyerSignUp from "../components/BuyerSignUp.vue"
 import SellerSignUp from "../components/SellerSignUp.vue"
+import PasswordResetSuccess from "../components/PasswordResetSuccess.vue"
 
 
 const routes = [
@@ -63,6 +64,11 @@ const routes = [
     path: '/sellersignup',
     name: "SellerSignUp",
     component: SellerSignUp
+  },
+  {
+    path: '/passwordresetsuccess',
+    name: "PasswordResetSuccess",
+    component: PasswordResetSuccess
   }
 ]
 
