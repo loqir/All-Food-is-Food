@@ -8,6 +8,8 @@ import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/LogIn.vue"
+import BuyerRegister from '@/views/BuyerRegister.vue'
+import SellerRegister from '@/views/SellerRegister.vue'
 
 
 const routes = [
@@ -51,6 +53,16 @@ const routes = [
     path: '/login',
     name: 'LogIn',
     component: LogIn
+  },
+  {
+    path: '/buyerregister',
+    name: 'BuyerRegister',
+    component: BuyerRegister
+  },
+  {
+    path: '/sellerregister',
+    name: 'SellerRegister',
+    component: SellerRegister
   },
 ]
 
