@@ -31,7 +31,7 @@
                   </div>
                   <p class="password">Remember me?</p>
                 </div>
-                <p class="password-two">Forgot Password</p>
+                <router-link class="password-two" to="/passwordreset">Forget Password</router-link>
               </div>
             </div>
             <button class="sign-in-two">Sign in</button>
@@ -186,6 +186,7 @@ export default {
   line-height: 28px;
   color: rgba(234, 106, 18, 1);
   letter-spacing: 0.32px;
+  margin-top: 17px;
 }
 .frame-35356 {
   background-color: rgba(234, 106, 18, 1);

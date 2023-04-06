@@ -11,6 +11,7 @@ import LogIn from "../components/LogIn.vue"
 import BuyerSignUp from "../components/BuyerSignUp.vue"
 import SellerSignUp from "../components/SellerSignUp.vue"
 import PasswordResetSuccess from "../components/PasswordResetSuccess.vue"
+import PasswordReset from "../components/PasswordReset.vue"
 
 
 const routes = [
@@ -69,7 +70,12 @@ const routes = [
     path: '/passwordresetsuccess',
     name: "PasswordResetSuccess",
     component: PasswordResetSuccess
-  }
+  },
+  {
+    path: '/passwordreset',
+    name: "PasswordReset",
+    component: PasswordReset
+  },
 ]
 
 const router = createRouter({
