@@ -8,7 +8,7 @@
               <p class="sign">Don't have an account? Click here to sign up!</p>
               <div class="buttonC">
                 <button class="bt" @click="redirectToBuyerSignUp">Buyer</button>
-                <button class="bt">Seller</button>
+                <button class="bt" @click="redirectToSellerSignUp">Seller</button>
               </div>
             </div>
             <div class="valign-text-middle">
@@ -42,6 +42,9 @@
     }, 
     redirectToBuyerSignUp() {
       this.$router.push('/buyersignup');
+    },
+    redirectToSellerSignUp() {
+      this.$router.push('/sellersignup');
     }
   }
   };

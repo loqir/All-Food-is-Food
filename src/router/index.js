@@ -9,6 +9,7 @@ import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/LogIn.vue"
 import BuyerSignUp from "../components/BuyerSignUp.vue"
+import SellerSignUp from "../components/SellerSignUp.vue"
 
 
 const routes = [
@@ -57,6 +58,11 @@ const routes = [
     path: '/buyersignup',
     name: "BuyerSignUp",
     component: BuyerSignUp
+  },
+  {
+    path: '/sellersignup',
+    name: "SellerSignUp",
+    component: SellerSignUp
   }
 ]
 
