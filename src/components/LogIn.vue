@@ -196,6 +196,9 @@ export default {
   justify-content: center;
 }
 .sign-in-two {
+  background-color: rgba(234, 106, 18, 1);
+  padding: 8px 24px;
+  border-radius: 24px;
   width: 140px;
   font-family: "Poppins";
   font-size: 16px;
