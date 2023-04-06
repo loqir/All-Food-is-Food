@@ -8,6 +8,7 @@ import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/LogIn.vue"
+import BuyerSignUp from "../components/BuyerSignUp.vue"
 
 
 const routes = [
@@ -52,6 +53,11 @@ const routes = [
     name: 'LogIn',
     component: LogIn
   },
+  {
+    path: '/buyersignup',
+    name: "BuyerSignUp",
+    component: BuyerSignUp
+  }
 ]
 
 const router = createRouter({

@@ -51,8 +51,8 @@
           <p class="dont-have-an-account-click-here-to-sig">
             Don’t have an account?
             <strong
-              class="dont-have-an-account-click-here-to-sig-emphasis-1"
-              >Click here to sign up.</strong
+              class="dont-have-an-account-click-here-to-sig-emphasis-1">
+              <router-link to="/buyersignup">Sign Up</router-link></strong
             >
           </p>
         </div>
