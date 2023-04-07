@@ -12,39 +12,74 @@
   <input type = "text" v-model = "priceEntry"  placeholder = "Enter listing price"><br><br>
   <p class="name">Description</p>
   <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br><br>
-  
+  <input type = "file" ref ="myfile"><br><br>
+  <button style = "border:none;" @click ="upload">
   <img
     alt=""
     class="image-11"
     src="https://static.overlay-tech.com/assets/e4257055-2a1b-4782-94e7-73d4d70f7404.png"
   />
-    <img
+</button>
+<button style = "border:none;" @click ="addlisting">
+<img
     alt=""
     class="image-9"
     src="https://static.overlay-tech.com/assets/e9921e71-ec44-4406-8cd7-3aac4fa3cc95.png"
   />
-
+  </button>
 </div>
-//
 </template>
 
 
 
 <script>
+import firebaseApp from '../firebase.js'
+import {getFirestore} from "firebase/firestore"
+// import { doc, setDoc} from "firebase/firestore"
+import { storage } from "../firebase"
+import { ref,uploadBytes } from "firebase/storage"
+import { getDownloadURL } from "firebase/storage"
+import { doc, addDoc, collection} from "firebase/firestore"
+
+const db = getFirestore(firebaseApp)
+// const allListings = db.collection("All Listings")
+
+
 export default {
     data() {
         productEntry : ""
         priceEntry : ""
         descriptionEntry: ""
-        // selectedFile: null
+        image: ""
+    },
+    methods:{
+      upload : function() {
+        const storageRef = ref(storage, 'folder/myfile.gif');
+        uploadBytes(storageRef, this.$refs.myfile.files[0]).then(
+          (snapshot) => {
+            console.log("uploaded")
+          }
+        )
+        getDownloadURL(storageRef).then((url) => {
+          this.image = url
+          console.log(this.image) 
+        })
+      },
+
+       async addlisting() {
+        await addDoc (collection(db, "All Listings"), 
+        {
+          name: this.productEntry,
+          price: this.priceEntry,
+          description: this.descriptionEntry,
+          image: this.image
+        })
+        console.log("added listing")
+      }
     }
-    // methods: {
-    //   onFileSelected(event) {
-    //     this.selectedFile = event.target.files[0]
-    //   },
-    //   onUpload() {}
-    //     }
-    }
+  }
+
+    
 </script>
 
 
