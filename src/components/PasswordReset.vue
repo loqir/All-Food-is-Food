@@ -24,18 +24,37 @@
           </div>
           <div class="frame-35368">
             <p class="email">Email</p>
-            <input class="email-input" type="email" placeholder="Email">
+            <input class="email-input" type="email" placeholder="Email" v-model="email">
           </div>
         </div>
-          <button class="text-two">Reset</button>
+          <button @click="resetPassword" class="text-two">Reset</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
 export default {
-  name: "ResetPassword"
+  name: "ResetPassword",
+
+  methods: {
+    async resetPassword() {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, this.email)
+      .then(() => {
+        this.$router.push('/passwordresetsuccess')
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log(errorMessage);
+      })
+    }
+  }
 };
 </script>
 
