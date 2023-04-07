@@ -23,15 +23,15 @@
             <div class="frame-35366">
               <div class="frame-35364">
                 <p class="username-or-email-address">
-                  First Name
+                  Company Name
                 </p>
-                <input class="email-input" type="text" placeholder="First Name">
+                <input class="email-input" type="text" placeholder="Company Name">
               </div>
               <div class="frame-35364">
                 <p class="username-or-email-address">
-                  Last Name
+                  Staff Name
                 </p>
-                <input class="email-input" type="text" placeholder="Last Name">
+                <input class="email-input" type="text" placeholder="Staff Name">
               </div>
             </div>
             <div class="frame-35366">
@@ -39,13 +39,13 @@
                 <p class="username-or-email-address">
                   Email
                 </p>
-                <input class="email-input" type="email" placeholder="Email">
+                <input class="email-input" type="email" placeholder="Email" v-model="email">
               </div>
               <div class="frame-35364">
                 <p class="username-or-email-address">
                   Company UEN
                 </p>
-                <input class="email-input" type="text" placeholder="UEN">
+                <input class="email-input" type="number" placeholder="UEN" v-model="uen">
               </div>
             </div>
             <div class="frame-35366">
@@ -53,7 +53,7 @@
                 <p class="username-or-email-address">
                   Password
                 </p>
-                <input class="email-input" placeholder="Password" type="password">
+                <input class="email-input" placeholder="Password" type="password" v-model="password">
               </div>
               <div class="frame-35364">
                 <p class="username-or-email-address">
@@ -63,7 +63,7 @@
               </div>
             </div>
           </div>
-          <button class="sign-up-two">Log in</button>
+          <button @click="createSeller" class="sign-up-two">Create Account</button>
           <p class="already-have-an-account-sign-in">
             Already have an Account?
             <strong
@@ -79,8 +79,53 @@
 </template>
 
 <script>
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import firebaseApp from '@/firebase.js'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from 'vue-router';
+import { getFirestore } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore"; 
+
 export default {
-  name: "SellerSignUp"
+  name: "SellerSignUp",
+
+  data() {
+      return {
+        email: "",
+        password: "",
+        companyname: "",
+        uen: ""
+      }
+    },
+
+    methods: {
+        async createSeller() {
+            console.log("Creating User");
+            const auth = getAuth();
+            await createUserWithEmailAndPassword(auth, this.email, this.password)
+            .then(async (userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+
+                await setDoc(doc(getFirestore(firebaseApp), "sellers", user.uid), {
+                    CompanyName: this.companyname,
+                    Email: this.email,
+                    UEN: this.uen
+                });
+
+                this.$router.push('/home')
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+        }
+    }
 };
 </script>
 
