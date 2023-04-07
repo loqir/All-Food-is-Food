@@ -20,7 +20,7 @@
           />
           <p class="success">Success !</p>
           <p class="a-email-has-been-send-to-your-email">
-            A email has been send to your
+            A email has been sent to your
             email&#64;domain.com. Please click on the
             included link to reset your password.
           </p>
