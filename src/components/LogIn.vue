@@ -16,13 +16,13 @@
                 <p class="username-or-email-address">
                   Email
                 </p>
-                  <input type="email" placeholder="Enter Email" class="email-input">
+                  <input type="email" placeholder="Enter Email" class="email-input" v-model="email">
               </div>
               <div class="frame-35532">
                 <p class="username-or-email-address">
                   Password
                 </p>
-                <input type="password" placeholder="Enter Password" class="email-input">
+                <input type="password" placeholder="Enter Password" class="email-input" v-model="password">
               </div>
               <div class="frame-449">
                 <div class="frame-448">
@@ -34,7 +34,7 @@
                 <router-link class="password-two" to="/passwordreset">Forget Password</router-link>
               </div>
             </div>
-            <button class="sign-in-two">Sign in</button>
+            <button @click="logIn" class="sign-in-two">Sign in</button>
           </div>
         </div>
         <div class="frame-35355">
@@ -49,7 +49,7 @@
             />
           </div>
           <p class="dont-have-an-account-click-here-to-sig">
-            Don’t have an account?
+            Don't have an account?
             <strong
               class="dont-have-an-account-click-here-to-sig-emphasis-1">
               <router-link to="/buyersignup">Sign Up</router-link></strong
@@ -62,8 +62,36 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 export default {
-  name: "LogIn"
+  name: "LogIn",
+
+  data() {
+      return {
+        email: "",
+        password: ""
+      }
+    },
+
+    methods: {
+        async logIn() {
+            console.log("Logging in User");
+            const auth = getAuth();
+            await signInWithEmailAndPassword(auth, this.email, this.password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              this.$router.push('/home')
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+
+              console.log(errorMessage)
+
+            });
+        }
+    }
 };
 </script>
 
