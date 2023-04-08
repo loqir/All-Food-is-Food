@@ -22,6 +22,8 @@
   import AddListing from '@/components/AddListing.vue'
   import { getAuth, onAuthStateChanged } from "firebase/auth"
   import firebaseApp from '@/firebase.js'
+  import { ref } from 'vue';
+  import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
   
   export default {
     name: 'SellerListingView',
@@ -32,6 +34,9 @@
       Listing,
       AddListing
     },
+
+  
+
   
     data() {
       return {

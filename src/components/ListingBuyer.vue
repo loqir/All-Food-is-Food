@@ -2,18 +2,13 @@
     <div class="menu-category-2">
    <div class="spaghetti">
      <div class="spaghetti-details">
-       <p class="apple-3pc">Apple (3pc)</p>
-       <p class="rate-2">$1.29</p>
+       <p class="apple-3pc">{{ listing.name }}</p>
+       <p class="rate-2">$ {{ listing.price }}</p>
      </div>
-   </div>
-   <img
-     alt=""
-     class="mask-group"
-     src="https://static.overlay-tech.com/assets/d09bd426-c5f9-4fb1-8168-bc1fffd5c0b8.png"
-   /><img
-     alt=""
+   </div><img
+     alt="IMAGE"
+     :src= listing.image
      class="spaghetti-two"
-     src="https://static.overlay-tech.com/assets/d2cb78fb-0c45-4944-8be5-00d442d5a381.png"
    />
    <button @click = "addtocart">
    <img
@@ -49,6 +44,13 @@
  <script>
  
  export default {
+  name: 'ListingBuyer',
+  props: {
+    listing: {
+      type: Object,
+      required: true
+    }
+  },
      data() {
      },
  

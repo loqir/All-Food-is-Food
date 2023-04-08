@@ -40,6 +40,7 @@ import { storage } from "../firebase"
 import { ref,uploadBytes } from "firebase/storage"
 import { getDownloadURL } from "firebase/storage"
 import { doc, addDoc, collection} from "firebase/firestore"
+import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(firebaseApp)
 // const allListings = db.collection("All Listings")
@@ -53,19 +54,20 @@ export default {
         image: ""
     },
     methods:{
-      upload : function() {
-        const storageRef = ref(storage, 'folder/myfile.gif');
-        uploadBytes(storageRef, this.$refs.myfile.files[0]).then(
-          (snapshot) => {
-            console.log("uploaded")
-          }
-        )
-        getDownloadURL(storageRef).then((url) => {
-          this.image = url
-          console.log(this.image) 
-        })
-      },
-
+      async upload() {
+  const fileId = uuidv4();
+  const fileName = `${fileId}_${this.$refs.myfile.files[0].name}`;
+  const storageRef = ref(storage, `images/${fileName}`);
+  try {
+    await uploadBytes(storageRef, this.$refs.myfile.files[0]);
+    console.log("uploaded");
+    const downloadURL = await getDownloadURL(storageRef);
+    this.image = downloadURL;
+    console.log(this.image);
+  } catch (error) {
+    console.log(error);
+  }
+},
        async addlisting() {
         await addDoc (collection(db, "All Listings"), 
         {

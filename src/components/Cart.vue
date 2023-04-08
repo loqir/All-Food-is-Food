@@ -1,5 +1,4 @@
 <template>
-    <h1>My Cart</h1>
     <div class="cart-detail-1">
         <div class="cart-details">
           <div class="cart-title-1">
@@ -11,12 +10,12 @@
             <div class="frame-36416">
               <p class="apple-3pc">Apple (3pc)</p>
               <div class="frame-36394">
-                <img
+                <!-- <img
                   alt=""
                   class="frame-36368"
                   src="https://static.overlay-tech.com/assets/91f8c852-593f-48b3-8880-d1ca75ccabf9.svg"
                 />
-                <p class="num-1">1</p>
+                <p class="num-1">1</p> -->
               </div>
             </div>
           </div>
@@ -29,7 +28,7 @@
             />
         </button>
             <p class="num-1-29">
-              <strong class="num-1-29-emphasis-0">$1</strong>.29
+              <strong class="num-1-29-emphasis-0">$1.29</strong>
             </p>
           </div>
         </div>
