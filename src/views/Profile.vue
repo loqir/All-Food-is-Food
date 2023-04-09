@@ -8,11 +8,17 @@
             <div>
                 <img id = "bg" src = "@/assets/logo.svg" style="width:75px;height:75px;border-radius:50%;border:4px solid #333" alt = "">
             </div>
-            <div>
+            <div v-if="isBuyer">
                 <p> Name: <strong> {{firstName}} {{lastName}}</strong><br/>
                 Email: <strong>{{user.email}}</strong><br>
                 Uid: <strong>{{user.uid}}</strong><br>
                 Phone: <strong>{{phoneNum}}</strong></p>
+            </div>
+            <div v-else>
+                <p> Company Name: <strong> {{companyName}}</strong><br/>
+                Company Email: <strong>{{user.email}}</strong><br>
+                Uid: <strong>{{user.uid}}</strong><br>
+                UEN: <strong>{{uen}}</strong></p>
             </div>
         </div>
         <Logout/>
@@ -38,9 +44,12 @@ export default {
     data() {
         return {
             user: false,
+            isBuyer: true,
             firstName: "",
             lastName: "",
-            phoneNum: ""
+            phoneNum: "",
+            uen: "",
+            companyName: ""
         }
     },
 
@@ -59,10 +68,11 @@ export default {
                 this.phoneNum = buyDocSnap.data().Phone;
 
             } else if (sellDocSnap.exists()) {
+                this.isBuyer = false;
                 console.log("Document data:", sellDocSnap.data());
-                his.firstName = sellDocSnap.data().FirstName;
-                this.lastName = sellDocSnap.data().LastName;
-                this.phoneNum = sellDocSnap.data().Phone;
+                // this.firstName = sellDocSnap.data().FirstName;
+                this.companyName = sellDocSnap.data().CompanyName;
+                this.uen = sellDocSnap.data().UEN;
             } else {
                 console.log("No such document!");
             }
