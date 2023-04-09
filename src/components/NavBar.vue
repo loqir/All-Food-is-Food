@@ -8,6 +8,8 @@
             <router-link to = "/profile"> Profile </router-link>
             <router-link to = "/sellerlistingview"> SellerListing </router-link>
             <router-link to = "/buyerlistingview"> BuyerListing </router-link>
+            <router-link v-if="isSeller" to = "/sellerchat"> Chat </router-link>
+            <router-link v-else to = "/buyerchat"> Chat </router-link>
         </div>
     </div>
 </template>
@@ -15,6 +17,7 @@
 <script>
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import firebaseApp from '@/firebase.js'
+import { getFirestore, doc, getDoc } from "firebase/firestore"
 
 export default {
     name: 'NavBar',
@@ -22,6 +25,25 @@ export default {
     data() {
         return {
             user: false,
+            isSeller: true,
+        }
+    },
+
+    methods: {
+        async getData(uid) {
+            const buyDocRef = doc(getFirestore(firebaseApp), "buyers", uid);
+            const buyDocSnap = await getDoc(buyDocRef);
+
+            const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
+            const sellDocSnap = await getDoc(sellDocRef);
+
+            if (buyDocSnap.exists()) {
+                console.log();
+            } else if (sellDocSnap.exists()) {
+                this.isSeller = true;
+            } else {
+                console.log("No such document!");
+            }
         }
     },
 
@@ -30,6 +52,7 @@ export default {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.user = user;
+                this.getData(this.user.uid)
             }
         })
     }
