@@ -41,7 +41,7 @@
     import chat from './components/chat';
     
     export default {
-      name: 'App',
+      name: 'SellerChat',
       components: {
         chat,
       },
