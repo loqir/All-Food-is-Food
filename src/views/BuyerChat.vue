@@ -39,6 +39,7 @@
     import { ref, onUnmounted } from 'vue';
     
     export default {
+      name: 'BuyerChat',
       props: {},
       data: () => {
         return {
@@ -99,6 +100,7 @@
         onUnmounted(loginListener);
       },
     };
+
     </script>
     
     <style>
