@@ -27,13 +27,15 @@ import AddListing from '@/components/AddListing.vue'
 import Cart from '@/components/Cart.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
-import { getFirestore, collection, query, getDocs } from "firebase/firestore"
+import { getFirestore, collection, query, getDocs, doc } from "firebase/firestore"
 
 import { storage } from "../firebase"
 import { ref,uploadBytes } from "firebase/storage"
 import { getDownloadURL } from "firebase/storage"
 
 const db = getFirestore(firebaseApp)
+const BuyersCart = collection(db, 'BuyersCart');
+
 
 export default {
   name: 'BuyerListingView',
@@ -48,7 +50,9 @@ export default {
   data() {
     return {
       user: false,
-      listings: []
+      listings: [],
+      buyerID : null,
+      cart : []
     }
   },
   methods: {
@@ -65,13 +69,36 @@ export default {
 
   console.log(dataArray);
   this.listings = dataArray;
-}
+},
+
+
+
+
+async populatecartarray() {
+  const querySnapshot = await getDocs(collection(db, "my-collection"));
+  querySnapshot.forEach((doc) => {
+    myList.push(doc.data());
+  });
+  console.log(dataArray);
+  this.listings = dataArray;
+},
+
+
+
+
+
+
+
+
+
   },
   mounted() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user;
+        const specificbuyer = doc(BuyersCart, this.user.uid);
+        this.buyerID = specificbuyer
       }
     })
     this.populatelistingsarray()

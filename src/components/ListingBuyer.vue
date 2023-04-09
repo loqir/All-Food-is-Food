@@ -5,12 +5,13 @@
        <p class="apple-3pc">{{ listing.name }}</p>
        <p class="rate-2">$ {{ listing.price }}</p>
      </div>
-   </div><img
+   </div>
+   <img
      alt="IMAGE"
      :src= listing.image
      class="spaghetti-two"
    />
-   <button @click = "addtocart">
+   <button @click = "addtocart(listing)">
    <img
      alt=""
      class="delete-icon"
@@ -42,7 +43,16 @@
  
  
  <script>
- 
+ import firebaseApp from '../firebase.js'
+ import {getFirestore} from "firebase/firestore"
+ import { doc, addDoc, collection, setDoc, updateDoc, arrayUnion} from "firebase/firestore"
+ import { getAuth, onAuthStateChanged } from "firebase/auth"
+
+ const db = getFirestore(firebaseApp)
+ const buyerscart = collection(db, "BuyersCart");
+
+
+
  export default {
   name: 'ListingBuyer',
   props: {
@@ -52,14 +62,32 @@
     }
   },
      data() {
+      return {
+      user: false,
+      buyerDocument: null
+    }
      },
  
      methods: {
-         addtocart() {
-             console.log("ADD TO CART")
-         }
-     }
+         async addtocart(listing) {
+          await setDoc(this.buyerDocument, {
+    ListingIDSInCart: arrayUnion(listing.id)
+}, { merge: true });
+}
+         },
+     mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        const specificbuyer = doc(buyerscart, this.user.uid);
+        this.buyerDocument = specificbuyer
+      }
+    })
+  }
  }
+
+
  
  </script>
  
