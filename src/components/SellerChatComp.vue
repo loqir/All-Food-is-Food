@@ -12,11 +12,12 @@
   </template>
   
   <script>
-  import {db} from '../firebase';
+  import {db} from '../firebase.js';
   import {onSnapshot,collection,doc,deleteDoc,setDoc,addDoc,orderBy,query} from 'firebase/firestore';
   import { ref, onUnmounted } from 'vue';
   
   export default {
+    name: 'SellerChatComp',
     props: {
       client:Object
     },

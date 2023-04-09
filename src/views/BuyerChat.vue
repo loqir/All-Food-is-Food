@@ -24,7 +24,7 @@
     </template>
     
     <script>
-    import { db, auth } from './firebase';
+    import { db, auth } from '../firebase.js';
     import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
     import {
       onSnapshot,

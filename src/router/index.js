@@ -12,8 +12,8 @@ import BuyerSignUp from "../components/BuyerSignUp.vue"
 import SellerSignUp from "../components/SellerSignUp.vue"
 import PasswordResetSuccess from "../components/PasswordResetSuccess.vue"
 import PasswordReset from "../components/PasswordReset.vue"
-import BuyerChat from "../components/BuyerChat.vue"
-import SellerChat from "../components/SellerChat.vue"
+import BuyerChat from "@/views/BuyerChat.vue"
+import SellerChat from "@/views/SellerChat.vue"
 
 
 const routes = [
@@ -86,7 +86,7 @@ const routes = [
   {
     path: '/BuyerChat',
     name: 'BuyerChat',
-    component: SellerChat
+    component: BuyerChat
   }
 ]
 
