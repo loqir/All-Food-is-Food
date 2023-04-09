@@ -24,7 +24,7 @@
     </template>
     
     <script>
-    import { db, auth } from './firebase';
+    import { db, auth } from '../firebase.js';
     import { GoogleAuthProvider, signInWithPopup , signOut } from 'firebase/auth';
     import {
       onSnapshot,
@@ -38,12 +38,12 @@
     } from 'firebase/firestore';
     import { ref, onUnmounted } from 'vue';
     
-    import chat from './components/chat';
+    import SellerChatComp from '../components/SellerChatComp.vue';
     
     export default {
       name: 'SellerChat',
       components: {
-        chat,
+        SellerChatComp,
       },
       data: () => {
         return {
