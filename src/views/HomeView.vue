@@ -25,7 +25,6 @@ export default {
 </script>
 
 <template>
-<LadingPage />
 <NavBar/>
 <img id = "bg" src = "@/assets/coins.png" alt = "">
 <Logout/>

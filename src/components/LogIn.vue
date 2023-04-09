@@ -98,12 +98,12 @@ export default {
 <style lang="scss" scoped>
 .login {
   background-color: rgba(255, 255, 255, 1);
-  padding: 180.65px 67.45px 574.66px 0;
+  padding: 1px 67.45px 50px 0;
   position: relative;
 }
 .group-34514 {
-  width: 1855.6px;
-  height: 324.69px;
+  width: 100vw;
+  height: 100vh;
   margin-left: -3.05px;
   position: relative;
 }
@@ -113,8 +113,8 @@ export default {
   align-items: flex-start;
   justify-content: center;
   position: absolute;
-  left: 696px;
-  top: 257px;
+  left: 35vw;
+  top: 1vh;
 }
 .all-food-is-food {
   font-family: "Playfair Display";

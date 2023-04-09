@@ -45,7 +45,7 @@
                 <p class="username-or-email-address">
                   Phone No.
                 </p>
-                <input class="email-input" placeholder="Phone No." type="tel" minlength="8" v-model="phone">
+                <input class="email-input" placeholder="Phone No." type="tel" pattern="[0-9]{8}" v-model="phone">
               </div>
             </div>
             <div class="frame-35366">
@@ -145,12 +145,12 @@ export default {
 <style lang="scss" scoped>
 .buyer-sign-up {
   background-color: rgba(255, 255, 255, 1);
-  padding: 180.65px 67.45px 574.66px 0;
+  padding: 1px 67.45px 50px 0;
   position: relative;
 }
 .group-34514 {
-  width: 1855.6px;
-  height: 324.69px;
+  width: 100vw;
+  height: 100vh;
   margin-left: -3.05px;
   position: relative;
 }
@@ -159,12 +159,14 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  left: 667px;
-  top: 217px;
+  left: 32vw;
+  top: 1vh;
 }
 .group-33931 {
-  width: 328px;
-  height: 58px;
+  //width: 328px;
+  //height: 58px;
+  max-width: 100%;
+  height: auto;
   margin-bottom: 24px;
 }
 .frame-35384 {
