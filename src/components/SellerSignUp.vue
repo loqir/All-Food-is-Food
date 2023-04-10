@@ -144,9 +144,11 @@ export default {
 .sign-up-three {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  left: 32vw;
+  width: 30vw;
+  left: 35vw;
   top: 1vh;
 }
 .group-33931 {
@@ -217,8 +219,8 @@ export default {
   letter-spacing: 0.32px;
 }
 .email-input {
-  width: 216px;
-  height: 15px;
+  width: 15vw;
+  height: 3vh;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 24px;
   padding: 8px 16px;

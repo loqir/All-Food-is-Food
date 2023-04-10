@@ -61,22 +61,23 @@ export default {
 <style lang="scss" scoped>
 .reset-password {
   background-color: rgba(255, 255, 255, 1);
-  padding: 180.65px 67.45px 574.66px 0;
+  padding: 1px 67.45px 50px 0;
   position: relative;
 }
 .group-34514 {
-  width: 1855.6px;
-  height: 324.69px;
-  margin-left: -3.05px;
+  width: 100vw;
+  height: 85vh;
   position: relative;
 }
 .confirm {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  left: 722px;
-  top: 339px;
+  width: 30vw;
+  left: 35vw;
+  top: 1vh;
 }
 .group-33931 {
   width: 328px;
@@ -137,8 +138,8 @@ export default {
   letter-spacing: 0.32px;
 }
 .email-input {
-  width: 442px;
-  height: 22px;
+  width: 30vw;
+  height: 3vh;
   border-radius: 64px;
   padding: 8px 16px;
   border: 1px solid rgba(234, 106, 18, 1);

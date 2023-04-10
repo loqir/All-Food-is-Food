@@ -42,22 +42,24 @@ export default {
 <style lang="scss" scoped>
 .email-two {
   background-color: rgba(255, 255, 255, 1);
-  padding: 180.65px 67.45px 574.66px 0;
+  padding: 1px 67.45px 50px 0;
   position: relative;
 }
 .group-34514 {
-  width: 1855.6px;
-  height: 324.69px;
+  width: 100vw;
+  height: 85vh;
   margin-left: -3.05px;
   position: relative;
 }
 .email {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  left: 690px;
-  top: 335px;
+  width: 30vw;
+  left: 35vw;
+  top: 1vh;
 }
 .group-33931 {
   width: 328px;
