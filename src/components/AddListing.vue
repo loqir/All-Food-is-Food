@@ -35,15 +35,14 @@
 <script>
 import firebaseApp from '../firebase.js'
 import {getFirestore} from "firebase/firestore"
-// import { doc, setDoc} from "firebase/firestore"
 import { storage } from "../firebase"
 import { ref,uploadBytes } from "firebase/storage"
 import { getDownloadURL } from "firebase/storage"
-import { doc, addDoc, collection} from "firebase/firestore"
+import { doc, addDoc, collection, setDoc} from "firebase/firestore"
 import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(firebaseApp)
-// const allListings = db.collection("All Listings")
+
 
 
 export default {
@@ -69,14 +68,15 @@ export default {
   }
 },
        async addlisting() {
-        await addDoc (collection(db, "All Listings"), 
-        {
-          name: this.productEntry,
-          price: this.priceEntry,
-          description: this.descriptionEntry,
-          image: this.image
-        })
-        console.log("added listing")
+        const newListingRef = doc(collection(db, "All Listings"));
+  await setDoc(newListingRef, {
+    id: newListingRef.id,
+    name: this.productEntry,
+    price: this.priceEntry,
+    description: this.descriptionEntry,
+    image: this.image
+  });
+  console.log("added listing with ID", newListingRef.id);
       }
     }
   }
