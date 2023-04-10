@@ -71,8 +71,9 @@
      methods: {
          async addtocart(listing) {
           await setDoc(this.buyerDocument, {
-    ListingIDSInCart: arrayUnion(listing.id)
+    myArrayField: arrayUnion(listing.id)
 }, { merge: true });
+console.log("ADDED TO CART")
 }
          },
      mounted() {

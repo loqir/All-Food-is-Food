@@ -4,14 +4,15 @@
     <SearchBar/>
     <div class="container">
       <div class="left-component">
-        <div v-for="listing in listings" :key="listing.id">
+        <div v-for="listing in this.listings" :key="listing.id">
           <ListingBuyer :listing="listing"/>
         </div>
       </div>
       <div class="right-component"> 
             <h1>My Cart</h1>    
-        <Cart/>
-        <Cart/>
+            <div v-for="item in cart" :key="item.id">
+          <Cart :item="item"/>
+          </div>
       </div>
     </div>
     <Logout/> <br><br>
@@ -27,15 +28,11 @@ import AddListing from '@/components/AddListing.vue'
 import Cart from '@/components/Cart.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
-import { getFirestore, collection, query, getDocs, doc } from "firebase/firestore"
-
-import { storage } from "../firebase"
-import { ref,uploadBytes } from "firebase/storage"
-import { getDownloadURL } from "firebase/storage"
+import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
 
 const db = getFirestore(firebaseApp)
 const BuyersCart = collection(db, 'BuyersCart');
-
+const AllListings = collection(db, "All Listings")
 
 export default {
   name: 'BuyerListingView',
@@ -52,6 +49,7 @@ export default {
       user: false,
       listings: [],
       buyerID : null,
+      cartRef : null,
       cart : []
     }
   },
@@ -66,24 +64,26 @@ export default {
     const data = doc.data();
     dataArray.push(data);
   });
-
-  console.log(dataArray);
   this.listings = dataArray;
 },
 
+// async populatecartarray() {
 
 
-
-async populatecartarray() {
-  const querySnapshot = await getDocs(collection(db, "my-collection"));
-  querySnapshot.forEach((doc) => {
-    myList.push(doc.data());
-  });
-  console.log(dataArray);
-  this.listings = dataArray;
-},
-
-
+//   const dataArray = [];
+//   cartRef.get().then((querySnapshot) => {
+//   // Iterate over each document in the collection
+//   querySnapshot.forEach((doc) => {
+//     // Get the document data
+//     const data = doc.data();
+//     // Add the data to the list
+//     dataArray.push(data);
+//   });
+//   // The list now contains all the data from the documents
+//   console.log("CART"  + dataArray);
+// });
+//   this.cart = dataArray;
+// }
 
 
 
@@ -93,16 +93,34 @@ async populatecartarray() {
 
   },
   mounted() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-        const specificbuyer = doc(BuyersCart, this.user.uid);
-        this.buyerID = specificbuyer
-      }
-    })
-    this.populatelistingsarray()
-  } 
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      this.user = user;
+      this.cartRef = doc(BuyersCart, this.user.uid);
+      getDoc(this.cartRef).then(async (docA) => {
+        if (docA.exists()) {
+          // Access a specific field in the document data
+          this.cart = docA.data().myArrayField;
+          console.log("cart not empty")
+          for (let i = 0; i < this.cart.length; i++) {
+            const listingID = this.cart[i]
+            console.log(" LISTING ID IS " + listingID)
+            const docRef = doc(AllListings, listingID)
+            const docSnapshot = await getDoc(docRef);
+            this.cart[i] = docSnapshot.data()
+          }
+        } else {
+          // Document doesn't exist
+          this.cart = []
+          console.log("cart empty")
+        }
+      });
+    }
+  })
+  this.populatelistingsarray()
+}
+
 }
 </script>
 <style scoped>

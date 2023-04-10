@@ -2,13 +2,13 @@
     <div class="cart-detail-1">
         <div class="cart-details">
           <div class="cart-title-1">
-            <img
+            <!-- <img
               alt=""
               class="mask-group"
               src="https://static.overlay-tech.com/assets/ac9f8fec-2ffd-4d8b-8152-36761f6f3de9.png"
-            />
+            /> -->
             <div class="frame-36416">
-              <p class="apple-3pc">Apple (3pc)</p>
+              <p class="apple-3pc">{{ item.name }}</p>
               <div class="frame-36394">
                 <!-- <img
                   alt=""
@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="rate-1">
-            <button style = "border:none;" v-on:click = "deletefromcart">
+            <button style = "border:none;" v-on:click = "deletefromcart(item)">
             <img
               alt=""
               class="delete-icon"
@@ -28,29 +28,62 @@
             />
         </button>
             <p class="num-1-29">
-              <strong class="num-1-29-emphasis-0">$1.29</strong>
+              <strong class="num-1-29-emphasis-0">${{ item.price }}</strong>
             </p>
           </div>
         </div>
         <img
           alt=""
           class="cart-image-1"
-          src="https://static.overlay-tech.com/assets/c988fb27-1732-4e08-8b99-0fd0e51ec16a.png"
+          :src= item.image
         />
       </div>
 </template>
 
 <script>
+import Logout from '@/components/Logout.vue'
+import NavBar from '@/components/NavBar.vue'
+import SearchBar from '@/components/SearchBar.vue'
+import Listing from '@/components/Listing.vue'
+import ListingBuyer from '@/components/ListingBuyer.vue'
+import AddListing from '@/components/AddListing.vue'
+import Cart from '@/components/Cart.vue'
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import firebaseApp from '@/firebase.js'
+import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
+
+const db = getFirestore(firebaseApp)
+const BuyersCart = collection(db, 'BuyersCart');
+
 export default {
+  name: 'Cart',
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  },
+  
     data() {
 
     },
+    mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        const specificbuyer = doc(BuyersCart, this.user.uid);
+        this.cartRef = specificbuyer
+      }
+    })
+  },
+
     methods: {
-        deletefromcart() {
-            // this.$emit("findfood", this.Entry)
+        async deletefromcart(item) {
+
             console.log("DELETE FROM CART")
         }
-    }
+    },
 }
 </script>
 
