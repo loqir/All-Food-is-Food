@@ -50,7 +50,7 @@ import AddListing from '@/components/AddListing.vue'
 import Cart from '@/components/Cart.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
-import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
+import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from "firebase/firestore"
 
 const db = getFirestore(firebaseApp)
 const BuyersCart = collection(db, 'BuyersCart');
@@ -65,6 +65,10 @@ export default {
   },
   
     data() {
+      return {
+      user : false,
+      cartRef : "a"
+      }
 
     },
     mounted() {
@@ -79,10 +83,28 @@ export default {
   },
 
     methods: {
-        async deletefromcart(item) {
+      async deletefromcart(itemtoDelete) {
+        console.log("cART REF "  + this.cartRef)
 
-            console.log("DELETE FROM CART")
-        }
+if (this.cartRef) {
+  getDoc(this.cartRef).then((doc) => {
+    if (doc.exists()) {
+      const list = doc.data().myArrayField;
+      const updatedList = list.filter((itemID) => itemID !== itemtoDelete.id);
+      updateDoc(this.cartRef, { myArrayField: updatedList })
+        .then(() => {
+          console.log('Element removed successfully');
+        })
+        .catch((error) => {
+          console.error('Error removing element: ', error);
+        });
+    }
+  });
+}
+
+  console.log("DELETE FROM CART");
+}
+
     },
 }
 </script>

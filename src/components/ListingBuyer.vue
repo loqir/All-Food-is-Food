@@ -73,7 +73,7 @@
           await setDoc(this.buyerDocument, {
     myArrayField: arrayUnion(listing.id)
 }, { merge: true });
-console.log("ADDED TO CART")
+console.log("ADDED TO CART  ")
 }
          },
      mounted() {
