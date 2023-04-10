@@ -58,6 +58,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -104,15 +105,15 @@ export default {
 .group-34514 {
   width: 100vw;
   height: 100vh;
-  margin-left: -3.05px;
   position: relative;
 }
 .sign-in-three {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   position: absolute;
+  width: 30vw;
   left: 35vw;
   top: 1vh;
 }
@@ -171,29 +172,29 @@ export default {
   letter-spacing: 0.32px;
 }
 .email-input {
-  width: 402px;
-  height: 26px;
+  width: 21vw;
+  height: 3vh;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 24px;
   padding: 8px 16px;
   border: 1px solid rgba(234, 106, 18, 1);
 }
 .frame-449 {
+  width: 21vw;
   display: flex;
   align-items: flex-start;
 }
 .frame-448 {
-  margin-right: 166px;
-  display: flex;
-  align-items: center;
+  margin-right: 0vw;
+  display: inline-flex;
+  width: 13vw;
 }
 .checkbox-2 {
   background-color: rgba(255, 255, 255, 1);
-  margin-right: 8px;
   border-radius: 2px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-right: 1vw;
 }
 .tick {
   width: 14px;
@@ -201,6 +202,9 @@ export default {
 }
 .password {
   font-family: "Poppins";
+  text-align: start;
+  width: 8vw;
+  padding-top: 15px;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
@@ -209,6 +213,8 @@ export default {
 }
 .password-two {
   font-family: "Poppins";
+  width: 8vw;
+  text-align: end;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
