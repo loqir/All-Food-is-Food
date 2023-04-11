@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import AboutView from '@/views/AboutView.vue'
-import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import Profile from '@/views/Profile.vue'
 import SellerListingView from '@/views/SellerListingView.vue'
@@ -14,7 +13,7 @@ import PasswordResetSuccess from "../components/PasswordResetSuccess.vue"
 import PasswordReset from "../components/PasswordReset.vue"
 import BuyerChat from "@/views/BuyerChat.vue"
 import SellerChat from "@/views/SellerChat.vue"
-
+import Payment from "../components/Payment.vue"
 
 const routes = [
   {
@@ -87,7 +86,13 @@ const routes = [
     path: '/BuyerChat',
     name: 'BuyerChat',
     component: BuyerChat
-  }
+  },
+  {
+    path: '/Payment',
+    name: 'payment',
+    component: Payment
+  },
+
 ]
 
 const router = createRouter({
