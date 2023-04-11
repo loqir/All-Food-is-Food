@@ -73,14 +73,17 @@
       setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
       this.$refs.newMessage.value = '';
     },
-      toggleChat: function (chat) {
-        if (this.openedChats.includes(chat)) {
-            // If chat is already opened, remove it from openedChats
-            this.openedChats = this.openedChats.filter((c) => c !== chat);
-          } else {
-            // If chat is not opened, add it to openedChats
-            this.openedChats.push(chat);
-          }
+    toggleChat: function (chat) {
+    // Check if the chat is already opened
+        const index = this.openedChats.findIndex((c) => c.id === chat.id);
+
+        if (index > -1) {
+        // If the chat is already opened, remove it from openedChats
+        this.openedChats.splice(index, 1);
+        } else {
+        // If the chat is not opened, add it to openedChats
+        this.openedChats.push(chat);
+        }
         },
       },
       mounted() {
