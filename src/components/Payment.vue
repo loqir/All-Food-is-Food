@@ -216,8 +216,8 @@
 </template>
 
 <script>
-import ProfileBar from './ProfileBar.vue';
-import SideBar from './SideBar.vue';
+import ProfileBar from './commons/ProfileBar.vue';
+import SideBar from './commons/SideBar.vue';
 export default {
   components: { ProfileBar, SideBar },
   name: "PaymentPage"

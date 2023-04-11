@@ -34,11 +34,11 @@
 
 <script>
 import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/commons/NavBar.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
-import ProfileBar from '@/components/ProfileBar.vue'
+import ProfileBar from '@/components/commons/ProfileBar.vue'
 import { v4 as uuidv4 } from 'uuid'
 import { storage } from "../firebase"
 import { ref,uploadBytes } from "firebase/storage"

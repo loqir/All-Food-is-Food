@@ -20,8 +20,8 @@
 </template>
 <script>
 import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/NavBar.vue'
-import SearchBar from '@/components/SearchBar.vue'
+import NavBar from '@/components/commons/NavBar.vue'
+import SearchBar from '@/components/commons/SearchBar.vue'
 import Listing from '@/components/Listing.vue'
 import ListingBuyer from '@/components/ListingBuyer.vue'
 import AddListing from '@/components/AddListing.vue'

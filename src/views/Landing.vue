@@ -4,7 +4,7 @@
 
 <script>
 import Logout from '../components/Logout.vue';
-import NavBar from '../components/NavBar.vue';
+import NavBar from '../components/commons/NavBar.vue';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from '@/firebase.js'
 
