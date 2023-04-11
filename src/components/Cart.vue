@@ -92,6 +92,7 @@ if (this.cartRef) {
       const list = doc.data().myArrayField;
       const updatedList = list.filter((itemID) => itemID !== itemtoDelete.id);
       updateDoc(this.cartRef, { myArrayField: updatedList })
+
         .then(() => {
           console.log('Element removed successfully');
         })
@@ -103,6 +104,7 @@ if (this.cartRef) {
 }
 
   console.log("DELETE FROM CART");
+
 }
 
     },

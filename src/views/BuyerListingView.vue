@@ -1,10 +1,11 @@
 <template>
   <div style="text-align:center;" v-if="user">
     <NavBar/>
-    <SearchBar/>
+    <SearchBar :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
     <div class="container">
       <div class="left-component">
-        <div v-for="listing in this.listings" :key="listing.id">
+        <div v-for="listing in filteredListings" :key="listing.id">
+
           <ListingBuyer :listing="listing"/>
         </div>
       </div>
@@ -50,7 +51,8 @@ export default {
       listings: [],
       buyerID : null,
       cartRef : null,
-      cart : []
+      cart : [],
+      searchEntry : ""
     }
   },
   methods: {
@@ -66,6 +68,10 @@ export default {
   });
   this.listings = dataArray;
 },
+childcall(x) {
+  this.searchEntry = x
+  console.log(this.searchEntry)
+}
 
 // async populatecartarray() {
 
@@ -119,7 +125,15 @@ export default {
     }
   })
   this.populatelistingsarray()
-}
+},
+computed: {
+    filteredListings() {
+      return this.listings.filter(listing => {
+        return listing.name.toLowerCase().includes(this.searchEntry.toLowerCase());
+      });
+    }
+  }
+
 
 }
 </script>

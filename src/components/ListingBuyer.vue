@@ -4,6 +4,7 @@
      <div class="spaghetti-details">
        <p class="apple-3pc">{{ listing.name }}</p>
        <p class="rate-2">$ {{ listing.price }}</p>
+       <p> Qty : {{ listing.qty }}</p>
      </div>
    </div>
    <img
@@ -70,10 +71,18 @@
  
      methods: {
          async addtocart(listing) {
+//           const listy = this.buyerDocument
+//           if (listy.includes(listing.id)) {
+//             await updateDoc(this.buyerDocument, {
+//     myArrayFieldLISTINGS: arrayUnion(listing.id)
+// }
+
+//             )}
           await setDoc(this.buyerDocument, {
     myArrayField: arrayUnion(listing.id)
 }, { merge: true });
 console.log("ADDED TO CART  ")
+location.reload()
 }
          },
      mounted() {

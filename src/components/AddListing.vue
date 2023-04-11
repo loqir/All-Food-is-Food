@@ -7,12 +7,14 @@
   />
   <p class="add-a-listing">Add A Listing</p>
   <p class="name">Product</p>
-  <input type = "text" v-model = "productEntry"  placeholder = "Enter product"><br><br>
+  <input type = "text" v-model = "productEntry"  placeholder = "Enter product"><br>
   <p class="name">Price</p>
-  <input type = "text" v-model = "priceEntry"  placeholder = "Enter listing price"><br><br>
+  <input type = "text" v-model = "priceEntry"  placeholder = "Enter listing price"><br>
   <p class="name">Description</p>
-  <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br><br>
-  <input type = "file" ref ="myfile"><br><br>
+  <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br>
+  <p class="name">Quantity</p>
+  <input type = "text" v-model = "quantityEntry"  placeholder = "Enter quantity"><br>
+  <input type = "file" ref ="myfile"><br>
   <button style = "border:none;" @click ="upload">
   <img
     alt=""
@@ -50,6 +52,7 @@ export default {
         productEntry : ""
         priceEntry : ""
         descriptionEntry: ""
+        quantityEntry: ""
         image: ""
     },
     methods:{
@@ -74,9 +77,11 @@ export default {
     name: this.productEntry,
     price: this.priceEntry,
     description: this.descriptionEntry,
+    qty : this.quantityEntry,
     image: this.image
   });
   console.log("added listing with ID", newListingRef.id);
+  location.reload()
       }
     }
   }
