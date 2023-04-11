@@ -8,9 +8,10 @@
               src="https://static.overlay-tech.com/assets/ac9f8fec-2ffd-4d8b-8152-36761f6f3de9.png"
             /> -->
             <div class="frame-36416">
+              <div style="margin-left: 50px;">
               <p class="apple-3pc">{{ item.name }}</p>
               <div class="frame-36394">
-                <div style="margin-left: 50px;">
+ 
   Qty <img
     alt=""
     class="frame-36368"
@@ -29,7 +30,7 @@
             />
         </button>
             <p class="num-1-29">
-              <strong class="num-1-29-emphasis-0">${{ item.price }}</strong>
+              <strong class="num-1-29-emphasis-0">${{ item.price }} * {{ quantity }}</strong>
             </p>
           </div>
         </div>
@@ -71,7 +72,7 @@ export default {
     data() {
       return {
       user : false,
-      cartRef : "a"
+      cartRef : ""
       }
 
     },
@@ -88,8 +89,6 @@ export default {
 
     methods: {
       async deletefromcart(itemtoDelete) {
-        console.log("cART REF "  + this.cartRef)
-
 if (this.cartRef) {
   getDoc(this.cartRef).then((doc) => {
     if (doc.exists()) {

@@ -40,11 +40,12 @@ import {getFirestore} from "firebase/firestore"
 import { storage } from "../firebase"
 import { ref,uploadBytes } from "firebase/storage"
 import { getDownloadURL } from "firebase/storage"
-import { doc, addDoc, collection, setDoc} from "firebase/firestore"
+import { doc, getDoc, addDoc, collection, setDoc} from "firebase/firestore"
 import { v4 as uuidv4 } from 'uuid';
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const db = getFirestore(firebaseApp)
-
+const sellerListings = collection(db, "SellerListings");
 
 
 export default {
@@ -54,7 +55,18 @@ export default {
         descriptionEntry: ""
         quantityEntry: ""
         image: ""
+        sellerDocument : null
     },
+    mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        const specificSeller = doc(sellerListings, this.user.uid);
+        this.sellerDocument = specificSeller
+      }
+    })
+  },
     methods:{
       async upload() {
   const fileId = uuidv4();
@@ -80,6 +92,19 @@ export default {
     qty : this.quantityEntry,
     image: this.image
   });
+  const docSnap = await getDoc(this.sellerDocument);
+if (docSnap.exists()) {
+  const currList = docSnap.data().myArrayField || [];
+  const newList = [...currList, newListingRef.id];
+  await setDoc(this.sellerDocument, { myArrayField: newList });
+} else {
+  await setDoc(this.sellerDocument, { myArrayField: [newListingRef.id] });
+}
+
+
+
+
+
   console.log("added listing with ID", newListingRef.id);
   location.reload()
       }

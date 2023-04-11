@@ -11,9 +11,14 @@
       </div>
       <div class="right-component"> 
             <h1>My Cart</h1>    
-            <div v-for="item in uniqueCart" :key="item.id">
-  <Cart :item="item" :quantity="cartQuantities[item.id]" />
-</div>
+            <div v-if="uniqueCart.length">
+      <div v-for="item in uniqueCart" :key="item.id">
+        <Cart :item="item" :quantity="cartQuantities[item.id]" />
+      </div>
+    </div>
+    <div v-else>
+      <p>Your cart is empty.</p>
+    </div>
       </div>
     </div>
     <Logout/> <br><br>
@@ -128,11 +133,14 @@ childcall(x) {
   this.populatelistingsarray()
 },
 computed: {
-    filteredListings() {
-      return this.listings.filter(listing => {
-        return listing.name.toLowerCase().includes(this.searchEntry.toLowerCase());
-      });
-    },
+  filteredListings() {
+  if (!this.searchEntry) {
+    return this.listings;
+  }
+  return this.listings.filter(listing => {
+    return listing.name.toLowerCase().includes(this.searchEntry.toLowerCase());
+  });
+},
     uniqueCart() {
     const cartIds = [];
     return this.cart.filter(item => {

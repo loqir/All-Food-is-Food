@@ -4,6 +4,7 @@
      <div class="spaghetti-details">
        <p class="apple-3pc">{{ listing.name }}</p>
        <p class="rate-2">$ {{ listing.price }}</p>
+       <p> {{ listing.description }}</p>
        <p> Qty : {{ listing.qty }}</p>
      </div>
    </div>
