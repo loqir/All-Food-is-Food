@@ -1,7 +1,6 @@
 <template>
   <div class="profile">
-    <img src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png" alt="Profile Picture">
-
+    <img src="" alt="Profile Picture">
     <div class="name">
       <h1> {{ firstName }} {{ secondName }} </h1> 
       <div class = "belowname">
@@ -36,11 +35,46 @@ import { RouterLink } from 'vue-router'
 
 export default {
   data() {
-    return{
-      firstName: "Michelle",
-      secondName: "Chong",
+    return {
+      firstName: "",
+      secondName: "",
       userType: "Buyer"
     }
-  }
+  },
+
+  methods: {
+        async getData(uid) {
+            const buyDocRef = doc(getFirestore(firebaseApp), "buyers", uid);
+            const buyDocSnap = await getDoc(buyDocRef);
+
+            const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
+            const sellDocSnap = await getDoc(sellDocRef);
+
+            if (buyDocSnap.exists()) {
+                console.log("Document data:", buyDocSnap.data());
+                this.firstName = buyDocSnap.data().FirstName;
+                this.lastName = buyDocSnap.data().LastName;
+
+            } else if (sellDocSnap.exists()) {
+                this.isBuyer = false;
+                console.log("Document data:", sellDocSnap.data());
+                // this.firstName = sellDocSnap.data().FirstName;
+                this.companyName = sellDocSnap.data().CompanyName;
+                this.uen = sellDocSnap.data().UEN;
+            } else {
+                console.log("No such document!");
+            }
+        }
+    },
+
+    mounted() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.user = user;
+                this.getData(this.user.uid)
+            }
+        })
+    }
 }
 </script>
