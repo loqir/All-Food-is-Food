@@ -6,11 +6,11 @@ import Profile from '@/views/Profile.vue'
 import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
-import LogIn from "../components/LogIn.vue"
-import BuyerSignUp from "../components/BuyerSignUp.vue"
-import SellerSignUp from "../components/SellerSignUp.vue"
-import PasswordResetSuccess from "../components/PasswordResetSuccess.vue"
-import PasswordReset from "../components/PasswordReset.vue"
+import LogIn from "../components/auth/LogIn.vue"
+import BuyerSignUp from "../components/auth/BuyerSignUp.vue"
+import SellerSignUp from "../components/auth/SellerSignUp.vue"
+import PasswordResetSuccess from "../components/auth/PasswordResetSuccess.vue"
+import PasswordReset from "../components/auth/PasswordReset.vue"
 import BuyerChat from "@/views/BuyerChat.vue"
 import SellerChat from "@/views/SellerChat.vue"
 import Payment from "../components/Payment.vue"
