@@ -1,7 +1,7 @@
 <template>
     <div style="text-align:center" v-if="user">
         <NavBar/>
-        <!-- <ProfileBar/> -->
+        <ProfileBar/>
         <div>
             <h3 v-if="isBuyer"><strong> Buyer Profile </strong></h3>
             <h3 v-else><strong> Seller Profile </strong></h3>
