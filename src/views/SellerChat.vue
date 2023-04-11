@@ -1,9 +1,9 @@
 <template>
-    <h1>{{title}}</h1>
+    <h1>{{ title }}</h1>
     <div v-if="loggedin">
       <div v-for="chat in chats" class="p-2">
         <div
-          @click="openedChats.push(chat)"
+          @click="toggleChat(chat)"
           style="text-align: left"
           class="w-100 btn my-1"
           :class="chat.seen ? 'btn-secondary' : 'btn-primary'"
@@ -20,7 +20,7 @@
     <div v-else>
       <button @click="login">login</button>
     </div>
-    </template>
+  </template>
     
     <script>
     import { db, auth } from '../firebase.js';
@@ -72,7 +72,16 @@
       delete updateLatestMessage.id;
       setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
       this.$refs.newMessage.value = '';
-    }
+    },
+      toggleChat: function (chat) {
+        if (this.openedChats.includes(chat)) {
+            // If chat is already opened, remove it from openedChats
+            this.openedChats = this.openedChats.filter((c) => c !== chat);
+          } else {
+            // If chat is not opened, add it to openedChats
+            this.openedChats.push(chat);
+          }
+        },
       },
       mounted() {
         const loginListener = auth.onAuthStateChanged((user) => {
