@@ -10,12 +10,13 @@
             <div class="frame-36416">
               <p class="apple-3pc">{{ item.name }}</p>
               <div class="frame-36394">
-                <!-- <img
-                  alt=""
-                  class="frame-36368"
-                  src="https://static.overlay-tech.com/assets/91f8c852-593f-48b3-8880-d1ca75ccabf9.svg"
-                />
-                <p class="num-1">1</p> -->
+                <div style="margin-left: 50px;">
+  Qty <img
+    alt=""
+    class="frame-36368"
+    src="https://static.overlay-tech.com/assets/91f8c852-593f-48b3-8880-d1ca75ccabf9.svg"
+  /> {{ quantity }}
+</div>
               </div>
             </div>
           </div>
@@ -54,14 +55,17 @@ import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from
 
 const db = getFirestore(firebaseApp)
 const BuyersCart = collection(db, 'BuyersCart');
-
 export default {
   name: 'Cart',
   props: {
     item: {
       type: Object,
       required: true
-    }
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
   },
   
     data() {
@@ -92,6 +96,7 @@ if (this.cartRef) {
       const list = doc.data().myArrayField;
       const updatedList = list.filter((itemID) => itemID !== itemtoDelete.id);
       updateDoc(this.cartRef, { myArrayField: updatedList })
+
         .then(() => {
           console.log('Element removed successfully');
         })
@@ -103,6 +108,7 @@ if (this.cartRef) {
 }
 
   console.log("DELETE FROM CART");
+
 }
 
     },

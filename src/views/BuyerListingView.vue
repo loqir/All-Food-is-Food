@@ -1,18 +1,19 @@
 <template>
   <div style="text-align:center;" v-if="user">
     <NavBar/>
-    <SearchBar/>
+    <SearchBar :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
     <div class="container">
       <div class="left-component">
-        <div v-for="listing in this.listings" :key="listing.id">
+        <div v-for="listing in filteredListings" :key="listing.id">
+
           <ListingBuyer :listing="listing"/>
         </div>
       </div>
       <div class="right-component"> 
             <h1>My Cart</h1>    
-            <div v-for="item in cart" :key="item.id">
-          <Cart :item="item"/>
-          </div>
+            <div v-for="item in uniqueCart" :key="item.id">
+  <Cart :item="item" :quantity="cartQuantities[item.id]" />
+</div>
       </div>
     </div>
     <Logout/> <br><br>
@@ -50,7 +51,9 @@ export default {
       listings: [],
       buyerID : null,
       cartRef : null,
-      cart : []
+      cart : [],
+      searchEntry : "",
+      displayed : []
     }
   },
   methods: {
@@ -66,6 +69,10 @@ export default {
   });
   this.listings = dataArray;
 },
+childcall(x) {
+  this.searchEntry = x
+  console.log(this.searchEntry)
+}
 
 // async populatecartarray() {
 
@@ -119,7 +126,35 @@ export default {
     }
   })
   this.populatelistingsarray()
-}
+},
+computed: {
+    filteredListings() {
+      return this.listings.filter(listing => {
+        return listing.name.toLowerCase().includes(this.searchEntry.toLowerCase());
+      });
+    },
+    uniqueCart() {
+    const cartIds = [];
+    return this.cart.filter(item => {
+      if (cartIds.includes(item.id)) {
+        return false;
+      } else {
+        cartIds.push(item.id);
+        return true;
+      }
+    });
+  },
+  cartQuantities() {
+    const quantities = {};
+    for (const item of this.uniqueCart) {
+      if (!quantities.hasOwnProperty(item.id)) {
+        quantities[item.id] = this.cart.filter(i => i.id === item.id).length;
+      }
+    }
+    return quantities;
+  }
+  }
+
 
 }
 </script>
