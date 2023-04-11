@@ -46,7 +46,7 @@
  <script>
  import firebaseApp from '../firebase.js'
  import {getFirestore} from "firebase/firestore"
- import { doc, addDoc, collection, setDoc, updateDoc, arrayUnion} from "firebase/firestore"
+ import { doc, getDoc, addDoc, collection, setDoc, updateDoc, arrayUnion} from "firebase/firestore"
  import { getAuth, onAuthStateChanged } from "firebase/auth"
 
  const db = getFirestore(firebaseApp)
@@ -71,17 +71,15 @@
  
      methods: {
          async addtocart(listing) {
-//           const listy = this.buyerDocument
-//           if (listy.includes(listing.id)) {
-//             await updateDoc(this.buyerDocument, {
-//     myArrayFieldLISTINGS: arrayUnion(listing.id)
-// }
+    const docSnap = await getDoc(this.buyerDocument);
+if (docSnap.exists()) {
+  const currList = docSnap.data().myArrayField || [];
+  const newList = [...currList, listing.id];
+  await setDoc(this.buyerDocument, { myArrayField: newList });
+} else {
+  await setDoc(this.buyerDocument, { myArrayField: [listing.id] });
+}
 
-//             )}
-          await setDoc(this.buyerDocument, {
-    myArrayField: arrayUnion(listing.id)
-}, { merge: true });
-console.log("ADDED TO CART  ")
 location.reload()
 }
          },

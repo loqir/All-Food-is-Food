@@ -4,7 +4,11 @@
       <SearchBar/>
       <div class = "container">
     <div class="left-component">
-      <Listing/>
+      <!-- <div v-for="listing in filteredListings" :key="listing.id">
+
+<ListingBuyer :listing="listing"/>
+</div>
+      <Listing/> -->
     </div>
     <div class="right-component">     
       <AddListing/>
@@ -25,6 +29,10 @@
   import { ref } from 'vue';
   import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
   
+
+const db = getFirestore(firebaseApp)
+ const buyerscart = collection(db, "SellerListings");
+
   export default {
     name: 'SellerListingView',
     components: {
@@ -41,6 +49,8 @@
     data() {
       return {
         user: false,
+        listings : [],
+        sellerDocument : null
       }
     },
   
@@ -49,6 +59,8 @@
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user = user;
+          // const specificSeller = doc(buyerscart, this.user.uid);
+          // this.sellerDocument = specificSeller
         }
       })
     } 

@@ -11,9 +11,9 @@
       </div>
       <div class="right-component"> 
             <h1>My Cart</h1>    
-            <div v-for="item in cart" :key="item.id">
-          <Cart :item="item"/>
-          </div>
+            <div v-for="item in uniqueCart" :key="item.id">
+  <Cart :item="item" :quantity="cartQuantities[item.id]" />
+</div>
       </div>
     </div>
     <Logout/> <br><br>
@@ -52,7 +52,8 @@ export default {
       buyerID : null,
       cartRef : null,
       cart : [],
-      searchEntry : ""
+      searchEntry : "",
+      displayed : []
     }
   },
   methods: {
@@ -131,7 +132,27 @@ computed: {
       return this.listings.filter(listing => {
         return listing.name.toLowerCase().includes(this.searchEntry.toLowerCase());
       });
+    },
+    uniqueCart() {
+    const cartIds = [];
+    return this.cart.filter(item => {
+      if (cartIds.includes(item.id)) {
+        return false;
+      } else {
+        cartIds.push(item.id);
+        return true;
+      }
+    });
+  },
+  cartQuantities() {
+    const quantities = {};
+    for (const item of this.uniqueCart) {
+      if (!quantities.hasOwnProperty(item.id)) {
+        quantities[item.id] = this.cart.filter(i => i.id === item.id).length;
+      }
     }
+    return quantities;
+  }
   }
 
 
