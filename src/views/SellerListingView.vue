@@ -1,14 +1,12 @@
 <template>
     <div style="text-align:center;" v-if="user">
       <NavBar/>
-      <SearchBar/>
       <div class = "container">
     <div class="left-component">
-      <!-- <div v-for="listing in filteredListings" :key="listing.id">
-
-<ListingBuyer :listing="listing"/>
+      <div v-for="sellerListing in sellerListings" :key="sellerListing.id">
+        <Listing :sellerListing="sellerListing"/>
 </div>
-      <Listing/> -->
+     
     </div>
     <div class="right-component">     
       <AddListing/>
@@ -27,12 +25,12 @@
   import { getAuth, onAuthStateChanged } from "firebase/auth"
   import firebaseApp from '@/firebase.js'
   import { ref } from 'vue';
-  import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
+  import { doc, getDoc, getFirestore, collection, onSnapshot } from 'firebase/firestore';
   
 
 const db = getFirestore(firebaseApp)
- const buyerscart = collection(db, "SellerListings");
-
+const sellerListings = collection(db, "SellerListings");
+const AllListings = collection(db, "All Listings")
   export default {
     name: 'SellerListingView',
     components: {
@@ -50,7 +48,8 @@ const db = getFirestore(firebaseApp)
       return {
         user: false,
         listings : [],
-        sellerDocument : null
+        sellerDocument : null,
+        sellerListings : []
       }
     },
   
@@ -59,11 +58,30 @@ const db = getFirestore(firebaseApp)
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user = user;
-          // const specificSeller = doc(buyerscart, this.user.uid);
-          // this.sellerDocument = specificSeller
+          const specificSeller = doc(sellerListings, this.user.uid);
+          getDoc(specificSeller).then(async (docA) => {
+        if (docA.exists()) {
+          // Access a specific field in the document data
+          this.sellerListings = docA.data().myArrayField;
+          console.log("SELLER LISTINGS not empty")
+          for (let i = 0; i < this.sellerListings.length; i++) {
+            const listingID = this.sellerListings[i]
+            console.log(" LISTING ID IS " + listingID)
+            const docRef = doc(AllListings, listingID)
+            const docSnapshot = await getDoc(docRef);
+            this.sellerListings[i] = docSnapshot.data()
+          }
+        }
+        else {
+          // Document doesn't exist
+          this.sellerListings = []
+          console.log("cart empty")
+        }})
         }
       })
-    } 
+    }, 
+    methods: {
+    }
   }
   </script>
 
