@@ -13,14 +13,13 @@
         </div>
       </div>
       <div v-for="chat in openedChats">
-        <chat :client="chat"></chat>
+        <SellerChatComp :client="chat"></SellerChatComp>
       </div>
       <button @click="logout">logout</button>
     </div>
     <div v-else>
       <button @click="login">login</button>
     </div>
-    
     </template>
     
     <script>
@@ -39,7 +38,7 @@
     import { ref, onUnmounted } from 'vue';
     
     import SellerChatComp from '../components/SellerChatComp.vue';
-    
+
     export default {
       name: 'SellerChat',
       components: {
@@ -60,6 +59,20 @@
         logout: function () {
           signOut(auth);
         },
+        sendMessage:function() {
+      addDoc(collection(db,'chats/'+this.client.id+'/messages'),
+      {
+        text:this.$refs.newMessage.value,
+        admin:true,
+        date:Date.now()
+      }
+      )
+
+      let updateLatestMessage = {...this.client,latestMessage:this.$refs.newMessage.value}
+      delete updateLatestMessage.id;
+      setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
+      this.$refs.newMessage.value = '';
+    }
       },
       mounted() {
         const loginListener = auth.onAuthStateChanged((user) => {

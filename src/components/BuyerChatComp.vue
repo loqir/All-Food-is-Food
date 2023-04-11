@@ -8,7 +8,7 @@
       </div>
     </div>
     <input type="text" @keypress.enter="sendMessage" ref="newMessage" placeholder="new message ...">
-    <button @click="sendMessage()" class="btn btn-primary">send</button>
+    <button @click="sendMessage" class="btn btn-primary">send</button>
   </template>
   
   <script>

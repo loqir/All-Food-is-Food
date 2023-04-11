@@ -4,7 +4,7 @@
       <div>chat with : Seller</div>
       <div class="chatbox">
         <div v-for="message in messages">
-          <div :class="message.admin ? 'admin' : 'client'">
+          <div :class="message.admin ? 'client' : 'admin'">
             {{ message.text }}
           </div>
         </div>
