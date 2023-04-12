@@ -34,9 +34,12 @@
       addDoc,
       orderBy,
       query,
+      getFirestore,
+      getDoc
     } from 'firebase/firestore';
     import { ref, onUnmounted } from 'vue';
-    
+    import firebaseApp from '@/firebase.js'
+
     import SellerChatComp from '../components/SellerChatComp.vue';
 
     export default {
@@ -81,6 +84,7 @@
       if (sellDocSnap.exists()) {
           this.isAdmin = true
       }
+      console.log(this.isAdmin)
     },
     toggleChat: function (chat) {
     // Check if the chat is already opened
@@ -95,11 +99,36 @@
         }
         },
       },
-      mounted() {
-        const loginListener = auth.onAuthStateChanged((user) => {
+      async beforeCreate() {
+        await auth.onAuthStateChanged(async (user) => {
           if (user != null) {
             this.loggedin = true;
-          
+            await this.isSeller(user.uid);
+            if (this.isAdmin) {
+              this.title = 'Admin Chats';
+              const chatSnapshot = onSnapshot(
+              query(collection(db, 'chats'), orderBy('date', 'desc')),
+              (snapshot) => {
+                this.chats = snapshot.docs.map((doc) => {
+                  return { ...doc.data(), id: doc.id };
+                });
+              })
+              onUnmounted(chatSnapshot);
+            } else {
+              console.log("else block " + this.isAdmin)
+              this.title = "Access Denied"
+            }
+          } else {
+            this.loggedin = false;
+            this.title = 'please login';
+          }
+        });
+      },
+      mounted() {
+        const loginListener = auth.onAuthStateChanged((user) => {
+          //this.isSeller(user.uid)
+          if (user != null) {
+            this.loggedin = true;
           if (this.isAdmin) {
           this.title = 'Admin Chats';
           const chatSnapshot = onSnapshot(
@@ -111,16 +140,17 @@
             })
             onUnmounted(chatSnapshot);
           } else {
-            //this.title = "Access Denied"
-            this.title = 'Admin Chats';
-          const chatSnapshot = onSnapshot(
-            query(collection(db, 'chats'), orderBy('date', 'desc')),
-            (snapshot) => {
-              this.chats = snapshot.docs.map((doc) => {
-                return { ...doc.data(), id: doc.id };
-              });
-            })
-            onUnmounted(chatSnapshot);
+            console.log("else block " + this.isAdmin)
+            this.title = "Access Denied"
+          //   this.title = 'Admin Chats';
+          // const chatSnapshot = onSnapshot(
+          //   query(collection(db, 'chats'), orderBy('date', 'desc')),
+          //   (snapshot) => {
+          //     this.chats = snapshot.docs.map((doc) => {
+          //       return { ...doc.data(), id: doc.id };
+          //     });
+          //   })
+          //   onUnmounted(chatSnapshot);
           }
         } else {
             this.loggedin = false;
