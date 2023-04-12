@@ -13,7 +13,7 @@
             <h1>My Cart</h1>    
             <div v-if="uniqueCart.length">
       <div v-for="item in uniqueCart" :key="item.id">
-        <Cart :item="item" :quantity="cartQuantities[item.id]" />
+        <Cart2 :item="item" :quantity="cartQuantities[item.id]" />
       </div>
     </div>
     <div v-else>
@@ -31,7 +31,7 @@ import SearchBar from '@/components/commons/SearchBar.vue'
 import Listing from '@/components/Listing.vue'
 import ListingBuyer from '@/components/ListingBuyer.vue'
 import AddListing from '@/components/AddListing.vue'
-import Cart from '@/components/Cart.vue'
+import Cart2 from '@/components/Cart2.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
@@ -48,7 +48,7 @@ export default {
     SearchBar,
     ListingBuyer,
     AddListing,
-    Cart
+    Cart2
   },
   data() {
     return {

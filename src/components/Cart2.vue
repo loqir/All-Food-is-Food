@@ -49,7 +49,6 @@ import SearchBar from '@/components/commons/SearchBar.vue'
 import Listing from '@/components/Listing.vue'
 import ListingBuyer from '@/components/ListingBuyer.vue'
 import AddListing from '@/components/AddListing.vue'
-import Cart from '@/components/Cart.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from "firebase/firestore"
@@ -57,7 +56,7 @@ import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from
 const db = getFirestore(firebaseApp)
 const BuyersCart = collection(db, 'BuyersCart');
 export default {
-  name: 'Cart',
+  name: 'Cart2',
   props: {
     item: {
       type: Object,
