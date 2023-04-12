@@ -15,7 +15,7 @@
             <input type="text" placeholder="Search" class="icon-text" id="search-bar">
           </div>
         </div>
-        <ProfileBar/>
+        <ProfileBar id="profile-bar"/>
       </div>
       <div class="group-34518">
         <div class="my-cart-two">
@@ -231,118 +231,18 @@ export default {
   display: flex;
   align-items: flex-start;
   width: 100vw;
-
 }
 .sidebar {
   width: 130px;
 }
-.main-logo {
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  width: 15vw;
+#profile-bar {
+  width: 20%;
 }
-.logo {
-  padding: 5px 3px;
-  position: absolute;
-  left: -2.5px;
-  top: 0.5px;
-}
-.group-33932 {
-  background: linear-gradient(
-      rgba(234, 106, 18, 0.32),
-      rgba(234, 106, 18, 0.32)
-    ),
-    rgba(255, 255, 255, 1);
-  border-radius: 50%;
-  padding: 0 14.5px 9px 13.5px;
-}
-.af2 {
-  font-family: "Playfair Display";
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 58px;
-  color: rgba(34, 34, 34, 1);
-  letter-spacing: 0.48px;
-  margin-bottom: 0px;
-}
-.frame-36360 {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.iconly-bulk-category {
-  background-color: rgba(196, 196, 196, 1);
-  margin-bottom: 24px;
-  border-radius: 100px;
-  padding: 16px;
-  display: flex;
-  align-items: flex-start;
-}
-ProfileBar {
-  display:inline;
-}
-
 #search-bar {
   border: none;
 }
-
 #search-bar:focus {
   outline: none;
-}
-.category {
-  width: 20px;
-  height: 20px;
-}
-.frame-37291 {
-  background-color: rgba(255, 243, 235, 1);
-  margin-bottom: 24px;
-  border-radius: 100px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: flex-start;
-  height: 40px;
-  width: 40px;
-}
-.person02-male-1-1 {
-  flex: 1;
-  align-self: stretch;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  border-radius: 100px;
-  object-fit: cover;
-}
-.iconly-bulk-buy {
-  margin-bottom: 24px;
-  padding: 4.17px 3.31px 3.17px 3.33px;
-  display: flex;
-  align-items: center;
-  height: 32.66px;
-  width: 33.36px;
-}
-.buy {
-  width: 33.36px;
-  height: 32.66px;
-}
-.iconly-bulk-3-user {
-  background-color: rgba(245, 245, 245, 1);
-  margin-bottom: 24px;
-  border-radius: 100px;
-  padding: 12px 9px;
-  display: flex;
-  align-items: center;
-  height: 16px;
-  width: 22px;
-}
-.num-3-user {
-  width: 22px;
-  height: 16px;
-}
-.image-10 {
-  width: 61px;
-  height: 50px;
 }
 .flex-wrapper-one {
   padding: 1px 0 0;
@@ -355,7 +255,8 @@ ProfileBar {
   margin-bottom: 20vh;
   position: relative;
   align-items: flex-end;
-  display:flex;
+  display: flex;
+  width: 90vw;
 }
 .navigation-bar {
   background-color: rgba(255, 255, 255, 1);
@@ -363,6 +264,7 @@ ProfileBar {
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
   position: relative;
   display: inline;
+  width: 80vw;
 }
 .icon-text {
   background-color: rgba(255, 255, 255, 1);
@@ -433,14 +335,6 @@ ProfileBar {
   line-height: 28px;
   color: rgba(7, 20, 59, 1);
   letter-spacing: 0.32px;
-}
-.marketing-administra {
-  font-family: "Poppins";
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 23px;
-  color: rgba(7, 20, 59, 1);
-  letter-spacing: 0.26px;
 }
 .group-34518 {
   margin-left: 170px;
