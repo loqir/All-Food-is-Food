@@ -43,8 +43,14 @@
             <div v-else>
                 <p> Company Name: <strong> {{companyName}}</strong><br/>
                 Company Email: <strong>{{user.email}}</strong><br>
-                Uid: <strong>{{user.uid}}</strong><br>
                 UEN: <strong>{{uen}}</strong></p>
+
+                Staff Name: <strong> {{staffName}}</strong><br/>
+                <button @click="clickedStaffName"> Change Staff Name <br> </button>
+                <div v-if="changeStaffName">
+                    <input type = "text" placeholder="Staff Name" v-model="newStaffName">
+                    <button style = "border:none;" @click ="uploadStaffName"> Submit </button>
+                </div> <br> 
             </div>
         </div>
         <Logout/>
@@ -89,7 +95,10 @@ export default {
             changeNum: false,
             newFirstName: "",
             newLastName: "",
-            newNum: ""
+            newNum: "",
+            staffName: "",
+            newStaffName: "",
+            changeStaffName: false
         }
     },
 
@@ -111,6 +120,7 @@ export default {
             } else if (sellDocSnap.exists()) {
                 this.isBuyer = false;
                 this.companyName = sellDocSnap.data().CompanyName;
+                this.staffName = sellDocSnap.data().StaffName;
                 this.uen = sellDocSnap.data().UEN;
                 this.image = sellDocSnap.data().ProfilePic;
             } else {
@@ -161,6 +171,10 @@ export default {
             this.changeLastName = !this.changeLastName;
         },
 
+        clickedStaffName() {
+            this.changeStaffName = !this.changeStaffName;
+        },
+
         clickedNum() {
             this.changeNum = !this.changeNum;
         },
@@ -193,7 +207,17 @@ export default {
                 await updateDoc(buyDocRef, {Phone: this.newNum})
                 this.$router.go(0);
             }
-        }
+        },
+
+        async uploadStaffName() {
+            const sellDocRef = doc(getFirestore(firebaseApp), "sellers", this.user.uid);
+            const sellDocSnap = await getDoc(sellDocRef);
+
+            if (sellDocSnap.exists()) {
+                await updateDoc(sellDocRef, {StaffName: this.newStaffName})
+                this.$router.go(0);
+            }
+        },
     },
 
     mounted() {
