@@ -64,6 +64,8 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import firebaseApp from '@/firebase.js'
+import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
 
 export default {
   name: "LogIn",
@@ -71,7 +73,8 @@ export default {
   data() {
       return {
         email: "",
-        password: ""
+        password: "",
+        isBuyer: true
       }
     },
 
@@ -79,10 +82,28 @@ export default {
         async logIn() {
             console.log("Logging in User");
             const auth = getAuth();
+      
             await signInWithEmailAndPassword(auth, this.email, this.password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
               const user = userCredential.user;
-              this.$router.push('/home')
+
+              const uid = user.uid;
+
+              const buyDocRef = doc(getFirestore(firebaseApp), "buyers", uid);
+              const buyDocSnap = await getDoc(buyDocRef);
+
+              const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
+              const sellDocSnap = await getDoc(sellDocRef);
+
+              if (sellDocSnap.exists()) {
+                  this.isBuyer = false;
+              }
+
+              if (this.isBuyer) {
+                this.$router.push('/buyerlistingview')
+              } else {
+                this.$router.push('/sellerlistingview')
+              }
             })
             .catch((error) => {
               const errorCode = error.code;

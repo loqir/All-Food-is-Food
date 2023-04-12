@@ -86,7 +86,7 @@ import firebaseApp from '@/firebase.js'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc, getDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, collection, query, where, getDocs } from "firebase/firestore"; 
 
 export default {
   name: "SellerSignUp",
@@ -104,13 +104,15 @@ export default {
 
     methods: {
         async createSeller() {
-          const buyDocRef = doc(getFirestore(firebaseApp), "buyers", uid);
-          const buyDocSnap = await getDoc(buyDocRef);
+          const buyersRef = collection(getFirestore(firebaseApp), "buyers");
+          const q = query(buyersRef, where("Email", "==", this.email))
+          const qSnapshot = await getDocs(q);
 
-          const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
-          const sellDocSnap = await getDoc(sellDocRef);
+          const sellersRef = collection(getFirestore(firebaseApp), "sellers");
+          const q2 = query(sellersRef, where("Email", "==", this.email));
+          const qSnapshot2 = await getDocs(q2);
 
-          if (buyDocSnap.exists() || sellDocSnap.exists()) {
+          if (qSnapshot.docs.length > 0 || qSnapshot2.docs.length > 0) {
             alert("Email already linked to an existing account!")
           } else if (this.password != this.password2) {
             alert("Passwords do not match. Please try again.")
@@ -129,9 +131,10 @@ export default {
                     Email: this.email,
                     UEN: this.uen,
                     StaffName: this.staffName,
+                    ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Faccountpic.jpeg?alt=media&token=26a28f0c-37ea-41f0-a8fc-6b680acaa09f"
                 });
 
-                this.$router.push('/home')
+                this.$router.push('/sellerlistingview')
             })
             .catch((error) => {
                 const errorCode = error.code;
