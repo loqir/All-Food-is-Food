@@ -1,208 +1,242 @@
 <template>
-    <div class="cart-detail-1">
-        <div class="cart-details">
-          <div class="cart-title-1">
-            <!-- <img
-              alt=""
-              class="mask-group"
-              src="https://static.overlay-tech.com/assets/ac9f8fec-2ffd-4d8b-8152-36761f6f3de9.png"
-            /> -->
-            <div class="frame-36416">
-              <div style="margin-left: 50px;">
-              <p class="apple-3pc">{{ item.name }}</p>
-              <div class="frame-36394">
- 
-  Qty <img
-    alt=""
-    class="frame-36368"
-    src="https://static.overlay-tech.com/assets/91f8c852-593f-48b3-8880-d1ca75ccabf9.svg"
-  /> {{ quantity }}
-</div>
-              </div>
-            </div>
-          </div>
-          <div class="rate-1">
-            <button style = "border:none;" v-on:click = "deletefromcart(item)">
-            <img
-              alt=""
-              class="delete-icon"
-              src="https://static.overlay-tech.com/assets/67b0f50c-bc17-4092-b91d-6aeae54753e4.svg"
-            />
-        </button>
-            <p class="num-1-29">
-              <strong class="num-1-29-emphasis-0">${{ item.price }} * {{ quantity }}</strong>
-            </p>
-          </div>
-        </div>
-        <img
-          alt=""
-          class="cart-image-1"
-          :src= item.image
-        />
-      </div>
+    <div class="CartContainer">
+   	   <div class="Header">
+   	   	<h3 class="Heading">Shopping Cart</h3>
+   	   	<h5 class="Action">Remove all</h5>
+   	   </div>
+
+   	   <div class="Cart-Items">
+   	   	  <div class="image-box">
+   	   	  	<img class="img1" src="images/apple.png"/>
+   	   	  </div>
+   	   	  <div class="about">
+   	   	  	<h1 class="title">Apple Juice</h1>
+   	   	  	<h3 class="subtitle">250ml</h3>
+   	   	  </div>
+   	   	  <div class="counter">
+   	   	  	<div class="btn">+</div>
+   	   	  	<div class="count">2</div>
+   	   	  	<div class="btn">-</div>
+   	   	  </div>
+   	   	  <div class="prices">
+   	   	  	<div class="amount">$2.99</div>
+   	   	  	<div class="remove"><u>Remove</u></div>
+   	   	  </div>
+   	   </div>
+
+   	   <div class="Cart-Items pad">
+   	   	  <div class="image-box">
+   	   	  	<img class="img1" src="../../assets/landingpage.jpg"/>
+   	   	  </div>
+   	   	  <div class="about">
+   	   	  	<h1 class="title">Grapes Juice</h1>
+   	   	  	<h3 class="subtitle">250ml</h3>
+   	   	  </div>
+   	   	  <div class="counter">
+   	   	  	<div class="btn">+</div>
+   	   	  	<div class="count">1</div>
+   	   	  	<div class="btn">-</div>
+   	   	  </div>
+   	   	  <div class="prices">
+   	   	  	<div class="amount">$3.19</div>
+   	   	  	<div class="remove"><u>Remove</u></div>
+   	   	  </div>
+   	   </div>
+   	 <hr> 
+   	 <div class="checkout">
+   	 <div class="total">
+   	 	<div>
+   	 		<div class="Subtotal">Sub-Total</div>
+   	 		<div class="items">2 items</div>
+   	 	</div>
+   	 	<div class="total-amount">$6.18</div>
+   	 </div>
+   	 <button class="button">Checkout</button></div>
+   </div> 
+
 </template>
 
 <script>
-import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/commons/NavBar.vue'
-import SearchBar from '@/components/commons/SearchBar.vue'
-import Listing from '@/components/Listing.vue'
-import ListingBuyer from '@/components/ListingBuyer.vue'
-import AddListing from '@/components/AddListing.vue'
-import { getAuth, onAuthStateChanged } from "firebase/auth"
-import firebaseApp from '@/firebase.js'
-import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from "firebase/firestore"
-
-const db = getFirestore(firebaseApp)
-const BuyersCart = collection(db, 'BuyersCart');
 export default {
-  name: 'Cart',
-  props: {
-    item: {
-      type: Object,
-      required: true
-    },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-  },
-  
-    data() {
-      return {
-      user : false,
-      cartRef : ""
-      }
-
-    },
-    mounted() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-        const specificbuyer = doc(BuyersCart, this.user.uid);
-        this.cartRef = specificbuyer
-      }
-    })
-  },
-
-    methods: {
-      async deletefromcart(itemtoDelete) {
-if (this.cartRef) {
-  getDoc(this.cartRef).then((doc) => {
-    if (doc.exists()) {
-      const list = doc.data().myArrayField;
-      const updatedList = list.filter((itemID) => itemID !== itemtoDelete.id);
-      updateDoc(this.cartRef, { myArrayField: updatedList })
-
-        .then(() => {
-          console.log('Element removed successfully');
-        })
-        .catch((error) => {
-          console.error('Error removing element: ', error);
-        });
-    }
-  });
-}
-
-  console.log("DELETE FROM CART");
-
-}
-
-    },
-}
+  name: "Cart"
+};
 </script>
 
-<style>
-.cart-detail-1 {
-  margin-bottom: 24px;
-  padding: 9px 0 10px 33px;
-  position: relative;
+<style scoped>
+.template {
+ margin: 0;
+ padding: 0;
+ background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
-.cart-details {
-  background-color: rgba(255, 245, 238, 1);
-  border-radius: 100px;
-  padding: 16px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
+.CartContainer{
+	width: 100vw;
+	height: 100vh;
+	background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px #1687d933;
 }
-.cart-title-1 {
-  margin-right: 156px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.Header{
+	margin: auto;
+	width: 90%;
+	height: 15%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.mask-group {
-  width: 64px;
-  height: 65px;
-  margin-right: 16px;
+
+.Heading{
+	font-size: 20px;
+	font-family: 'Open Sans';
+	font-weight: 700;
+	color: #2F3841;
 }
-.frame-36416 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+
+.Action{
+	font-size: 14px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #E44C4C;
+	cursor: pointer;
+	border-bottom: 1px solid #E44C4C;
 }
-.apple-3pc {
-  width: 158px;
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 28px;
-  color: rgba(7, 20, 59, 1);
-  margin-bottom: 8px;
-  letter-spacing: 0.32px;
+
+.Cart-Items{
+	margin: auto;
+	width: 90%;
+	height: 30%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.frame-36394 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.image-box{
+	width: 15%;
+	text-align: center;
 }
-.frame-36368 {
-  width: 10px;
-  height: 10px;
-  margin-right: 2px;
+.about{
+	height: 100%;
+	width: 24%;
 }
-.num-1 {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  color: rgba(7, 20, 59, 1);
-  letter-spacing: 0.32px;
+.title{
+	padding-top: 10px;
+	line-height: 10px;
+	font-size: 32px;
+	font-family: 'Open Sans';
+	font-weight: 800;
+	color: #202020;
 }
-.rate-1 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
+.subtitle{
+	line-height: 10px;
+	font-size: 18px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #909090;
+  margin-top: 50px;
 }
-.delete-icon {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 5px;
+
+.counter{
+	width: 15%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.num-1-29 {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  color: rgba(7, 20, 59, 1);
+.btn{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #d9d9d9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	font-family: 'Open Sans';
+	font-weight: 900;
+	color: #202020;
+	cursor: pointer;
 }
-.num-1-29-emphasis-0 {
-  font-family: "Poppins";
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 23px;
-  color: rgba(7, 20, 59, 1);
-  letter-spacing: 0.26px;
+.count{
+	font-size: 20px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #202020;
 }
-.cart-image-1 {
-  width: 116px;
-  height: 116px;
-  position: absolute;
-  left: 0;
-  top: 0;
+
+.prices{
+	height: 100%;
+	text-align: right;
 }
+.amount{
+	padding-top: 20px;
+	font-size: 26px;
+	font-family: 'Open Sans';
+	font-weight: 800;
+	color: #202020;
+}
+.remove{
+	padding-top: 5px;
+	font-size: 14px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #E44C4C;
+	cursor: pointer;
+}
+
+.pad{
+	margin-top: 5px;
+}
+
+hr{
+	width: 66%;
+	float: right;
+	margin-right: 5%;
+}
+.checkout{
+	float: right;
+	margin-right: 5%;
+	width: 28%;
+}
+.total{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.Subtotal{
+	font-size: 22px;
+	font-family: 'Open Sans';
+	font-weight: 700;
+	color: #202020;
+}
+.items{
+	font-size: 16px;
+	font-family: 'Open Sans';
+	font-weight: 500;
+	color: #909090;
+	line-height: 10px;
+}
+.total-amount{
+	font-size: 36px;
+	font-family: 'Open Sans';
+	font-weight: 900;
+	color: #202020;
+}
+.button{
+	margin-top: 10px;
+	width: 100%;
+	height: 40px;
+	border: none;
+	background: linear-gradient(to bottom right, #B8D7FF, #8EB7EB);
+	border-radius: 20px;
+	cursor: pointer;
+	font-size: 16px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #202020;
+}
+.img1{
+  height: 120px;
+}
+
 </style>
