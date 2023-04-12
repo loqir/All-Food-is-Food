@@ -1,7 +1,7 @@
 <template>
     <div v-if="client.id">
-    <h1>{{client.name}}</h1>
-      <div>chat with : Seller</div>
+    <h1>{{ this.firstName }} {{ this.lastName }}</h1>
+      <div>chat with : Admin</div>
       <div class="chatbox">
         <div v-for="message in messages">
           <div :class="message.admin ? 'client' : 'admin'">
@@ -18,14 +18,13 @@
       <button @click="sendMessage" class="btn btn-primary">send</button>
       </div>
       <div v-else>
-        <button @click="login">login</button>
-      </div> 
-      
+        <h2>Oops! Please log in!</h2>
+      </div>
     </template>
     
     <script>
     import { db, auth } from '../firebase.js';
-    import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+    import firebaseApp from '@/firebase.js'
     import {
       onSnapshot,
       collection,
@@ -35,6 +34,8 @@
       addDoc,
       orderBy,
       query,
+      getDoc,
+      getFirestore
     } from 'firebase/firestore';
     import { ref, onUnmounted } from 'vue';
     
@@ -46,7 +47,8 @@
           messages: ref([]),
           client: {
             id: null,
-            name: '',
+            firstName: '',
+            lastName: '',
             date: 0,
             latestMessage: '',
             seen: false,
@@ -54,21 +56,38 @@
         };
       },
       methods: {
-        login: function () {
-          signInWithPopup(auth, new GoogleAuthProvider());
+        async getData(uid) {
+            const buyDocRef = doc(getFirestore(firebaseApp), "buyers", uid);
+            const buyDocSnap = await getDoc(buyDocRef);
+
+            if (buyDocSnap.exists()) {
+                console.log("Document data:", buyDocSnap.data());
+                this.firstName = buyDocSnap.data().FirstName;
+                this.lastName = buyDocSnap.data().LastName;
+
+            } else {
+                console.log("No such document!");
+            }
         },
+
         sendMessage: function () {
-          addDoc(collection(db, 'chats/' + this.client.id + '/messages'), {
-            text: this.$refs.newMessage.value,
-    
-            date: Date.now(),
-          });
+            if (this.$refs.newMessage.value.length > 0) {
+                addDoc(collection(db, 'chats/' + this.client.id + '/messages'), {
+                    text: this.$refs.newMessage.value,
+                    date: Date.now(),
+                });
+            } else {
+                alert("Please enter message")
+            }
     
           let updateLatestMessage = {
             ...this.client,
             latestMessage: this.$refs.newMessage.value,
             seen: false,
             date: Date.now(),
+            lastName: this.lastName,
+            firstName: this.firstName
+
           };
           delete updateLatestMessage.id;
           setDoc(doc(db, 'chats/' + this.client.id), updateLatestMessage);
@@ -78,9 +97,9 @@
       mounted() {
         const loginListener = auth.onAuthStateChanged((user) => {
           if (user != null) {
-            this.client.id = user.uid;
-            this.client.name = user.displayName;
-    
+            this.user = user
+            this.client.id = user.uid
+            this.getData(this.user.uid)  
             const messages = onSnapshot(
               query(
                 collection(db, 'chats/' + this.client.id + '/messages'),
@@ -96,7 +115,6 @@
             onUnmounted(messages);
           }
         });
-    
         onUnmounted(loginListener);
       },
     };

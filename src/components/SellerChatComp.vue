@@ -28,13 +28,18 @@
     },
     methods: {
       sendMessage:function() {
-        addDoc(collection(db,'chats/'+this.client.id+'/messages'),
-        {
-          text:this.$refs.newMessage.value,
-          admin:true,
-          date:Date.now()
-        }
+        console.log(this.$refs.newMessage.value.length)
+        if (this.$refs.newMessage.value.length > 0) {
+            addDoc(collection(db,'chats/'+this.client.id+'/messages'),
+            {
+              text:this.$refs.newMessage.value,
+              admin:true,
+              date:Date.now()
+            }
         )
+        } else {
+            alert("Please enter message")
+        }
   
         let updateLatestMessage = {...this.client,latestMessage:this.$refs.newMessage.value}
         delete updateLatestMessage.id;
