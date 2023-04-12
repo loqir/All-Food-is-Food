@@ -59,7 +59,7 @@
                 <p class="username-or-email-address">
                   Confirm password
                 </p>
-                <input class="email-input" placeholder="Confirm Password" type="password">
+                <input class="email-input" placeholder="Confirm Password" type="password" v-model="password2">
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ import firebaseApp from '@/firebase.js'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, collection, getDocs, query, where } from "firebase/firestore"; 
 
 export default {
   name: "BuyerSignUp",
@@ -106,6 +106,7 @@ export default {
       return {
         email: "",
         password: "",
+        password2: "",
         firstName: "",
         lastName: "",
         phone: ""
@@ -114,6 +115,23 @@ export default {
 
   methods: {
         async createBuyer() {
+          const buyersRef = collection(getFirestore(firebaseApp), "buyers");
+          const q = query(buyersRef, where("Email", "==", this.email))
+          const qSnapshot = await getDocs(q);
+
+          const sellersRef = collection(getFirestore(firebaseApp), "sellers");
+          const q2 = query(sellersRef, where("Email", "==", this.email));
+          const qSnapshot2 = await getDocs(q2);
+
+          if (qSnapshot.docs.length > 0 || qSnapshot2.docs.length > 0) {
+            alert("Email already linked to an existing account!")
+          } else if (this.password != this.password2) {
+            alert("Passwords do not match. Please try again.")
+          } else if (this.email == "" || this.firstName == "" || this.lastName == "" || this.password == "" || this.password2 == "" || this.phone == "") {
+            alert("Please enter all required details.")
+          } else if (this.phone.length < 8 || (this.phone.charAt(0) != 8 && this.phone.charAt(0) != 9 && this.phone.charAt(0) != 6)) {
+            alert("Please enter a valid handphone number.")
+          } else {
             console.log("Creating User");
             const auth = getAuth();
             await createUserWithEmailAndPassword(auth, this.email, this.password)
@@ -138,6 +156,7 @@ export default {
                 console.log(errorCode);
                 console.log(errorMessage);
             });
+          }
         }
     }
 };

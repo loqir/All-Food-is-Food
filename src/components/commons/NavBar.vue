@@ -1,13 +1,11 @@
 <template>
     <div id = "logged" v-if="user">
         <div id = "nav">
-            <router-link to = "/home"> Home </router-link>
-            <router-link to = "/about"> About </router-link>
-            <router-link to = "/profit"> Profits </router-link>
-            <router-link to = "/profit2"> Profits 2 </router-link>
+            <router-link to = "/sellerlistingview" v-if="isSeller"> Home </router-link>
+            <router-link to = "/buyerlistingview" v-else> Home </router-link>
             <router-link to = "/profile"> Profile </router-link>
-            <router-link to = "/sellerlistingview"> SellerListing </router-link>
-            <router-link to = "/buyerlistingview"> BuyerListing </router-link>
+<!--             <router-link to = "/sellerlistingview"> SellerListing </router-link>
+            <router-link to = "/buyerlistingview"> BuyerListing </router-link> -->
             <router-link v-if="isSeller" to = "/sellerchat"> Chat </router-link>
             <router-link v-else to = "/buyerchat"> Chat </router-link>
         </div>
@@ -38,6 +36,7 @@ export default {
             const sellDocSnap = await getDoc(sellDocRef);
 
             if (buyDocSnap.exists()) {
+                this.isSeller = false;
                 console.log();
             } else if (sellDocSnap.exists()) {
                 this.isSeller = true;
