@@ -31,7 +31,7 @@ import SearchBar from '@/components/commons/SearchBar.vue'
 import Listing from '@/components/Listing.vue'
 import ListingBuyer from '@/components/ListingBuyer.vue'
 import AddListing from '@/components/AddListing.vue'
-import Cart from '@/components/Cart.vue'
+import Cart from '@/components/commons/Cart.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"

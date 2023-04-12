@@ -89,13 +89,13 @@ const routes = [
     component: BuyerChat
   },
   {
-    path: '/Payment',
-    name: 'payment',
+    path: '/payment',
+    name: 'Payment',
     component: Payment
   },
   {
     path: '/Cart',
-    name: 'cart',
+    name: 'Cart',
     component: Cart
   }
 
