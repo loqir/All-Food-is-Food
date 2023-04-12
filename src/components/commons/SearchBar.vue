@@ -1,6 +1,6 @@
 <template>
     <label for = "searchedfood"> Find your Food </label>
-    <input type = "text" v-model = "Entry"  placeholder = "What would you like to find?"><br><br>
+    <input type = "text" v-model = "searchEntry"  placeholder = "What would you like to find?"><br><br>
     <button type="submit" @click ="search">Search</button><br><br>
     <AddListing/>
 </template>
@@ -10,13 +10,13 @@
 <script>
 export default {
     data() {
-        Entry: ""
+        searchEntry: ""
     },
-    // emits:["findfood"],
+    emits:["findfood"],
     methods: {
         search() {
-            // this.$emit("findfood", this.Entry)
-            console.log(this.Entry)
+            this.$emit("findfood", this.searchEntry)
+            console.log(this.searchEntry)
         }
     }
 }

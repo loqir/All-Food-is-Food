@@ -7,12 +7,14 @@
   />
   <p class="add-a-listing">Add A Listing</p>
   <p class="name">Product</p>
-  <input type = "text" v-model = "productEntry"  placeholder = "Enter product"><br><br>
+  <input type = "text" v-model = "productEntry"  placeholder = "Enter product"><br>
   <p class="name">Price</p>
-  <input type = "text" v-model = "priceEntry"  placeholder = "Enter listing price"><br><br>
+  <input type = "text" v-model = "priceEntry"  placeholder = "Enter listing price"><br>
   <p class="name">Description</p>
-  <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br><br>
-  <input type = "file" ref ="myfile"><br><br>
+  <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br>
+  <p class="name">Quantity</p>
+  <input type = "text" v-model = "quantityEntry"  placeholder = "Enter quantity"><br>
+  <input type = "file" ref ="myfile"><br>
   <button style = "border:none;" @click ="upload">
   <img
     alt=""
@@ -38,11 +40,12 @@ import {getFirestore} from "firebase/firestore"
 import { storage } from "../firebase"
 import { ref,uploadBytes } from "firebase/storage"
 import { getDownloadURL } from "firebase/storage"
-import { doc, addDoc, collection, setDoc} from "firebase/firestore"
+import { doc, getDoc, addDoc, collection, setDoc} from "firebase/firestore"
 import { v4 as uuidv4 } from 'uuid';
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const db = getFirestore(firebaseApp)
-
+const sellerListings = collection(db, "SellerListings");
 
 
 export default {
@@ -50,8 +53,20 @@ export default {
         productEntry : ""
         priceEntry : ""
         descriptionEntry: ""
+        quantityEntry: ""
         image: ""
+        sellerDocument : null
     },
+    mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        const specificSeller = doc(sellerListings, this.user.uid);
+        this.sellerDocument = specificSeller
+      }
+    })
+  },
     methods:{
       async upload() {
   const fileId = uuidv4();
@@ -74,9 +89,24 @@ export default {
     name: this.productEntry,
     price: this.priceEntry,
     description: this.descriptionEntry,
+    qty : this.quantityEntry,
     image: this.image
   });
+  const docSnap = await getDoc(this.sellerDocument);
+if (docSnap.exists()) {
+  const currList = docSnap.data().myArrayField || [];
+  const newList = [...currList, newListingRef.id];
+  await setDoc(this.sellerDocument, { myArrayField: newList });
+} else {
+  await setDoc(this.sellerDocument, { myArrayField: [newListingRef.id] });
+}
+
+
+
+
+
   console.log("added listing with ID", newListingRef.id);
+  location.reload()
       }
     }
   }

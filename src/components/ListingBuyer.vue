@@ -4,6 +4,8 @@
      <div class="spaghetti-details">
        <p class="apple-3pc">{{ listing.name }}</p>
        <p class="rate-2">$ {{ listing.price }}</p>
+       <p> {{ listing.description }}</p>
+       <p> Qty : {{ listing.qty }}</p>
      </div>
    </div>
    <img
@@ -45,7 +47,7 @@
  <script>
  import firebaseApp from '../firebase.js'
  import {getFirestore} from "firebase/firestore"
- import { doc, addDoc, collection, setDoc, updateDoc, arrayUnion} from "firebase/firestore"
+ import { doc, getDoc, addDoc, collection, setDoc, updateDoc, arrayUnion} from "firebase/firestore"
  import { getAuth, onAuthStateChanged } from "firebase/auth"
 
  const db = getFirestore(firebaseApp)
@@ -70,10 +72,16 @@
  
      methods: {
          async addtocart(listing) {
-          await setDoc(this.buyerDocument, {
-    myArrayField: arrayUnion(listing.id)
-}, { merge: true });
-console.log("ADDED TO CART  ")
+    const docSnap = await getDoc(this.buyerDocument);
+if (docSnap.exists()) {
+  const currList = docSnap.data().myArrayField || [];
+  const newList = [...currList, listing.id];
+  await setDoc(this.buyerDocument, { myArrayField: newList });
+} else {
+  await setDoc(this.buyerDocument, { myArrayField: [listing.id] });
+}
+
+location.reload()
 }
          },
      mounted() {

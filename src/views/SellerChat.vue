@@ -1,9 +1,9 @@
 <template>
-    <h1>{{title}}</h1>
+    <h1>{{ title }}</h1>
     <div v-if="loggedin">
       <div v-for="chat in chats" class="p-2">
         <div
-          @click="openedChats.push(chat)"
+          @click="toggleChat(chat)"
           style="text-align: left"
           class="w-100 btn my-1"
           :class="chat.seen ? 'btn-secondary' : 'btn-primary'"
@@ -13,15 +13,14 @@
         </div>
       </div>
       <div v-for="chat in openedChats">
-        <chat :client="chat"></chat>
+        <SellerChatComp :client="chat"></SellerChatComp>
       </div>
       <button @click="logout">logout</button>
     </div>
     <div v-else>
       <button @click="login">login</button>
     </div>
-    
-    </template>
+  </template>
     
     <script>
     import { db, auth } from '../firebase.js';
@@ -39,7 +38,7 @@
     import { ref, onUnmounted } from 'vue';
     
     import SellerChatComp from '../components/SellerChatComp.vue';
-    
+
     export default {
       name: 'SellerChat',
       components: {
@@ -59,6 +58,32 @@
         },
         logout: function () {
           signOut(auth);
+        },
+        sendMessage:function() {
+      addDoc(collection(db,'chats/'+this.client.id+'/messages'),
+      {
+        text:this.$refs.newMessage.value,
+        admin:true,
+        date:Date.now()
+      }
+      )
+
+      let updateLatestMessage = {...this.client,latestMessage:this.$refs.newMessage.value}
+      delete updateLatestMessage.id;
+      setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
+      this.$refs.newMessage.value = '';
+    },
+    toggleChat: function (chat) {
+    // Check if the chat is already opened
+        const index = this.openedChats.findIndex((c) => c.id === chat.id);
+
+        if (index > -1) {
+        // If the chat is already opened, remove it from openedChats
+        this.openedChats.splice(index, 1);
+        } else {
+        // If the chat is not opened, add it to openedChats
+        this.openedChats.push(chat);
+        }
         },
       },
       mounted() {

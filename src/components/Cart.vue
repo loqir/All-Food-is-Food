@@ -8,14 +8,16 @@
               src="https://static.overlay-tech.com/assets/ac9f8fec-2ffd-4d8b-8152-36761f6f3de9.png"
             /> -->
             <div class="frame-36416">
+              <div style="margin-left: 50px;">
               <p class="apple-3pc">{{ item.name }}</p>
               <div class="frame-36394">
-                <!-- <img
-                  alt=""
-                  class="frame-36368"
-                  src="https://static.overlay-tech.com/assets/91f8c852-593f-48b3-8880-d1ca75ccabf9.svg"
-                />
-                <p class="num-1">1</p> -->
+ 
+  Qty <img
+    alt=""
+    class="frame-36368"
+    src="https://static.overlay-tech.com/assets/91f8c852-593f-48b3-8880-d1ca75ccabf9.svg"
+  /> {{ quantity }}
+</div>
               </div>
             </div>
           </div>
@@ -28,7 +30,7 @@
             />
         </button>
             <p class="num-1-29">
-              <strong class="num-1-29-emphasis-0">${{ item.price }}</strong>
+              <strong class="num-1-29-emphasis-0">${{ item.price }} * {{ quantity }}</strong>
             </p>
           </div>
         </div>
@@ -54,20 +56,23 @@ import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from
 
 const db = getFirestore(firebaseApp)
 const BuyersCart = collection(db, 'BuyersCart');
-
 export default {
   name: 'Cart',
   props: {
     item: {
       type: Object,
       required: true
-    }
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
   },
   
     data() {
       return {
       user : false,
-      cartRef : "a"
+      cartRef : ""
       }
 
     },
@@ -84,14 +89,13 @@ export default {
 
     methods: {
       async deletefromcart(itemtoDelete) {
-        console.log("cART REF "  + this.cartRef)
-
 if (this.cartRef) {
   getDoc(this.cartRef).then((doc) => {
     if (doc.exists()) {
       const list = doc.data().myArrayField;
       const updatedList = list.filter((itemID) => itemID !== itemtoDelete.id);
       updateDoc(this.cartRef, { myArrayField: updatedList })
+
         .then(() => {
           console.log('Element removed successfully');
         })
@@ -103,6 +107,7 @@ if (this.cartRef) {
 }
 
   console.log("DELETE FROM CART");
+
 }
 
     },

@@ -2,20 +2,24 @@
    <div class="menu-category-2">
   <div class="spaghetti">
     <div class="spaghetti-details">
-      <p class="apple-3pc">Apple (3pc)</p>
-      <p class="rate-2">$1.29</p>
+      <p class="apple-3pc">{{sellerListing.name}}</p>
+      <p class="rate-2">$ {{ sellerListing.price }}</p>
+      <p> {{ sellerListing.description }}</p>
+      <p> Qty : {{ sellerListing.qty }}</p>
     </div>
   </div>
-  <img
+  <!-- <img
     alt=""
     class="mask-group"
     src="https://static.overlay-tech.com/assets/d09bd426-c5f9-4fb1-8168-bc1fffd5c0b8.png"
-  /><img
+  /> -->
+  <img
     alt=""
     class="spaghetti-two"
-    src="https://static.overlay-tech.com/assets/d2cb78fb-0c45-4944-8be5-00d442d5a381.png"
+    :src= sellerListing.image
+    
   />
-  <button @click = "del">
+  <button @click = "deletefromListings(sellerListing)">
   <img
     alt=""
     class="delete-icon"
@@ -47,15 +51,80 @@
 
 
 <script>
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import firebaseApp from '@/firebase.js'
+import { deleteDoc, getFirestore, collection, query, getDocs, doc, getDoc, updateDoc } from "firebase/firestore"
+
+const db = getFirestore(firebaseApp)
+const SellerListings = collection(db, 'SellerListings');
 
 export default {
   name: 'Listing',
+  props: {
+    sellerListing: {
+      type: Object,
+      required: true
+    }
+  },
     data() {
+      return {
+        sellerListingRef : ""
+      }
     },
+    mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        const specificSeller = doc(SellerListings, this.user.uid);
+        this.sellerListingRef = specificSeller
+      }
+    })
+  },
 
     methods: {
-        del() {
-            console.log("DELETE")
+        async deletefromListings(listingtoDelete) {
+          if (this.sellerListingRef) {
+  getDoc(this.sellerListingRef).then((doc) => {
+    if (doc.exists()) {
+      const list = doc.data().myArrayField;
+      const updatedList = list.filter((listingID) => listingID !== listingtoDelete.id);
+      updateDoc(this.sellerListingRef, { myArrayField: updatedList })
+
+        .then(() => {
+          console.log('Listing removed successfully');
+        })
+        .catch((error) => {
+          console.error('Error removing element: ', error);
+        });
+    }
+  });
+}
+const docRef = doc(db, "All Listings", listingtoDelete.id);
+
+// Delete the document
+deleteDoc(docRef)
+  .then(() => {
+    console.log('Document successfully deleted!');
+  })
+  .catch((error) => {
+    console.error('Error removing document: ', error);
+  });
+
+
+  const buyersCartRef = collection(db, "BuyersCart");
+    const querySnapshot = await getDocs(query(buyersCartRef));
+    for (const docSnapshot of querySnapshot.docs) {
+      const cartItem = docSnapshot.data();
+      const updatedList = cartItem.myArrayField.filter((listingID) => listingID !== listingtoDelete.id);
+      if (updatedList.length === cartItem.myArrayField.length) {
+        continue; // The listing ID is not in the current cart item, no need to update
+      }
+      await updateDoc(doc(buyersCartRef, docSnapshot.id), { myArrayField: updatedList });
+    }
+
+            console.log("DELETE FROM LISTINGS")
+            location.reload()
         }
     }
 }
