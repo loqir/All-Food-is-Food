@@ -14,6 +14,7 @@ import PasswordReset from "../components/auth/PasswordReset.vue"
 import BuyerChat from "@/views/BuyerChat.vue"
 import SellerChat from "@/views/SellerChat.vue"
 import Payment from "../components/Payment.vue"
+import PaymentSuccess from "../components/PaymentSuccess.vue"
 
 const routes = [
   {
@@ -88,10 +89,16 @@ const routes = [
     component: BuyerChat
   },
   {
-    path: '/Payment',
-    name: 'payment',
+    path: '/payment',
+    name: 'Payment',
     component: Payment
   },
+
+  {
+    path: '/PaymentSuccess',
+    name: 'paymentsuccess',
+    component: PaymentSuccess
+  }
 
 ]
 

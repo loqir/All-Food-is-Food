@@ -5,7 +5,6 @@
     <div class="container">
       <div class="left-component">
         <div v-for="listing in filteredListings" :key="listing.id">
-
           <ListingBuyer :listing="listing"/>
         </div>
       </div>
