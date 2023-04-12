@@ -8,7 +8,7 @@
           class="w-100 btn my-1"
           :class="chat.seen ? 'btn-secondary' : 'btn-primary'"
         >
-          <small>{{ chat.name }}</small> <br />
+          <small>{{ chat.firstName }} {{ chat.lastName }}</small> <br/>
           <strong>{{ chat.latestMessage }}</strong>
         </div>
       </div>
@@ -50,17 +50,18 @@
           openedChats: ref([]),
           loggedin: false,
           title: '',
+          isAdmin: false
         };
       },
       methods: {
-        login: function () {
-          signInWithPopup(auth, new GoogleAuthProvider());
-        },
-        logout: function () {
-          signOut(auth);
-        },
+        // login: function () {
+        //   signInWithPopup(auth, new GoogleAuthProvider());
+        // },
+        // logout: function () {
+        //   signOut(auth);
+        // },
         sendMessage:function() {
-      addDoc(collection(db,'chats/'+this.client.id+'/messages'),
+        addDoc(collection(db,'chats/'+this.client.id+'/messages'),
       {
         text:this.$refs.newMessage.value,
         admin:true,
@@ -72,6 +73,14 @@
       delete updateLatestMessage.id;
       setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
       this.$refs.newMessage.value = '';
+    },
+    async isSeller(uid) {
+      const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
+      const sellDocSnap = await getDoc(sellDocRef);
+
+      if (sellDocSnap.exists()) {
+          this.isAdmin = true
+      }
     },
     toggleChat: function (chat) {
     // Check if the chat is already opened
@@ -90,22 +99,30 @@
         const loginListener = auth.onAuthStateChanged((user) => {
           if (user != null) {
             this.loggedin = true;
-            this.title = 'welcome admin';
-            const chatSnapshot = onSnapshot(
-              query(collection(db, 'chats'), orderBy('date', 'desc')),
-              (snapshot) => {
-                this.chats = snapshot.docs.map((doc) => {
-                  return { ...doc.data(), id: doc.id };
-                });
-              },
-              (error) =>{
-                if (this.loggedin && error.code.includes("permission")) {
-                  this.title = "you are not admin !";
-                }
-              }
-            );
+          
+          if (this.isAdmin) {
+          this.title = 'Admin Chats';
+          const chatSnapshot = onSnapshot(
+            query(collection(db, 'chats'), orderBy('date', 'desc')),
+            (snapshot) => {
+              this.chats = snapshot.docs.map((doc) => {
+                return { ...doc.data(), id: doc.id };
+              });
+            })
             onUnmounted(chatSnapshot);
           } else {
+            //this.title = "Access Denied"
+            this.title = 'Admin Chats';
+          const chatSnapshot = onSnapshot(
+            query(collection(db, 'chats'), orderBy('date', 'desc')),
+            (snapshot) => {
+              this.chats = snapshot.docs.map((doc) => {
+                return { ...doc.data(), id: doc.id };
+              });
+            })
+            onUnmounted(chatSnapshot);
+          }
+        } else {
             this.loggedin = false;
             this.title = 'please login';
           }
