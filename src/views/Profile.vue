@@ -110,10 +110,9 @@ export default {
 
             } else if (sellDocSnap.exists()) {
                 this.isBuyer = false;
-                console.log("Document data:", sellDocSnap.data());
-                // this.firstName = sellDocSnap.data().FirstName;
                 this.companyName = sellDocSnap.data().CompanyName;
                 this.uen = sellDocSnap.data().UEN;
+                this.image = sellDocSnap.data().ProfilePic;
             } else {
                 console.log("No such document!");
             }
