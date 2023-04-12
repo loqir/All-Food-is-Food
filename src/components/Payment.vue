@@ -3,18 +3,7 @@
     <SideBar class="sidebar"/>
     <div class="flex-wrapper-one">
       <div class="relative-wrapper-one">
-        <div class="navigation-bar">
-          <div class="icon-text">
-            <div class="iconly-light-search">
-              <img
-                alt=""
-                class="vector"
-                src="https://static.overlay-tech.com/assets/55aa4959-8ce7-48c7-8d1e-e843d9c46e20.svg"
-              />
-            </div>
-            <input type="text" placeholder="Search" class="icon-text" id="search-bar">
-          </div>
-        </div>
+        <SearchBar2/>
         <ProfileBar id="profile-bar"/>
       </div>
       <div class="group-34518">
@@ -22,16 +11,12 @@
         <div class="my-cart-three">
           <p class="make-payment">Make Payment</p>
           <p class="card-number">Card Number</p>
-          <div class="icon-text-two"></div>
+          <input type="tel" class="icon-text-two"/>
           <p class="card-number">CV</p>
-          <div class="icon-text-two"></div>
+          <input type="tel" class="icon-text-two"/>
           <p class="card-number">Expiry date</p>
-          <div class="icon-text-two"></div>
-          <div class="checkout-button">
-            <div class="frame-37960">
-              <p class="confirm">Confirm</p>
-            </div>
-          </div>
+          <input type="date" class="icon-text-two"/>
+          <button class="frame-37960"  @click="redirectToSuccess">Confirm</button>
         </div>
       </div>
     </div>
@@ -43,9 +28,15 @@
 import ProfileBar from './commons/ProfileBar.vue';
 import SideBar from './commons/SideBar.vue';
 import Cart from './commons/Cart.vue';
+import SearchBar2 from './commons/SearchBar2.vue';
 export default {
-  components: { ProfileBar, SideBar, Cart },
-  name: "PaymentPage"
+  components: { ProfileBar, SideBar, Cart, SearchBar2},
+  name: "PaymentPage",
+  methods: {
+    redirectToSuccess() {
+      this.$router.push('/paymentsuccess');
+    },
+  } 
 };
 </script>
 
@@ -70,7 +61,7 @@ export default {
   outline: none;
 }
 #cart{
-  width: 70vw;
+  width: 60%;
 }
 .flex-wrapper-one {
   padding: 1px 0 0;
@@ -122,18 +113,20 @@ export default {
   margin-left: 20px;
   display: flex;
   align-items: flex-start;
+  width: 80vw;
 }
 .my-cart-three {
-  width: calc(43.39% - 308px);
+  width: 40%;
   height: calc(99.04% - 150px);
   background-color: rgba(255, 255, 255, 0.6);
   margin-top: 1px;
   border-radius: 24px;
-  padding: 24px 284px 126px 24px;
+  padding: 126px 24px 126px 24px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   backdrop-filter: blur(42px);
+  text-align: center;
 }
 .make-payment {
   font-family: "Playfair Display";
@@ -143,6 +136,7 @@ export default {
   color: rgba(7, 20, 59, 1);
   margin-bottom: 43px;
   letter-spacing: 0.8px;
+  text-align: center;
 }
 .card-number {
   width: 165px;
@@ -163,15 +157,6 @@ export default {
   padding: 8px 16px;
   border: 1px solid rgba(227, 225, 225, 1);
 }
-.checkout-button {
-  background-color: rgba(234, 106, 18, 1);
-  border-radius: 100px;
-  padding: 8px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 32px;
-}
 .frame-37960 {
   background-color: rgba(234, 106, 18, 1);
   border-radius: 100px;
@@ -179,13 +164,5 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-.confirm {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  color: rgba(255, 255, 255, 1);
-  letter-spacing: 0.32px;
 }
 </style>

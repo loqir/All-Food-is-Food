@@ -14,7 +14,7 @@ import PasswordReset from "../components/auth/PasswordReset.vue"
 import BuyerChat from "@/views/BuyerChat.vue"
 import SellerChat from "@/views/SellerChat.vue"
 import Payment from "../components/Payment.vue"
-import Cart from "../components/commons/Cart.vue"
+import PaymentSuccess from "../components/PaymentSuccess.vue"
 
 const routes = [
   {
@@ -97,6 +97,11 @@ const routes = [
     path: '/Cart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/PaymentSuccess',
+    name: 'paymentsuccess',
+    component: PaymentSuccess
   }
 
 ]
