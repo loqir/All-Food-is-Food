@@ -9,17 +9,17 @@
         </div>
       </div>
       <div class="right-component"> 
-            <h1>My Cart</h1>    
-            <div v-if="uniqueCart.length">
-      <div v-for="item in uniqueCart" :key="item.id">
-        <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" />
+        <h1>My Cart</h1>    
+        <div v-if="uniqueCart.length">
+          <div v-for="item in uniqueCart" :key="item.id">
+            <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" />
+          </div>
+        </div>
+          <div v-else>
+            <p>Your cart is empty.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <p>Your cart is empty.</p>
-    </div>
-      </div>
-    </div>
     <Logout/> <br><br>
   </div>
 </template>

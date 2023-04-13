@@ -7,7 +7,14 @@
         <ProfileBar id="profile-bar"/>
       </div>
       <div class="group-34518">
-        <Cart id="cart"/>
+        <div v-if="uniqueCart.length">
+          <div v-for="item in uniqueCart" :key="item.id">
+            <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
+          </div>
+        </div>
+          <div v-else>
+            <p>Your cart is empty.</p>
+          </div>
         <div class="my-cart-three">
           <p class="make-payment">Make Payment</p>
           <p class="card-number">Card Number</p>
@@ -32,11 +39,30 @@ import SearchBar2 from './commons/SearchBar2.vue';
 export default {
   components: { ProfileBar, SideBar, Cart, SearchBar2},
   name: "PaymentPage",
+  data() {
+    return {
+      user: false,
+      listings: [],
+      buyerID : null,
+      cartRef : null,
+      cart : [],
+      searchEntry : "",
+      displayed : []
+    }},
   methods: {
     redirectToSuccess() {
       this.$router.push('/paymentsuccess');
     },
-  } 
+  },
+  mounted() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      this.user = user;
+      this.cartRef = doc(BuyersCart, this.user.uid);
+    }
+  })
+}
 };
 </script>
 

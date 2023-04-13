@@ -68,16 +68,9 @@
 </template>
 
 <script>
-import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/commons/NavBar.vue'
-import SearchBar from '@/components/commons/SearchBar.vue'
-import Listing from '@/components/Listing.vue'
-import ListingBuyer from '@/components/ListingBuyer.vue'
-import AddListing from '@/components/AddListing.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
-import { MIN_VALUE } from 'long'
 
 const db = getFirestore(firebaseApp)
 const BuyersCart = collection(db, 'BuyersCart');
@@ -185,15 +178,6 @@ if (this.cartRef) {
 </script>
 
 <style scoped>
-.template {
- margin: 0;
- padding: 0;
- background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
- height: 100vh;
- display: flex;
- justify-content: center;
- align-items: center;
-}
 .CartContainer{
 	width: 100vw;
 	height: 100vh;

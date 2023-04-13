@@ -15,6 +15,7 @@ import BuyerChat from "@/views/BuyerChat.vue"
 import SellerChat from "@/views/SellerChat.vue"
 import Payment from "../components/Payment.vue"
 import PaymentSuccess from "../components/PaymentSuccess.vue"
+import ProfilePage from "../components/Profile.vue"
 
 const routes = [
   {
@@ -97,6 +98,11 @@ const routes = [
     path: '/PaymentSuccess',
     name: 'paymentsuccess',
     component: PaymentSuccess
+  },
+  {
+    path: '/profilepage',
+    name: 'profilepage',
+    component: ProfilePage
   }
 
 ]
