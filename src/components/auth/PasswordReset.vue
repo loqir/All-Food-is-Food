@@ -40,6 +40,12 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 export default {
   name: "ResetPassword",
 
+  data() {
+    return {
+      email: ""
+    }
+  },
+
   methods: {
     async resetPassword() {
       const auth = getAuth();
@@ -51,7 +57,9 @@ export default {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        console.log(errorMessage);
+        if (errorCode == "auth/missing-email" || errorCode == "auth/invalid-email") {
+          alert("Please Enter a Valid Email")
+        }
       })
     }
   }
