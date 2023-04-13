@@ -110,6 +110,14 @@ export default {
               const errorMessage = error.message;
 
               console.log(errorMessage)
+              if (errorCode ==  "auth/invalid-email") {
+                alert("Invalid Email/Password. Please try again")
+              } else if (errorCode ==  "auth/missing-password") {
+                alert("Please enter a valid password")
+              } else if (errorCode == "auth/wrong-password") {
+                alert("Invalid Email/Password. Please try again.")
+              }
+              // alert(errorCode)
 
             });
         }

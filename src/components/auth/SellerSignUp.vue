@@ -140,8 +140,9 @@ export default {
                 const errorCode = error.code;
                 const errorMessage = error.message;
 
-                console.log(errorCode);
-                console.log(errorMessage);
+                if (errorCode == "auth/email-already-in-use") {
+                  alert("Email already linked to an existing account!")
+                }
             });
           }
         }
