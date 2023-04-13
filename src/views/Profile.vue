@@ -1,31 +1,57 @@
 <template>
     <div style="text-align:center" v-if="user">
         <NavBar/>
-        <ProfileBar/>
         <div>
             <h3 v-if="isBuyer"><strong> Buyer Profile </strong></h3>
             <h3 v-else><strong> Seller Profile </strong></h3>
         </div>
-        <div v-if="user">
+        <div v-if="user" class = "row">
             <div>
                 <img id = "bg" :src="image" style="width:75px;height:75px;border-radius:50%;border:4px solid #333">
-            </div>
+                <button @click="clickedProfile"> Change Profile Picture <br> </button>
+                <div v-if="changePic">
+                    <input type = "file" ref ="myfile" > <br>
+                    <button style = "border:none;" @click ="upload"> Upload </button>
+                </div>
+            </div> <br> 
+
             <div v-if="isBuyer">
-                <p> Name: <strong> {{firstName}} {{lastName}}</strong><br/>
+                <p> First Name: <strong> {{firstName}}</strong><br/>
+                <button @click="clickedFirstName"> Change First Name <br> </button>
+                <div v-if="changeFirstName">
+                    <input type = "text" placeholder="First Name" v-model="newFirstName">
+                    <button style = "border:none;" @click ="uploadFirstName"> Submit </button>
+                </div> <br> 
+
+                Last Name: <strong>{{lastName}}</strong><br/>
+                <button @click="clickedLastName"> Change Last Name <br> </button>
+                <div v-if="changeLastName">
+                    <input type = "text" placeholder="Last Name" v-model="newLastName">
+                    <button style = "border:none;" @click ="uploadLastName"> Submit </button>
+                </div> <br> <br>
+
                 Email: <strong>{{user.email}}</strong><br>
                 Uid: <strong>{{user.uid}}</strong><br>
+
                 Phone: <strong>{{phoneNum}}</strong></p>
+                <button @click="clickedNum"> Change HP <br> </button>
+                <div v-if="changeNum">
+                    <input type = "text" placeholder="New Number" v-model="newNum">
+                    <button style = "border:none;" @click ="uploadNum"> Submit </button>
+                </div> <br> <br>
             </div>
             <div v-else>
                 <p> Company Name: <strong> {{companyName}}</strong><br/>
                 Company Email: <strong>{{user.email}}</strong><br>
-                Uid: <strong>{{user.uid}}</strong><br>
                 UEN: <strong>{{uen}}</strong></p>
+
+                Staff Name: <strong> {{staffName}}</strong><br/>
+                <button @click="clickedStaffName"> Change Staff Name <br> </button>
+                <div v-if="changeStaffName">
+                    <input type = "text" placeholder="Staff Name" v-model="newStaffName">
+                    <button style = "border:none;" @click ="uploadStaffName"> Submit </button>
+                </div> <br> 
             </div>
-
-            <input type = "file" ref ="myfile"> <br>
-
-            <button style = "border:none;" @click ="upload"> Upload </button> <br><br>
         </div>
         <Logout/>
         <br>
@@ -62,7 +88,17 @@ export default {
             phoneNum: "",
             uen: "",
             companyName: "",
-            image: ""
+            image: "",
+            changePic: false,
+            changeFirstName: false,
+            changeLastName: false,
+            changeNum: false,
+            newFirstName: "",
+            newLastName: "",
+            newNum: "",
+            staffName: "",
+            newStaffName: "",
+            changeStaffName: false
         }
     },
 
@@ -83,10 +119,10 @@ export default {
 
             } else if (sellDocSnap.exists()) {
                 this.isBuyer = false;
-                console.log("Document data:", sellDocSnap.data());
-                // this.firstName = sellDocSnap.data().FirstName;
                 this.companyName = sellDocSnap.data().CompanyName;
+                this.staffName = sellDocSnap.data().StaffName;
                 this.uen = sellDocSnap.data().UEN;
+                this.image = sellDocSnap.data().ProfilePic;
             } else {
                 console.log("No such document!");
             }
@@ -116,11 +152,72 @@ export default {
                 } else if (sellDocSnap.exists()) {
                     await updateDoc(sellDocRef, {ProfilePic: downloadURL})
                 }
+                this.$router.go(0);
                 
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        clickedProfile() {
+            this.changePic = !this.changePic;
+        },
+
+        clickedFirstName() {
+            this.changeFirstName = !this.changeFirstName;
+        },
+
+        clickedLastName() {
+            this.changeLastName = !this.changeLastName;
+        },
+
+        clickedStaffName() {
+            this.changeStaffName = !this.changeStaffName;
+        },
+
+        clickedNum() {
+            this.changeNum = !this.changeNum;
+        },
+
+        async uploadFirstName() {
+            const buyDocRef = doc(getFirestore(firebaseApp), "buyers", this.user.uid);
+            const buyDocSnap = await getDoc(buyDocRef);
+
+            if (buyDocSnap.exists()) {
+                await updateDoc(buyDocRef, {FirstName: this.newFirstName})
+                this.$router.go(0);
+            }
+        },
+
+        async uploadLastName() {
+            const buyDocRef = doc(getFirestore(firebaseApp), "buyers", this.user.uid);
+            const buyDocSnap = await getDoc(buyDocRef);
+
+            if (buyDocSnap.exists()) {
+                await updateDoc(buyDocRef, {LastName: this.newLastName})
+                this.$router.go(0);
+            }
+        },
+
+        async uploadNum() {
+            const buyDocRef = doc(getFirestore(firebaseApp), "buyers", this.user.uid);
+            const buyDocSnap = await getDoc(buyDocRef);
+
+            if (buyDocSnap.exists()) {
+                await updateDoc(buyDocRef, {Phone: this.newNum})
+                this.$router.go(0);
+            }
+        },
+
+        async uploadStaffName() {
+            const sellDocRef = doc(getFirestore(firebaseApp), "sellers", this.user.uid);
+            const sellDocSnap = await getDoc(sellDocRef);
+
+            if (sellDocSnap.exists()) {
+                await updateDoc(sellDocRef, {StaffName: this.newStaffName})
+                this.$router.go(0);
+            }
+        },
     },
 
     mounted() {

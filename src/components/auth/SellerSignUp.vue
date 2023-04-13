@@ -25,13 +25,13 @@
                 <p class="username-or-email-address">
                   Company Name
                 </p>
-                <input class="email-input" type="text" placeholder="Company Name">
+                <input class="email-input" type="text" placeholder="Company Name" v-model="companyName">
               </div>
               <div class="frame-35364">
                 <p class="username-or-email-address">
                   Staff Name
                 </p>
-                <input class="email-input" type="text" placeholder="Staff Name">
+                <input class="email-input" type="text" placeholder="Staff Name" v-model="staffName">
               </div>
             </div>
             <div class="frame-35366">
@@ -59,7 +59,7 @@
                 <p class="username-or-email-address">
                   Confirm password
                 </p>
-                <input class="email-input" placeholder="Confirm Password" type="password">
+                <input class="email-input" placeholder="Confirm Password" type="password" v-model="password2">
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ import firebaseApp from '@/firebase.js'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, collection, query, where, getDocs } from "firebase/firestore"; 
 
 export default {
   name: "SellerSignUp",
@@ -95,13 +95,30 @@ export default {
       return {
         email: "",
         password: "",
-        companyname: "",
+        password2: "",
+        companyName: "",
+        staffName: "",
         uen: ""
       }
     },
 
     methods: {
         async createSeller() {
+          const buyersRef = collection(getFirestore(firebaseApp), "buyers");
+          const q = query(buyersRef, where("Email", "==", this.email))
+          const qSnapshot = await getDocs(q);
+
+          const sellersRef = collection(getFirestore(firebaseApp), "sellers");
+          const q2 = query(sellersRef, where("Email", "==", this.email));
+          const qSnapshot2 = await getDocs(q2);
+
+          if (qSnapshot.docs.length > 0 || qSnapshot2.docs.length > 0) {
+            alert("Email already linked to an existing account!")
+          } else if (this.password != this.password2) {
+            alert("Passwords do not match. Please try again.")
+          } else if (this.email == "" || this.companyName == "" || this.staffName == "" || this.password == "" || this.password2 == "" || this.uen == "") {
+            alert("Please enter all required details.")
+          } else {
             console.log("Creating User");
             const auth = getAuth();
             await createUserWithEmailAndPassword(auth, this.email, this.password)
@@ -110,12 +127,14 @@ export default {
                 console.log(user);
 
                 await setDoc(doc(getFirestore(firebaseApp), "sellers", user.uid), {
-                    CompanyName: this.companyname,
+                    CompanyName: this.companyName,
                     Email: this.email,
-                    UEN: this.uen
+                    UEN: this.uen,
+                    StaffName: this.staffName,
+                    ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Faccountpic.jpeg?alt=media&token=26a28f0c-37ea-41f0-a8fc-6b680acaa09f"
                 });
 
-                this.$router.push('/home')
+                this.$router.push('/sellerlistingview')
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -124,6 +143,7 @@ export default {
                 console.log(errorCode);
                 console.log(errorMessage);
             });
+          }
         }
     }
 };
