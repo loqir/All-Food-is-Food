@@ -51,9 +51,9 @@ const sellerListings = collection(db, "SellerListings");
 export default {
     data() {
         productEntry : ""
-        priceEntry : ""
+        priceEntry : 0
         descriptionEntry: ""
-        quantityEntry: ""
+        quantityEntry: 0
         image: ""
         sellerDocument : null
     },
@@ -87,9 +87,9 @@ export default {
   await setDoc(newListingRef, {
     id: newListingRef.id,
     name: this.productEntry,
-    price: this.priceEntry,
+    price: Number(this.priceEntry),
     description: this.descriptionEntry,
-    qty : this.quantityEntry,
+    qty : Number(this.quantityEntry),
     image: this.image
   });
   const docSnap = await getDoc(this.sellerDocument);

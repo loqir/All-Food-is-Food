@@ -2,10 +2,12 @@
     <div class="CartContainer">
    	   <div class="Header">
    	   	<h3 class="Heading">Shopping Cart</h3>
+			  <button style = "border:none;" v-on:click = "removecart">
    	   	<h5 class="Action">Remove all</h5>
+		</button>
    	   </div>
 
-   	   <div class="Cart-Items">
+   	   <!-- <div class="Cart-Items">
    	   	  <div class="image-box">
    	   	  	<img class="img1" src="images/apple.png"/>
    	   	  </div>
@@ -22,24 +24,33 @@
    	   	  	<div class="amount">$2.99</div>
    	   	  	<div class="remove"><u>Remove</u></div>
    	   	  </div>
-   	   </div>
+   	   </div> -->
+
 
    	   <div class="Cart-Items pad">
    	   	  <div class="image-box">
-   	   	  	<img class="img1" src="../../assets/landingpage.jpg"/>
+   	   	  	<img class="img1" 
+			:src= item.image
+			/>
    	   	  </div>
    	   	  <div class="about">
-   	   	  	<h1 class="title">Grapes Juice</h1>
-   	   	  	<h3 class="subtitle">250ml</h3>
+   	   	  	<h1 class="title">{{ item.name }}</h1>
+   	   	  	<!-- <h3 class="subtitle">250ml</h3> -->
    	   	  </div>
    	   	  <div class="counter">
-   	   	  	<div class="btn">+</div>
-   	   	  	<div class="count">1</div>
-   	   	  	<div class="btn">-</div>
+			<button style = "border:none;" v-on:click = "decrement(item)">
+   	   	  	<div>-</div>
+			</button>
+   	   	  	<div class="count">{{quantity }} </div>
+					<button style = "border:none;" v-on:click = "increment(item)">
+   	   	  	<div>+</div>
+			</button>
    	   	  </div>
    	   	  <div class="prices">
-   	   	  	<div class="amount">$3.19</div>
+   	   	  	<div class="amount"> PRICE {{ item.price}}</div>
+			<button style = "border:none;" v-on:click = "deletefromcart(item)">
    	   	  	<div class="remove"><u>Remove</u></div>
+		</button>
    	   	  </div>
    	   </div>
    	 <hr> 
@@ -47,9 +58,9 @@
    	 <div class="total">
    	 	<div>
    	 		<div class="Subtotal">Sub-Total</div>
-   	 		<div class="items">2 items</div>
+   	 		<div class="items">{{uniqueCart.length}} items</div>
    	 	</div>
-   	 	<div class="total-amount">$6.18</div>
+   	 	<div class="total-amount"> $ {{  totalValue }}</div>
    	 </div>
    	 <button class="button">Checkout</button></div>
    </div> 
@@ -57,9 +68,117 @@
 </template>
 
 <script>
+import Logout from '@/components/Logout.vue'
+import NavBar from '@/components/commons/NavBar.vue'
+import SearchBar from '@/components/commons/SearchBar.vue'
+import Listing from '@/components/Listing.vue'
+import ListingBuyer from '@/components/ListingBuyer.vue'
+import AddListing from '@/components/AddListing.vue'
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import firebaseApp from '@/firebase.js'
+import { getFirestore, collection, query, getDocs, doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
+import { MIN_VALUE } from 'long'
+
+const db = getFirestore(firebaseApp)
+const BuyersCart = collection(db, 'BuyersCart');
+const AllListings = collection(db, "All Listings")
 export default {
-  name: "Cart"
-};
+  name: 'Cart',
+  props: {
+    item: {
+      type: Object,
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+	uniqueCart: {
+      type: Array,
+      required: true,
+    },
+	cart: {
+      type: Array,
+      required: true,
+    },
+  },
+  
+    data() {
+      return {
+      user : false,
+      cartRef : "",
+	  totalValue : 0
+      }
+
+    },
+	mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        this.user = user;
+        const specificbuyer = doc(BuyersCart, this.user.uid);
+        this.cartRef = specificbuyer;
+        let total = 0;
+        for (let item of this.cart) {
+          total += item.price;
+        }
+        this.totalValue = total;
+		console.log(this.totalValue)
+      }
+    });
+  },
+
+    methods: {
+      async deletefromcart(itemtoDelete) {
+if (this.cartRef) {
+  getDoc(this.cartRef).then((doc) => {
+    if (doc.exists()) {
+      const list = doc.data().myArrayField;
+      const updatedList = list.filter((itemID) => itemID !== itemtoDelete.id);
+      updateDoc(this.cartRef, { myArrayField: updatedList })
+
+        .then(() => {
+          console.log('Element removed successfully');
+        })
+        .catch((error) => {
+          console.error('Error removing element: ', error);
+        });
+    }
+  });
+}
+
+  console.log("DELETE FROM CART");
+
+},
+ async decrement(item)
+ {
+	const index = this.cart.indexOf(item);
+	this.cart.splice(index, 1)
+
+ },
+ async increment(item){
+	this.cart.push(item)
+
+ },
+ removecart() {
+	deleteDoc(this.cartRef)
+ }
+
+    },
+// 	computed: {
+//     async totalValue() {
+//       let total = 0;
+//       for (let listingID of this.cart) {
+// 		const docRef = doc(collection(db, "All Listings"), listingID);
+// 		const docSnap = await getDoc(docRef);
+// 		const price = docSnap.data().price;
+// 		console.log(price)
+//         total += price
+//       }
+//       return total;
+//     }
+//   },
+}
 </script>
 
 <style scoped>

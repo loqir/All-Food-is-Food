@@ -12,7 +12,7 @@
             <h1>My Cart</h1>    
             <div v-if="uniqueCart.length">
       <div v-for="item in uniqueCart" :key="item.id">
-        <Cart2 :item="item" :quantity="cartQuantities[item.id]" />
+        <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" />
       </div>
     </div>
     <div v-else>
@@ -30,7 +30,7 @@ import SearchBar from '@/components/commons/SearchBar.vue'
 import Listing from '@/components/Listing.vue'
 import ListingBuyer from '@/components/ListingBuyer.vue'
 import AddListing from '@/components/AddListing.vue'
-import Cart2 from '@/components/Cart2.vue'
+import Cart from '@/components/commons/Cart.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
@@ -47,7 +47,7 @@ export default {
     SearchBar,
     ListingBuyer,
     AddListing,
-    Cart2
+    Cart
   },
   data() {
     return {
@@ -142,11 +142,11 @@ computed: {
 },
     uniqueCart() {
     const cartIds = [];
-    return this.cart.filter(item => {
-      if (cartIds.includes(item.id)) {
+    return this.cart.filter(item1 => {
+      if (cartIds.includes(item1.id)) {
         return false;
       } else {
-        cartIds.push(item.id);
+        cartIds.push(item1.id);
         return true;
       }
     });
