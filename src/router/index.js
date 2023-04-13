@@ -94,11 +94,6 @@ const routes = [
     component: Payment
   },
   {
-    path: '/Cart',
-    name: 'Cart',
-    component: Cart
-  },
-  {
     path: '/PaymentSuccess',
     name: 'paymentsuccess',
     component: PaymentSuccess
