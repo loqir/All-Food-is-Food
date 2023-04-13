@@ -47,7 +47,7 @@
 			</button>
    	   	  </div>
    	   	  <div class="prices">
-   	   	  	<div class="amount"> PRICE {{ item.price}}</div>
+   	   	  	<div class="amount"> PRICE ${{ item.price}}</div>
 			<button style = "border:none;" v-on:click = "deletefromcart(item)">
    	   	  	<div class="remove"><u>Remove</u></div>
 		</button>
@@ -58,7 +58,7 @@
    	 <div class="total">
    	 	<div>
    	 		<div class="Subtotal">Sub-Total</div>
-   	 		<div class="items">{{uniqueCart.length}} items</div>
+   	 		<div class="items">{{cart.length}} items</div>
    	 	</div>
    	 	<div class="total-amount"> $ {{  totalValue }}</div>
    	 </div>
@@ -154,10 +154,13 @@ if (this.cartRef) {
  {
 	const index = this.cart.indexOf(item);
 	this.cart.splice(index, 1)
+	this.totalValue -= item.price
 
  },
  async increment(item){
 	this.cart.push(item)
+	this.totalValue += item.price
+
 
  },
  removecart() {
