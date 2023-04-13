@@ -93,7 +93,6 @@ const routes = [
     name: 'Payment',
     component: Payment
   },
-
   {
     path: '/PaymentSuccess',
     name: 'paymentsuccess',
