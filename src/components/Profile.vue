@@ -7,54 +7,29 @@
         <ProfileBar id="profile-bar"/>
       </div>
     <div class="component-2">
-    <img
-      alt=""
-      class="vector-3"
-      src="https://static.overlay-tech.com/assets/aeb39485-6055-4ef0-a449-7735ab374bf5.svg"/>
-      <img
-      alt=""
-      class="vector-4"
-      src="https://static.overlay-tech.com/assets/deb5c46c-91a8-44f2-aee0-6796f3f03190.svg"
-    />
     <div class="online-order">
       <p class="edit-profile">Edit Profile</p>
-      <div class="frame-38128">
-        <div class="dineline">
-          <p class="first-name">First Name</p>
-          <div class="frame-37960">
-            <p class="edit">Edit</p>
-          </div>
-        </div>
-        <div class="rectangle-1111"></div>
-        <div class="dineline">
-          <p class="first-name">Last Name</p>
-          <div class="frame-37960">
-            <p class="edit">Edit</p>
-          </div>
-        </div>
-        <div class="rectangle-1111"></div>
-        <div class="dineline">
-          <p class="first-name">Mobile No.</p>
-          <div class="frame-37960">
-            <p class="edit">Edit</p>
-          </div>
-        </div>
-        <div class="rectangle-1111"></div>
-        <div class="dineline">
-          <p class="first-name">Email</p>
-          <div class="frame-37960">
-            <p class="edit">Edit</p>
-          </div>
-        </div>
-        <div class="rectangle-1111"></div>
-        <div class="dineline">
-          <p class="first-name">Profile Picture</p>
-          <div class="frame-37960">
-            <p class="edit">Edit</p>
-          </div>
-        </div>
+      <div class="edit1">
+        <p class="first-name">First Name</p>
+        <button class="edit">Edit</button>
       </div>
-    </div>
+      <div class="edit1"> 
+        <p class="first-name">Last Name</p>
+        <button class="edit">Edit</button>
+      </div >
+      <div class="edit1">
+        <p class="first-name">Mobile No.</p>
+        <button class="edit">Edit</button>
+      </div>
+      <div class="edit1">
+        <p class="first-name">Email</p>
+        <button class="edit">Edit</button>
+      </div>
+      <div class="edit1">
+        <p class="first-name">Profile Picture</p>
+        <button class="edit">Edit</button>
+      </div>
+        </div>
   <div class="group-34519">
     <img
       alt=""
@@ -107,9 +82,6 @@ export default {
 #search-bar:focus {
   outline: none;
 }
-#cart{
-  width: 60%;
-}
 .flex-wrapper-one {
   padding: 1px 0 0;
   display: flex;
@@ -118,7 +90,7 @@ export default {
   width: 80vw;
 }
 .relative-wrapper-one {
-  margin-bottom: 5vh;
+  margin-bottom: 20vh;
   position: relative;
   align-items: center;
   width: 90vw;
@@ -127,9 +99,10 @@ export default {
 }
 .component-2 {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   width: 80vw;
-  text-align: center;
+  justify-content: space-around;
+  align-items: center;
 }
 .vector-3 {
   width: 107.53%;
@@ -148,13 +121,11 @@ export default {
 .online-order {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 24px;
-  padding: 24px 24px 126px;
-  display: inline-block;
-  align-items: center;
+  padding: 24px;
   backdrop-filter: blur(42px);
-  margin-left: 30vw;
-  display: inline-block;
-  width: 30vw;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
 }
 .edit-profile {
   font-family: "Playfair Display";
@@ -162,40 +133,20 @@ export default {
   font-weight: 700;
   line-height: 30px;
   color: rgba(7, 20, 59, 1);
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   letter-spacing: 0.46px;
 }
-.frame-38128 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  height: 441px;
-}
-.dineline {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.dineline:not(:last-of-type) {
-  margin-bottom: 24px;
-}
 .first-name {
-  width: 116px;
+  width: 80%;
   font-family: "Poppins";
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
   color: rgba(7, 20, 59, 1);
-  margin-right: 284px;
   letter-spacing: 0.32px;
-}
-.frame-37960 {
-  background-color: rgba(234, 106, 18, 1);
-  border-radius: 100px;
-  padding: 8px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: inline;
+  justify-self: start;
+  font-size: 18px;
 }
 .edit {
   font-family: "Poppins";
@@ -204,23 +155,21 @@ export default {
   line-height: 28px;
   color: rgba(255, 255, 255, 1);
   letter-spacing: 0.32px;
-}
-.rectangle-1111 {
-  width: 454px;
-  height: 1px;
-  background-color: rgba(251, 225, 208, 1);
-  margin-bottom: 24px;
+  background-color:rgba(234, 106, 18, 1);
+  border-radius: 24px;
+  width: 70px;
 }
 .group-34519 {
-  width: 10vw;
-  display: inline-block;
+  width: 20vw;
+  display: flex;
   align-items: flex-start;
 }
 .frame-36549 {
-  width: 25.64%;
   align-self: stretch;
   margin-right: 26px;
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 .frame-37929 {
   margin-top: 37px;
@@ -244,23 +193,12 @@ export default {
   margin-bottom: 8px;
   letter-spacing: 0.46px;
 }
-.frame-37926 {
+.edit1 {
+  width: 100%;
+  margin-bottom: 20px;
+  height: 20%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.iconly-light-navigation {
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
-}
-.singapore-singapore {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  color: rgba(7, 20, 59, 1);
-  letter-spacing: 0.32px;
+  text-align: start;
 }
 .buyer {
   font-family: "Poppins";
