@@ -6,26 +6,16 @@
         <SearchBar2/>
         <ProfileBar id="profile-bar"/>
       </div>
-      </div>
-  </div>
     <div class="component-2">
-  <div class="relative-wrapper-one">
     <img
       alt=""
       class="vector-3"
-      src="https://static.overlay-tech.com/assets/aeb39485-6055-4ef0-a449-7735ab374bf5.svg"
-    /><img
+      src="https://static.overlay-tech.com/assets/aeb39485-6055-4ef0-a449-7735ab374bf5.svg"/>
+      <img
       alt=""
       class="vector-4"
       src="https://static.overlay-tech.com/assets/deb5c46c-91a8-44f2-aee0-6796f3f03190.svg"
     />
-    <div class="user-profile">
-      <img
-        alt=""
-        class="user-profile-banner-image"
-        src="https://static.overlay-tech.com/assets/8f3452fb-e6dc-454f-b3e8-ed43ed5d782d.png"
-      />
-    </div>
     <div class="online-order">
       <p class="edit-profile">Edit Profile</p>
       <div class="frame-38128">
@@ -65,7 +55,6 @@
         </div>
       </div>
     </div>
-  </div>
   <div class="group-34519">
     <img
       alt=""
@@ -75,16 +64,6 @@
     <div class="frame-37929">
       <div class="frame-37927">
         <p class="michelle-chong">Michelle Chong</p>
-        <div class="frame-37926">
-          <img
-            alt=""
-            class="iconly-light-navigation"
-            src="https://static.overlay-tech.com/assets/b3a3af50-c824-47af-a951-1b2dd74321d4.svg"
-          />
-          <p class="singapore-singapore">
-            Singapore, Singapore
-          </p>
-        </div>
       </div>
       <div class="frame-37927">
         <p class="buyer">Buyer</p>
@@ -93,6 +72,8 @@
     </div>
   </div>
 </div>
+    </div>
+    </div>
 
 </template>
 
@@ -109,7 +90,7 @@ export default {
 <style scoped>
 .profile-page {
   background-color: rgba(250, 250, 250, 1);
-  padding-bottom: 10vh;
+  height: 100vh;
   display: flex;
   align-items: flex-start;
   width: 100vw;
@@ -139,21 +120,16 @@ export default {
 .relative-wrapper-one {
   margin-bottom: 5vh;
   position: relative;
-  align-items: flex-end;
-  display: flex;
+  align-items: center;
   width: 90vw;
+  display:flex;
+
 }
 .component-2 {
-  padding: 0 71.55px 289px 64.05px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-.relative-wrapper-one {
-  height: 60%;
-  margin-bottom: 264px;
-  align-self: stretch;
-  position: relative;
+  width: 80vw;
+  text-align: center;
 }
 .vector-3 {
   width: 107.53%;
@@ -169,31 +145,16 @@ export default {
   right: -65.45px;
   bottom: -110.65px;
 }
-.user-profile {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 1);
-  overflow: hidden;
-  border-radius: 24px;
-  position: relative;
-}
-.user-profile-banner-image {
-  width: 1720px;
-  height: 606px;
-}
 .online-order {
-  width: calc(30.58% - 48px);
-  height: calc(107.76% - 150px);
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 24px;
   padding: 24px 24px 126px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: absolute;
-  right: 330px;
-  bottom: -693px;
+  display: inline-block;
+  align-items: center;
   backdrop-filter: blur(42px);
+  margin-left: 30vw;
+  display: inline-block;
+  width: 30vw;
 }
 .edit-profile {
   font-family: "Playfair Display";
@@ -251,8 +212,8 @@ export default {
   margin-bottom: 24px;
 }
 .group-34519 {
-  margin-left: 101px;
-  display: flex;
+  width: 10vw;
+  display: inline-block;
   align-items: flex-start;
 }
 .frame-36549 {
