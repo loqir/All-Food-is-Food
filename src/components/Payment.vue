@@ -36,18 +36,29 @@ import ProfileBar from './commons/ProfileBar.vue';
 import SideBar from './commons/SideBar.vue';
 import Cart from './commons/Cart.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
+import Logout from '@/components/Logout.vue'
+import NavBar from '@/components/commons/NavBar.vue'
+import SearchBar from '@/components/commons/SearchBar.vue'
+import Listing from '@/components/Listing.vue'
+import ListingBuyer from '@/components/ListingBuyer.vue'
+import AddListing from '@/components/AddListing.vue'
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import firebaseApp from '@/firebase.js'
+import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
+
+const db = getFirestore(firebaseApp)
+const AllListings = collection(db, "All Listings")
+const BuyersCart = collection(db, 'BuyersCart');
+
 export default {
   components: { ProfileBar, SideBar, Cart, SearchBar2},
   name: "PaymentPage",
   data() {
     return {
       user: false,
-      listings: [],
-      buyerID : null,
       cartRef : null,
-      cart : [],
-      searchEntry : "",
-      displayed : []
+      cart : []
+
     }},
   methods: {
     redirectToSuccess() {
@@ -60,8 +71,49 @@ export default {
     if (user) {
       this.user = user;
       this.cartRef = doc(BuyersCart, this.user.uid);
+      getDoc(this.cartRef).then(async (docA) => {
+        if (docA.exists()) {
+          // Access a specific field in the document data
+          this.cart = docA.data().myArrayField;
+          console.log("cart not empty")
+          for (let i = 0; i < this.cart.length; i++) {
+            const listingID = this.cart[i]
+            console.log(" LISTING ID IS " + listingID)
+            const docRef = doc(AllListings, listingID)
+            const docSnapshot = await getDoc(docRef);
+            this.cart[i] = docSnapshot.data()
+            console.log(this.user.uid)
+          }
+        } else {
+          // Document doesn't exist
+          this.cart = []
+          console.log("cart empty")
+        }
+      });
     }
   })
+},
+computed: {
+  uniqueCart() {
+    const cartIds = [];
+    return this.cart.filter(item1 => {
+      if (cartIds.includes(item1.id)) {
+        return false;
+      } else {
+        cartIds.push(item1.id);
+        return true;
+      }
+    });
+  },
+  cartQuantities() {
+    const quantities = {};
+    for (const item of this.uniqueCart) {
+      if (!quantities.hasOwnProperty(item.id)) {
+        quantities[item.id] = this.cart.filter(i => i.id === item.id).length;
+      }
+    }
+    return quantities;
+  }
 }
 };
 </script>
