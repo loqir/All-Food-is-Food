@@ -104,20 +104,6 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-.vector-3 {
-  width: 107.53%;
-  height: 25.08%;
-  position: absolute;
-  right: -68.5px;
-  bottom: -147px;
-}
-.vector-4 {
-  width: 107.53%;
-  height: 25.08%;
-  position: absolute;
-  right: -65.45px;
-  bottom: -110.65px;
-}
 .online-order {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 24px;

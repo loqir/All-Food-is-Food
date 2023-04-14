@@ -16,6 +16,7 @@ import SellerChat from "@/views/SellerChat.vue"
 import Payment from "../components/Payment.vue"
 import PaymentSuccess from "../components/PaymentSuccess.vue"
 import ProfilePage from "../components/Profile.vue"
+import BuyerListings from "../components/BuyerListing.vue"
 
 const routes = [
   {
@@ -103,6 +104,11 @@ const routes = [
     path: '/profilepage',
     name: 'profilepage',
     component: ProfilePage
+  },
+  {
+    path: '/buyerlistings',
+    name: 'buyerlistings',
+    component: BuyerListings
   }
 
 ]
