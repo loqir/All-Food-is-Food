@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import AboutView from '@/views/AboutView.vue'
 import NotFound from '@/views/NotFound.vue'
-import Profile from '@/views/Profile.vue'
+import OldProfile from '@/views/OldProfile.vue'
 import SellerListingView from '@/views/SellerListingView.vue'
 import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
@@ -36,9 +36,9 @@ const routes = [
     component: NotFound
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile
+    path: '/oldprofile',
+    name: 'OldProfile',
+    component: OldProfile
   },
   {
     path: '/sellerlistingview',
