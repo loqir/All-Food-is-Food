@@ -31,6 +31,7 @@
 const db = getFirestore(firebaseApp)
 const sellerListings = collection(db, "SellerListings");
 const AllListings = collection(db, "All Listings")
+
   export default {
     name: 'SellerListingView',
     components: {

@@ -46,6 +46,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const db = getFirestore(firebaseApp)
 const sellerListings = collection(db, "SellerListings");
+const sellers = collection(db, "sellers")
 
 
 export default {
@@ -56,14 +57,20 @@ export default {
         quantityEntry: 0
         image: ""
         sellerDocument : null
+        sellerName : ""
     },
     mounted() {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.user = user;
         const specificSeller = doc(sellerListings, this.user.uid);
         this.sellerDocument = specificSeller
+        const specificSellerInfo = doc(sellers, this.user.uid )
+        const docSnapshot = await getDoc(specificSellerInfo)
+        const data = docSnapshot.data()
+        this.sellerName = data.CompanyName
+        console.log(this.sellerName)
       }
     })
   },
@@ -90,7 +97,8 @@ export default {
     price: Number(this.priceEntry),
     description: this.descriptionEntry,
     qty : Number(this.quantityEntry),
-    image: this.image
+    image: this.image,
+    Seller : this.sellerName
   });
   const docSnap = await getDoc(this.sellerDocument);
 if (docSnap.exists()) {

@@ -132,6 +132,7 @@ if (this.cartRef) {
 
         .then(() => {
           console.log('Element removed successfully');
+		  this.$router.go(0)
         })
         .catch((error) => {
           console.error('Error removing element: ', error);
@@ -139,6 +140,7 @@ if (this.cartRef) {
     }
   });
 }
+
 
   console.log("DELETE FROM CART");
 
