@@ -122,7 +122,7 @@
             }
           } else {
             this.loggedin = false;
-            this.title = 'please login';
+            this.title = 'Please Login';
           }
         });
       },
@@ -156,7 +156,7 @@
           }
         } else {
             this.loggedin = false;
-            this.title = 'please login';
+            this.title = 'Please Login';
           }
         });
         onUnmounted(loginListener)

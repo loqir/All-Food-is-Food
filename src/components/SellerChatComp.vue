@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-    <input type="text" @keypress.enter="sendMessage" ref="newMessage" placeholder="new message ...">
+    <input type="text" size="100" @keypress.enter="sendMessage" ref="newMessage" placeholder="new message ...">
     <button @click="sendMessage()" class="btn btn-primary">send</button>
   </template>
   
@@ -72,6 +72,9 @@
   </script>
   
   <style>
+  .btn-primary, .btn-primary:hover, .btn-primary:active {
+    background-color: rgba(234, 106, 18, 1);
+  }
   .chatbox {
         height: 50vh;
         overflow: scroll;

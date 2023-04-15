@@ -15,11 +15,13 @@
         @keypress.enter="sendMessage"
         ref="newMessage"
         placeholder="new message ..."
+        size = 100
       />
       <button @click="sendMessage" class="btn btn-primary">send</button>
       </div>
       <div v-else>
-        <h2>Oops! Please log in!</h2>
+        <h1>Please Login</h1>
+        <button >login</button>
       </div>
     </template>
     
@@ -127,6 +129,10 @@
     </script>
     
     <style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active {
+    background-color: rgba(234, 106, 18, 1);
+    }
+
     .chatbox {
       height: 50vh;
       overflow: scroll;
