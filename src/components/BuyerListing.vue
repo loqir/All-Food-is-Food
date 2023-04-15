@@ -7,6 +7,12 @@
         <ProfileBar id="profile-bar"/>
       </div>
       <h1 class="header"> Food Items </h1>
+      <div class="listing-container">
+        <div class="listings">
+        <Listing class="listing"/>
+        <Listing class="listing"/>
+        <Listing class="listing"/>
+      </div>
       <div class="listings">
         <Listing class="listing"/>
         <Listing class="listing"/>
@@ -15,6 +21,8 @@
       <div class="listings">
         <Listing class="listing"/>
         <Listing class="listing"/>
+        <Listing class="listing"/>
+      </div>
       </div>
     </div>
     <!--< Cart/> need to add the details to cart here --> 
@@ -62,7 +70,7 @@ export default {
   width: 80vw;
 }
 .relative-wrapper-one {
-  margin-bottom: 20vh;
+  margin-bottom: 5vh;
   position: relative;
   width: 90vw;
   display:flex;
@@ -73,21 +81,28 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   height: 50%;
+  margin-bottom: 40px;
 }
 
-.listing{
-  width: 15%;
+.listing {
+  width: 30%;
   margin: 0;
   align-self: flex-start;
   justify-self: flex-start;
+  height: 110%;
 }
 
 .header {
   text-align: center;
   justify-self: center;
   align-self: center; 
-  
+}
 
+.listing-container{ 
+  width: 50%;
+  height: 600px;
+  overflow-x:auto;
+  overflow-y: auto;
 }
 
 </style>>
