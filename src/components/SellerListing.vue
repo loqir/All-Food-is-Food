@@ -1,6 +1,6 @@
 <template>
   <div class="seller-listing">
-    <SideBar class="sidebar"/>
+    <SellerSideBar class="sidebar"/>
     <div class="flex-wrapper-one">
       <div class="relative-wrapper-one">
         <SearchBar2/>
@@ -31,11 +31,11 @@
 
 <script>
 import ProfileBar from './commons/ProfileBar.vue';
-import SideBar from './commons/SideBar.vue';
+import SellerSideBar from './commons/SellerSideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 import Listing from './commons/Listing.vue'
 export default {
-  components: { ProfileBar, SideBar, SearchBar2, Listing},
+  components: { ProfileBar, SellerSideBar, SearchBar2, Listing},
   name: "SellerListing",
 }
 </script>
