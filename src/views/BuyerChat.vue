@@ -1,4 +1,5 @@
 <template>
+  <NavBar/>
     <div v-if="client.id">
     <h1>{{ this.firstName }} {{ this.lastName }}</h1>
       <div>chat with : Admin</div>
@@ -14,17 +15,20 @@
         @keypress.enter="sendMessage"
         ref="newMessage"
         placeholder="new message ..."
+        size = 100
       />
       <button @click="sendMessage" class="btn btn-primary">send</button>
       </div>
       <div v-else>
-        <h2>Oops! Please log in!</h2>
+        <h1>Please Login</h1>
+        <button >login</button>
       </div>
     </template>
     
     <script>
     import { db, auth } from '../firebase.js';
     import firebaseApp from '@/firebase.js'
+    import NavBar from '@/components/commons/NavBar.vue'
     import {
       onSnapshot,
       collection,
@@ -41,6 +45,9 @@
     
     export default {
       name: 'BuyerChat',
+      components: {
+        NavBar
+      },
       props: {},
       data: () => {
         return {
@@ -122,6 +129,10 @@
     </script>
     
     <style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active {
+    background-color: rgba(234, 106, 18, 1);
+    }
+
     .chatbox {
       height: 50vh;
       overflow: scroll;

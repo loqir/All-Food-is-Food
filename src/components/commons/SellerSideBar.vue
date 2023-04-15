@@ -1,9 +1,8 @@
 <template>
   <div class="sidebar-3">
     <div class="frame-36360">
-      <button class="listings" @click="goToListing"></button>
+      <button class="listings" @click="goToListings()"></button>
       <button class="profile" @click="goToProfile()"></button>
-      <button class="cart" @click="goToPayment()"></button>
       <button class="chat" @click="goToChat()"></button>
       <button class="logout" @click="signOut()"></button>
     </div>
@@ -17,7 +16,6 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-
 export default {
   data() {
         return {
@@ -45,17 +43,14 @@ export default {
           this.$router.push('/profilepage');
         },
         goToListing() {
-          this.$router.push('/buyerlistings');
+          this.$router.push('/sellerlistings');
         },
         goToChat() {
-          this.$router.push('/buyerchat');
-        },
-        goToPayment() {
-          this.$router.push('/payment');
+          this.$router.push('/sellerchat');
         }
     },
 
-  name: "SideBar"
+  name: "SellerSideBar"
   
 };
 </script>
@@ -90,13 +85,6 @@ export default {
   height: 46.59px;
   margin-bottom: 24px;
   background: url("https://static.overlay-tech.com/assets/2ae22b5e-3487-497c-8813-491e81f933b4.png");
-  border: 0;
-}
-.cart {
-  width: 48px;
-  height: 48.6px;
-  margin-bottom: 24px;
-  background: url("https://static.overlay-tech.com/assets/d7ba3803-0722-4d52-bbed-5a3a64e742cd.png");
   border: 0;
 }
 .chat {

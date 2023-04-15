@@ -12,7 +12,7 @@
             <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
           </div>
         </div>
-          <div v-else>
+          <div class="empty" v-else>
             <p>Your cart is empty.</p>
           </div>
         <div class="my-cart-three">
@@ -36,12 +36,6 @@ import ProfileBar from './commons/ProfileBar.vue';
 import SideBar from './commons/SideBar.vue';
 import Cart from './commons/Cart.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
-import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/commons/NavBar.vue'
-import SearchBar from '@/components/commons/SearchBar.vue'
-import Listing from '@/components/Listing.vue'
-import ListingBuyer from '@/components/ListingBuyer.vue'
-import AddListing from '@/components/AddListing.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
@@ -155,46 +149,20 @@ computed: {
   display: flex;
   width: 90vw;
 }
-.navigation-bar {
-  background-color: rgba(255, 255, 255, 1);
-  padding: 16px 70vw 16px 32px;
-  box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
-  position: relative;
-  display: inline;
-  width: 80vw;
-}
-.icon-text {
-  background-color: rgba(255, 255, 255, 1);
-  overflow: hidden;
-  border-radius: 24px;
-  padding: 7px 15px;
-  display: flex;
-  align-items: center;
-  border: 1px solid rgba(227, 225, 225, 1);
-  height: 4vh;
-  width: 20vw;
-}
-.iconly-light-search {
-  margin-right: 8px;
-  padding: 1.17px 1.17px 1.75px 1.75px;
-  display: flex;
-  align-items: center;
-  width: 11.08px;
-  height: 11.08px;
-}
-.vector {
-  flex: 1;
-  align-self: stretch;
-  object-fit: cover;
-}
 .group-34518 {
   margin-left: 20px;
   display: flex;
-  align-items: flex-start;
+  justify-content: space-around;
   width: 80vw;
 }
+.empty {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  font-size: 30px;
+}
 .my-cart-three {
-  width: 40%;
+  width: 25%;
   height: calc(99.04% - 150px);
   background-color: rgba(255, 255, 255, 0.6);
   margin-top: 1px;
@@ -205,6 +173,7 @@ computed: {
   align-items: center;
   backdrop-filter: blur(42px);
   text-align: center;
+  align-self: end;
 }
 .make-payment {
   font-family: "Playfair Display";

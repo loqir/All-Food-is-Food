@@ -43,14 +43,11 @@
 </style>
 
 <script>
-import { RouterLink } from 'vue-router'
+
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
-import { v4 as uuidv4 } from 'uuid'
-import { storage } from "../../firebase"
-import { ref,uploadBytes } from "firebase/storage"
-import { getDownloadURL } from "firebase/storage"
+
 
 export default {
   data() {

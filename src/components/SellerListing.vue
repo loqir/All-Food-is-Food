@@ -1,6 +1,6 @@
 <template>
   <div class="seller-listing">
-    <SideBar class="sidebar"/>
+    <SellerSideBar class="sidebar"/>
     <div class="flex-wrapper-one">
       <div class="relative-wrapper-one">
         <SearchBar2/>
@@ -35,7 +35,7 @@
 
 <script>
 import ProfileBar from './commons/ProfileBar.vue';
-import SideBar from './commons/SideBar.vue';
+import SellerSideBar from './commons/SellerSideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 import ListingSELLERFINAL from './commons/ListingSELLERFINAL.vue'
 import Logout from '@/components/Logout.vue'
@@ -51,8 +51,12 @@ const sellerListings = collection(db, "SellerListings");
 const AllListings = collection(db, "All Listings")
 
 export default {
+<<<<<<< HEAD
   components: { ProfileBar, SideBar, SearchBar2, 
     ListingSELLERFINAL, AddListing},
+=======
+  components: { ProfileBar, SellerSideBar, SearchBar2, Listing},
+>>>>>>> b1b725cebddbbb96f80ae9c5ad183642029b2ee5
   name: "SellerListing",
   data() {
       return {
