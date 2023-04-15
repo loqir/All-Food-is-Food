@@ -42,6 +42,7 @@ import Logout from '@/components/Logout.vue'
 import NavBar from '@/components/commons/NavBar.vue'
 import SearchBar from '@/components/commons/SearchBar.vue'
 import AddListing from '@/components/AddListing.vue'
+import SideBar from '@/components/commons/SideBar.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { doc, getDoc, getFirestore, collection, onSnapshot } from 'firebase/firestore';
@@ -51,12 +52,10 @@ const sellerListings = collection(db, "SellerListings");
 const AllListings = collection(db, "All Listings")
 
 export default {
-<<<<<<< HEAD
   components: { ProfileBar, SideBar, SearchBar2, 
     ListingSELLERFINAL, AddListing},
-=======
-  components: { ProfileBar, SellerSideBar, SearchBar2, Listing},
->>>>>>> b1b725cebddbbb96f80ae9c5ad183642029b2ee5
+
+
   name: "SellerListing",
   data() {
       return {
