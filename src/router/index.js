@@ -17,6 +17,7 @@ import Payment from "../components/Payment.vue"
 import PaymentSuccess from "../components/PaymentSuccess.vue"
 import ProfilePage from "../components/Profile.vue"
 import BuyerListings from "../components/BuyerListing.vue"
+import SellerListings from "../components/SellerListing.vue"
 
 const routes = [
   {
@@ -109,8 +110,12 @@ const routes = [
     path: '/buyerlistings',
     name: 'buyerlistings',
     component: BuyerListings
-  }
-
+  },
+  {
+    path: '/sellerlistings',
+    name: 'sellerlistings',
+    component: SellerListings
+  },
 ]
 
 const router = createRouter({
