@@ -58,15 +58,30 @@
       <p class="edit-profile">Edit Profile</p>
       <div class="edit1">
         <p class="first-name">Company Name</p>
-        <button class="edit">{{companyName}}</button>
+        <button class="edit" @click="clickedCompanyName">Edit</button>
       </div>
-      <div class="edit1"> 
-        <p class="first-name">Company Email</p>
-        <button class="edit">{{user.email}}</button>
-      </div >
+      <div v-if="changeCompanyName">
+          <input type = "text" :placeholder="companyName" v-model="newCompanyName">
+          <button class="edit" @click ="uploadCompanyName"> Submit </button>
+        <br><br>
+      </div>
+      <div class="edit1">
+        <p class="first-name"> Company Email</p>
+        <button class="edit" @click="clickedEmail">Edit</button>
+      </div>
+      <div v-if="changeEmail">
+        <input type = "text" :placeholder="user.email" v-model="newEmail">
+        <button class="edit" @click ="uploadEmail"> Submit </button>
+        <br> <br>
+      </div>
       <div class="edit1">
         <p class="first-name">UEN</p>
-        <button class="edit">{{uen}}</button>
+        <button class="noedit" @click="clickedUEN">Edit</button>
+      </div>
+      <div v-if="changeUEN">
+          <h5>UEN: {{uen}}</h5>
+          Please contact our support team to update UEN.
+        <br><br>
       </div>
       <div class="edit1">
         <p class="first-name">Staff Name</p>
@@ -77,10 +92,14 @@
           <button class="edit" @click ="uploadStaffName"> Submit </button>
         <br><br>
       </div>
-      <div class="edit1">
+      <div class="edit1" @click="clickedProfile">
         <p class="first-name">Profile Picture</p>
         <button class="edit">Edit</button>
       </div>
+      <div v-if="changePic">
+            <input type = "file" ref ="myfile" > <br> <br>
+            <button class="edit" @click ="upload"> Upload </button>
+        </div>
     </div>
   <div class="group-34519">
     <img
@@ -152,7 +171,10 @@ export default {
             newStaffName: "",
             changeStaffName: false,
             newEmail: "",
-            changeEmail: false
+            changeEmail: false,
+            changeCompanyName: false,
+            newCompanyName: "",
+            changeUEN: false
         }
     },
 
@@ -229,12 +251,20 @@ export default {
             this.changeStaffName = !this.changeStaffName;
         },
 
+        clickedCompanyName() {
+            this.changeCompanyName = !this.changeCompanyName;
+        },
+
         clickedNum() {
             this.changeNum = !this.changeNum;
         },
 
         clickedEmail() {
             this.changeEmail = !this.changeEmail;
+        },
+
+        clickedUEN() {
+            this.changeUEN = !this.changeUEN;
         },
 
         async uploadFirstName() {
@@ -279,6 +309,16 @@ export default {
 
             if (sellDocSnap.exists()) {
                 await updateDoc(sellDocRef, {StaffName: this.newStaffName})
+                this.$router.go(0);
+            }
+        },
+
+        async uploadCompanyName() {
+            const sellDocRef = doc(getFirestore(firebaseApp), "sellers", this.user.uid);
+            const sellDocSnap = await getDoc(sellDocRef);
+
+            if (sellDocSnap.exists()) {
+                await updateDoc(sellDocRef, {CompanyName: this.newCompanyName})
                 this.$router.go(0);
             }
         },
@@ -401,6 +441,17 @@ export default {
   color: rgba(255, 255, 255, 1);
   letter-spacing: 0.32px;
   background-color:rgba(234, 106, 18, 1);
+  border-radius: 24px;
+  width: 70px;
+}
+.noedit {
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  color:aliceblue;
+  letter-spacing: 0.32px;
+  background-color:darkgray;
   border-radius: 24px;
   width: 70px;
 }
