@@ -131,7 +131,7 @@ export default {
                     Email: this.email,
                     UEN: this.uen,
                     StaffName: this.staffName,
-                    ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Faccountpic.jpeg?alt=media&token=26a28f0c-37ea-41f0-a8fc-6b680acaa09f"
+                    ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Fusersial.png?alt=media&token=0f7958a1-2621-4eeb-bb29-79ae437a8aa4"
                 });
 
                 this.$router.push('/sellerlistingview')
