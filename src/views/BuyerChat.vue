@@ -1,4 +1,5 @@
 <template>
+  <NavBar/>
     <div v-if="client.id">
     <h1>{{ this.firstName }} {{ this.lastName }}</h1>
       <div>chat with : Admin</div>
@@ -25,6 +26,7 @@
     <script>
     import { db, auth } from '../firebase.js';
     import firebaseApp from '@/firebase.js'
+    import NavBar from '@/components/commons/NavBar.vue'
     import {
       onSnapshot,
       collection,
@@ -41,6 +43,9 @@
     
     export default {
       name: 'BuyerChat',
+      components: {
+        NavBar
+      },
       props: {},
       data: () => {
         return {
