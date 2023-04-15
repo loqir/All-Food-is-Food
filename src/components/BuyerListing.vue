@@ -7,35 +7,22 @@
         <ProfileBar id="profile-bar"/>
       </div>
       <h1 class="header"> Food Items </h1>
-      <div class="listing-container">
-        <div class="listings">
-          <div v-for="listing in filteredListings" :key="listing.id">
-          <ListingBUYERFINAL :listing="listing"/>
+      <div class="listing-container" style="flex-grow: 1;">
+        <div class="listings" style="display: flex; flex-wrap: wrap;">
+          <ListingBUYERFINAL v-for="listing in filteredListings" :key="listing.id" style="flex-basis: 33.33%;" :listing="listing"/>
         </div>
       </div>
-      <!-- <div class="listings">
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-      </div>
-      <div class="listings">
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-      </div> -->
+    </div>
+    <h1>My Cart</h1>    
+    <div v-if="uniqueCart.length">
+      <div v-for="item in uniqueCart" :key="item.id">
+        <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" />
       </div>
     </div>
-            <h1>My Cart</h1>    
-        <div v-if="uniqueCart.length">
-          <div v-for="item in uniqueCart" :key="item.id">
-            <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" />
-          </div>
-        </div>
-          <div v-else>
-            <p>Your cart is empty.</p>
-          </div>
+    <div v-else>
+      <p>Your cart is empty.</p>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -229,11 +216,19 @@ computed: {
   align-self: center; 
 }
 
-.listing-container{ 
-  width: 50%;
-  height: 600px;
-  overflow-x:auto;
-  overflow-y: auto;
+.listing-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 
 </style>>
