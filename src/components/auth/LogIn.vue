@@ -135,9 +135,9 @@ export default {
               }
 
               if (this.isBuyer) {
-                this.$router.push('/buyerlistingview')
+                this.$router.push('/buyerlistings')
               } else {
-                this.$router.push('/sellerlistingview')
+                this.$router.push('/sellerlistings')
               }
             })
             .catch((error) => {

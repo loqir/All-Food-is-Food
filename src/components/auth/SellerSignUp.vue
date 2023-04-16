@@ -134,7 +134,7 @@ export default {
                     ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Fusersial.png?alt=media&token=0f7958a1-2621-4eeb-bb29-79ae437a8aa4"
                 });
 
-                this.$router.push('/sellerlistingview')
+                this.$router.push('/sellerlistings')
             })
             .catch((error) => {
                 const errorCode = error.code;

@@ -133,7 +133,7 @@ export default {
                 this.$router.push("/login");
               } else if (sellDocSnap.exists()) {
                 alert("Email already used for a Seller Account.")
-                this.$router.push("/buyersignup");
+                this.$router.go(0);
               } else {
                 await setDoc(doc(getFirestore(firebaseApp), "buyers", user.uid), {
                   FirstName: user.displayName.split(" ").at(0),
@@ -192,7 +192,7 @@ export default {
                     ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Fusersial.png?alt=media&token=0f7958a1-2621-4eeb-bb29-79ae437a8aa4"
                 });
 
-                this.$router.push('/buyerlistingview')
+                this.$router.push('/buyerlistings')
             })
             .catch((error) => {
                 const errorCode = error.code;
