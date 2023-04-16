@@ -173,7 +173,7 @@ computed: {
   padding: 0;
 }
 .content {
-  width: 90vw;
+  width: 90vw; 
 }
 .main-display {
   display: flex;
@@ -207,6 +207,7 @@ computed: {
   height: 50%;
 }
 .header {
+  margin: 20px;
   text-align: center;
 }
 .cart {
@@ -214,6 +215,7 @@ computed: {
   height: 80vh;
   overflow-x:auto;
   overflow-y: auto;
+  padding: 10px;
 }
 .cart-item {
   height: 200px;
