@@ -2,20 +2,35 @@
   <div class="navigation-bar">
           <div class="icon-text">
             <div class="iconly-light-search">
+              <button @click ="search">
               <img
                 alt=""
                 class="vector"
                 src="https://static.overlay-tech.com/assets/55aa4959-8ce7-48c7-8d1e-e843d9c46e20.svg"
               />
+            </button>
             </div>
-            <input type="text" placeholder="Search" class="icon-text" id="search-bar">
+            <input type="text" placeholder="Find your food" v-model = "searchEntry" class="icon-text" id="search-bar">
           </div>
         </div>
 </template>
 
 <script>
 export default {
-  name: "SearchBar2"
+  name: "SearchBar2",
+  data() {
+      return {
+        searchEntry: ""
+      }
+    },
+
+    emits:["findfood"],
+    methods: {
+        search() {
+            this.$emit("findfood", this.searchEntry)
+            console.log(this.searchEntry)
+        }
+    }
 };
 </script>
 

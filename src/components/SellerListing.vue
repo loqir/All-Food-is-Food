@@ -3,13 +3,13 @@
     <SellerSideBar class="sidebar"/>
     <div class="flex-wrapper-one">
       <div class="relative-wrapper-one">
-        <SearchBar2/>
+        <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
         <ProfileBar id="profile-bar"/>
       </div>
       <h1 class="header"> Your Listings </h1>
       <div class="listing-container">
         <div class="listings">
-          <div v-for="sellerListing in sellerListings" :key="sellerListing.id">
+          <div v-for="sellerListing in filteredListings" :key="sellerListing.id">
             <ListingSELLERFINAL :sellerListing="sellerListing"/> 
           </div>
         </div>
@@ -48,7 +48,8 @@ export default {
         user: false,
         listings : [],
         sellerDocument : null,
-        sellerListings : []
+        sellerListings : [],
+        searchEntry : "",
       }
     },
   
@@ -80,6 +81,20 @@ export default {
       })
     }, 
     methods: {
+      childcall(x) {
+  this.searchEntry = x
+  console.log(this.searchEntry)
+}
+    },
+    computed: {
+  filteredListings() {
+  if (!this.searchEntry) {
+    return this.sellerListings;
+  }
+  return this.sellerListings.filter(listing => {
+    return listing.name.toLowerCase().includes(this.searchEntry.toLowerCase());
+  });
+}
     }
 }      
 

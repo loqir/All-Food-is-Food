@@ -3,7 +3,7 @@
     <SideBar/>
     <div class="container">
       <div class="main-display">
-        <SearchBar2 id="sb"/>
+        <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
         <ProfileBar id="pb"/>
       </div>
         <div class="content">
