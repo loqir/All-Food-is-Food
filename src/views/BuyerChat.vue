@@ -21,7 +21,6 @@
       </div>
       <div v-else>
         <h1>Please Login</h1>
-        <button >login</button>
       </div>
     </template>
     

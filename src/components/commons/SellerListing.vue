@@ -14,7 +14,6 @@
   </template>
   
 <script>
-  
 import firebaseApp from '@/firebase.js'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { deleteDoc, getFirestore, collection, query, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion, addDoc } from "firebase/firestore"

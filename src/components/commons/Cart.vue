@@ -1,41 +1,12 @@
 <template>
     <div class="CartContainer">
-   	   <div class="Header">
-   	   	<h3 class="Heading">Shopping Cart</h3>
-			  <button style = "border:none;" v-on:click = "removecart">
-   	   	<h5 class="Action">Remove all</h5>
-		</button>
-   	   </div>
-
-   	   <!-- <div class="Cart-Items">
-   	   	  <div class="image-box">
-   	   	  	<img class="img1" src="images/apple.png"/>
-   	   	  </div>
-   	   	  <div class="about">
-   	   	  	<h1 class="title">Apple Juice</h1>
-   	   	  	<h3 class="subtitle">250ml</h3>
-   	   	  </div>
-   	   	  <div class="counter">
-   	   	  	<div class="btn">+</div>
-   	   	  	<div class="count">2</div>
-   	   	  	<div class="btn">-</div>
-   	   	  </div>
-   	   	  <div class="prices">
-   	   	  	<div class="amount">$2.99</div>
-   	   	  	<div class="remove"><u>Remove</u></div>
-   	   	  </div>
-   	   </div> -->
-
-
    	   <div class="Cart-Items pad">
    	   	  <div class="image-box">
-   	   	  	<img class="img1" 
-			:src= item.image
+   	   	  	<img class="img1" :src= item.image
 			/>
    	   	  </div>
    	   	  <div class="about">
    	   	  	<h1 class="title">{{ item.name }}</h1>
-   	   	  	<!-- <h3 class="subtitle">250ml</h3> -->
    	   	  </div>
    	   	  <div class="counter">
 			<button style = "border:none;" v-on:click = "decrement(item)">
@@ -47,22 +18,20 @@
 			</button>
    	   	  </div>
    	   	  <div class="prices">
-   	   	  	<div class="amount"> PRICE ${{ item.price}}</div>
+   	   	  	<div class="amount"> Price: ${{ item.price}}</div>
 			<button style = "border:none;" v-on:click = "deletefromcart(item)">
    	   	  	<div class="remove"><u>Remove</u></div>
 		</button>
    	   	  </div>
    	   </div>
-   	 <hr> 
-   	 <div class="checkout">
+			<!--<div class="checkout">
    	 <div class="total">
    	 	<div>
    	 		<div class="Subtotal">Sub-Total</div>
    	 		<div class="items">{{cart.length}} items</div>
    	 	</div>
-   	 	<div class="total-amount"> $ {{  totalValue }}</div>
    	 </div>
-   	 <button class="button">Checkout</button></div>
+			</div>-->
    </div> 
 
 </template>
@@ -161,109 +130,56 @@ if (this.cartRef) {
  removecart() {
 	deleteDoc(this.cartRef)
  }
-
     },
-// 	computed: {
-//     async totalValue() {
-//       let total = 0;
-//       for (let listingID of this.cart) {
-// 		const docRef = doc(collection(db, "All Listings"), listingID);
-// 		const docSnap = await getDoc(docRef);
-// 		const price = docSnap.data().price;
-// 		console.log(price)
-//         total += price
-//       }
-//       return total;
-//     }
-//   },
 }
 </script>
 
 <style scoped>
 .CartContainer{
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
 	background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0px 10px 20px #1687d933;
 }
-.Header{
-	margin: auto;
-	width: 90%;
-	height: 15%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.Heading{
-	font-size: 20px;
-	font-family: 'Open Sans';
-	font-weight: 700;
-	color: #2F3841;
-}
-
-.Action{
-	font-size: 14px;
-	font-family: 'Open Sans';
-	font-weight: 600;
-	color: #E44C4C;
-	cursor: pointer;
-	border-bottom: 1px solid #E44C4C;
-}
-
 .Cart-Items{
 	margin: auto;
 	width: 90%;
-	height: 30%;
+	height: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 .image-box{
-	width: 15%;
-	text-align: center;
+	width: 20%;
+  height: 50%;
+  align-self: center;
+	margin-top: 10px;
+}
+.img1 {
+	width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100px;
 }
 .about{
 	height: 100%;
 	width: 24%;
+	display: flex;
+	align-items: center;
 }
 .title{
 	padding-top: 10px;
 	line-height: 10px;
-	font-size: 32px;
+	font-size: 24px;
 	font-family: 'Open Sans';
 	font-weight: 800;
 	color: #202020;
 }
-.subtitle{
-	line-height: 10px;
-	font-size: 18px;
-	font-family: 'Open Sans';
-	font-weight: 600;
-	color: #909090;
-  margin-top: 50px;
-}
-
 .counter{
 	width: 15%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-.btn{
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	background-color: #d9d9d9;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 20px;
-	font-family: 'Open Sans';
-	font-weight: 900;
-	color: #202020;
-	cursor: pointer;
 }
 .count{
 	font-size: 20px;
@@ -274,77 +190,31 @@ if (this.cartRef) {
 
 .prices{
 	height: 100%;
-	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
 .amount{
-	padding-top: 20px;
-	font-size: 26px;
 	font-family: 'Open Sans';
-	font-weight: 800;
+	font-size: 20px;
+	font-weight: 600;
 	color: #202020;
+	text-align: center;
+	margin-right: 7px;
 }
 .remove{
-	padding-top: 5px;
 	font-size: 14px;
 	font-family: 'Open Sans';
 	font-weight: 600;
 	color: #E44C4C;
 	cursor: pointer;
 }
-
 .pad{
 	margin-top: 5px;
 }
-
 hr{
 	width: 66%;
 	float: right;
 	margin-right: 5%;
 }
-.checkout{
-	float: right;
-	margin-right: 5%;
-	width: 28%;
-}
-.total{
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-}
-.Subtotal{
-	font-size: 22px;
-	font-family: 'Open Sans';
-	font-weight: 700;
-	color: #202020;
-}
-.items{
-	font-size: 16px;
-	font-family: 'Open Sans';
-	font-weight: 500;
-	color: #909090;
-	line-height: 10px;
-}
-.total-amount{
-	font-size: 36px;
-	font-family: 'Open Sans';
-	font-weight: 900;
-	color: #202020;
-}
-.button{
-	margin-top: 10px;
-	width: 100%;
-	height: 40px;
-	border: none;
-	background: linear-gradient(to bottom right, #B8D7FF, #8EB7EB);
-	border-radius: 20px;
-	cursor: pointer;
-	font-size: 16px;
-	font-family: 'Open Sans';
-	font-weight: 600;
-	color: #202020;
-}
-.img1{
-  height: 120px;
-}
-
 </style>

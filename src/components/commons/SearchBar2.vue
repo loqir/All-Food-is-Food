@@ -28,22 +28,24 @@ export default {
 }
 .navigation-bar {
   background-color: rgba(255, 255, 255, 1);
-  padding: 16px 70vw 16px 32px;
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
   position: relative;
-  display: inline;
+  display: flex;
   width: 80vw;
+  height: 8vh;
+  align-items: center;
 }
 .icon-text {
   background-color: rgba(255, 255, 255, 1);
   overflow: hidden;
   border-radius: 24px;
-  padding: 7px 15px;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid rgba(227, 225, 225, 1);
-  height: 4vh;
   width: 20vw;
+  height: 4vh;
+  padding-left: 5px;
 }
 .iconly-light-search {
   margin-right: 8px;

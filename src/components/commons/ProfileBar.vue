@@ -18,13 +18,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 8vh;
+  width: 11vw;
+}
+.frame-37292 {
+  width: 45px;
+  height: 45px;
+  margin-right: 16px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+}
+#bg {
+  width: 45px;
+  height: 45px;
+  background-size: 100% 100%;
+  background-position: center;
+  margin-right: 16px;
+  border-radius: 100px
 }
 .frame-270 {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
 }
 .austin-robertson {
+  padding-top: 5px;
   letter-spacing: 0.32px;
   font-size: 16px;
 }

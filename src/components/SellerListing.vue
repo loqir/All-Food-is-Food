@@ -10,23 +10,12 @@
       <div class="listing-container">
         <div class="listings">
           <div v-for="sellerListing in sellerListings" :key="sellerListing.id">
-        <ListingSELLERFINAL :sellerListing="sellerListing"/>
-</div>
+            <ListingSELLERFINAL :sellerListing="sellerListing"/> 
+          </div>
         </div>
-        <!-- <Listing class="listing"/>
-        <Listing class="listing"/>
-      </div> -->
-      <!-- <div class="listings">
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-        <Listing class="listing"/>
       </div>
-      <div class="listings">
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-      </div> -->
-      </div>
+    </div>
+    <div class="add-listing">
       <AddListing/>
     </div>
     </div>
@@ -37,10 +26,7 @@
 import ProfileBar from './commons/ProfileBar.vue';
 import SellerSideBar from './commons/SellerSideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
-import ListingSELLERFINAL from './commons/ListingSELLERFINAL.vue'
-import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/commons/NavBar.vue'
-import SearchBar from '@/components/commons/SearchBar.vue'
+import ListingSELLERFINAL from './commons/SellerListing.vue'
 import AddListing from '@/components/AddListing.vue'
 import SideBar from '@/components/commons/SideBar.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
@@ -52,9 +38,9 @@ const sellerListings = collection(db, "SellerListings");
 const AllListings = collection(db, "All Listings")
 
 export default {
-  components: { ProfileBar, SideBar, SearchBar2, SellerSideBar,
-    ListingSELLERFINAL, AddListing},
 
+  components: { ProfileBar, SideBar, SearchBar2, 
+    ListingSELLERFINAL, AddListing, SellerSideBar},
 
   name: "SellerListing",
   data() {
