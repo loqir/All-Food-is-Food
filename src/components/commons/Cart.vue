@@ -46,6 +46,7 @@ const BuyersCart = collection(db, 'BuyersCart');
 const AllListings = collection(db, "All Listings")
 export default {
   name: 'Cart',
+  emits:["sendtotalvalue"],
   props: {
     item: {
       type: Object,
@@ -82,10 +83,12 @@ export default {
         this.cartRef = specificbuyer;
         let total = 0;
         for (let item of this.cart) {
+			console.log(item.price)
           total += item.price;
         }
         this.totalValue = total;
-		console.log(this.totalValue)
+		console.log("DSADSA " + this.totalValue)
+		this.$emit("sendtotalvalue", this.totalValue)
       }
     });
   },
@@ -118,12 +121,27 @@ if (this.cartRef) {
  {
 	const index = this.cart.indexOf(item);
 	this.cart.splice(index, 1)
+	const abc = []
+	for (let item of this.cart) {
+		abc.push(item.id)
+	}
+
+	await updateDoc(this.cartRef, { myArrayField: abc});
+	location.reload()
 	this.totalValue -= item.price
 
  },
  async increment(item){
 	this.cart.push(item)
+	const abc  = []
+	for (let item of this.cart) {
+		abc.push(item.id)
+	}
+	await updateDoc(this.cartRef, { myArrayField: abc});
 	this.totalValue += item.price
+	location.reload()
+
+	// this.totalValue += item.price
 
 
  },

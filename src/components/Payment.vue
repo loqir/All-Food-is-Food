@@ -10,7 +10,7 @@
         <div class="cart2" v-if="uniqueCart.length">
           <div class="cart-container" v-if="uniqueCart.length">
             <div v-for="item in uniqueCart" :key="item.id">
-              <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
+              <Cart :item="item" :quantity="cartQuantities[item.id]" @sendtotalvalue = "childcall($event)" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
             </div>
           </div>
         <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{ totalValue }}</div>
@@ -54,13 +54,18 @@ export default {
     return {
       user: false,
       cartRef : null,
-      cart : []
+      cart : [],
+      totalValue : 0
 
     }},
   methods: {
     redirectToSuccess() {
       this.$router.push('/paymentsuccess');
     },
+    childcall(x) {
+  this.totalValue = x
+  console.log("DASDS " + this.totalValue)
+}
   },
   mounted() {
   const auth = getAuth();
