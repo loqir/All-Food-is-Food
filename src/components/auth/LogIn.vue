@@ -42,11 +42,7 @@
             or sign in with Google
           </p>
           <div class="gmail">
-            <img
-              alt=""
-              class="union"
-              src="https://static.overlay-tech.com/assets/d278718b-251e-48fc-bcc6-33b33fa96320.png"
-            />
+            <input class="union" type="image" src="https://static.overlay-tech.com/assets/63a48114-e7f9-4446-93de-56ea1cd1922b.png" @click="googoSignIn"/>
           </div>
           <p class="dont-have-an-account-click-here-to-sig">
             Don't have an account?
@@ -66,6 +62,7 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebaseApp from '@/firebase.js'
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
+import {signInWithPopup,  GoogleAuthProvider } from "firebase/auth";
 
 export default {
   name: "LogIn",
@@ -79,6 +76,44 @@ export default {
     },
 
     methods: {
+        googoSignIn() {
+          const auth = getAuth();
+          const provider = new GoogleAuthProvider();
+          signInWithPopup(auth, provider)
+            .then(async (result) => {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              const credential = GoogleAuthProvider.credentialFromResult(result);
+              const token = credential.accessToken;
+              // The signed-in user info.
+              const user = result.user;
+
+              const buyDocRef = doc(getFirestore(firebaseApp), "buyers", user.uid);
+              const buyDocSnap = await getDoc(buyDocRef);
+
+              const sellDocRef = doc(getFirestore(firebaseApp), "sellers", user.uid);
+              const sellDocSnap = await getDoc(sellDocRef);
+
+              if (sellDocSnap.exists()) {
+                alert("Email is linked to a Seller Account. Please login with your email and password.")
+                this.$router.go(0);
+              } else {
+                this.$router.push('/buyerlistings')
+              }
+              // IdP data available using getAdditionalUserInfo(result)
+              // ...
+            }).catch((error) => {
+              // Handle Errors here.
+              if (error != null) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+              }
+            });
+        },
+
         async logIn() {
             console.log("Logging in User");
             const auth = getAuth();

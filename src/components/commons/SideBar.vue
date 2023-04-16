@@ -3,6 +3,7 @@
     <div class="frame-36360">
       <button class="listings" @click="goToListing"></button>
       <button class="profile" @click="goToProfile()"></button>
+      <!-- <input class="profile2" type="image" :src="image" @click="goToProfile()"/> -->
       <button class="cart" @click="goToPayment()"></button>
       <button class="chat" @click="goToChat()"></button>
       <button class="logout" @click="signOut()"></button>
@@ -17,11 +18,15 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore"
+import firebaseApp from '@/firebase.js'
+
 
 export default {
   data() {
         return {
-            user:false
+            user:false,
+            image: ""
         }
     },
 
@@ -30,8 +35,9 @@ export default {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.user = user;
+                this.getProfilePic(this.user.uid);
             }
-        })
+        }) 
     },
 
     methods: {
@@ -52,6 +58,20 @@ export default {
         },
         goToPayment() {
           this.$router.push('/payment');
+        },
+
+        async getProfilePic(uid) {
+          const buyDocRef = doc(getFirestore(firebaseApp), "buyers", uid);
+          const buyDocSnap = await getDoc(buyDocRef);
+
+          const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
+          const sellDocSnap = await getDoc(sellDocRef);
+
+          if (buyDocSnap.exists()) {
+              this.image = buyDocSnap.data().ProfilePic;
+          } else if (sellDocSnap.exists()) {
+              this.image = sellDocSnap.data().ProfilePic;
+          }
         }
     },
 
@@ -91,6 +111,14 @@ export default {
   margin-bottom: 24px;
   background: url("https://static.overlay-tech.com/assets/2ae22b5e-3487-497c-8813-491e81f933b4.png");
   border: 0;
+}
+.profile2 {
+  width: 48px;
+  height: 46.59px;
+  margin-bottom: 24px;
+  background: url("https://static.overlay-tech.com/assets/2ae22b5e-3487-497c-8813-491e81f933b4.png");
+  border: 0;
+  border-radius: 50%;
 }
 .cart {
   width: 48px;
