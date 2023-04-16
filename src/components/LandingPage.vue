@@ -24,6 +24,10 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged, updateEmail } from "firebase/auth"
+import firebaseApp from '@/firebase.js'
+import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
+
   export default {
     name: "LandingPage",
 
@@ -37,16 +41,36 @@
       "button3",
     ],
     methods: {
-    redirectToLogin() {
-      this.$router.push('/login');
-    }, 
-    redirectToBuyerSignUp() {
-      this.$router.push('/buyersignup');
+      redirectToLogin() {
+        this.$router.push('/login');
+      }, 
+      redirectToBuyerSignUp() {
+        this.$router.push('/buyersignup');
+      },
+      redirectToSellerSignUp() {
+        this.$router.push('/sellersignup');
+      }
     },
-    redirectToSellerSignUp() {
-      this.$router.push('/sellersignup');
+
+    mounted() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+              this.user = user;
+              const buyDocRef = doc(getFirestore(firebaseApp), "buyers", this.user.uid);
+              const buyDocSnap = await getDoc(buyDocRef);
+
+              const sellDocRef = doc(getFirestore(firebaseApp), "sellers", this.user.uid);
+              const sellDocSnap = await getDoc(sellDocRef);
+
+              if (buyDocSnap.exists()) {
+                this.$router.push('/buyerlistings')
+              } else if (sellDocSnap.exists()) {
+                this.$router.push('/sellerlistings')
+              }
+            }
+        })
     }
-  }
   };
   </script>
 

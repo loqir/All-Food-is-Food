@@ -1,10 +1,11 @@
 <template>
   <div class="user">
     <div class="frame-37292">
-      <img id = "bg" :src="image" style="  width: 45px; height: 45px; background-size: 100% 100%; background-position: center; margin-right: 16px; border-radius: 100px;">
+      <img id = "bg" :src="image" style="  width: 50px; height: 50px; background-size: 100% 100%; background-position: center; margin-right: 16px; border-radius: 100px;">
     </div>
     <div class="frame-270">
-      <p class="austin-robertson">{{ firstName }} {{ lastName }}</p>
+      <p class="austin-robertson" v-if="isBuyer">{{ firstName }} {{ lastName }}</p>
+      <p class="austin-robertson" v-else>{{ companyName }}</p>
       <p class="marketing-administra" v-if="isBuyer">Buyer</p>
       <p class="marketing-administra" v-else>Seller</p>
     </div>
@@ -17,15 +18,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.frame-37292 {
-  width: 45px;
-  height: 45px;
-  background-size: 100% 100%;
-  background-position: center;
-  background-image: url("https://static.overlay-tech.com/assets/16c9bbbc-6fe5-449d-9bf2-a4e45aa64b3f.png");
-  margin-right: 16px;
-  border-radius: 100px;
 }
 .frame-270 {
   display: flex;
@@ -79,6 +71,7 @@ export default {
                 // this.firstName = sellDocSnap.data().FirstName;
                 this.companyName = sellDocSnap.data().CompanyName;
                 this.uen = sellDocSnap.data().UEN;
+                this.image = sellDocSnap.data().ProfilePic;
             } else {
                 console.log("No such document!");
             }
