@@ -16,10 +16,6 @@
       <div v-for="chat in openedChats">
         <SellerChatComp :client="chat"></SellerChatComp>
       </div>
-      <button @click="logout">logout</button>
-    </div>
-    <div v-else>
-      <button @click="login">login</button>
     </div>
   </template>
     
