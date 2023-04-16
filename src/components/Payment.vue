@@ -8,13 +8,12 @@
       </div>
       <div class="group-34518">
         <div class="cart2" v-if="uniqueCart.length">
-        <div class="cart-container" v-if="uniqueCart.length">
-          <div v-for="item in uniqueCart" :key="item.id">
-            <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
+          <div class="cart-container" v-if="uniqueCart.length">
+            <div v-for="item in uniqueCart" :key="item.id">
+              <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
+            </div>
           </div>
-        </div>
-        <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{  totalValue }}
-        </div>
+        <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{ totalValue }}</div>
       </div>
           <div class="empty" v-else>
             <p>Your cart is empty.</p>
@@ -123,6 +122,7 @@ computed: {
   display: flex;
   align-items: flex-start;
   width: 100vw;
+  height: 100vh;
 }
 .sidebar {
   width: 130px;
@@ -138,7 +138,7 @@ computed: {
 }
 #cart{
   width: 100%;
-  margin-bottom: 100px;
+  height: 200px;
 }
 .flex-wrapper-one {
   padding: 1px 0 0;
