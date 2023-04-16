@@ -1,10 +1,5 @@
 <template>
-<div class="my-cart">
-  <img
-    alt=""
-    class="vector-2"
-    src="https://static.overlay-tech.com/assets/8370d473-9cc0-443c-9ab4-1756752fe1a5.svg"
-  />
+<div class="add-listing">
   <p class="add-a-listing">Add A Listing</p>
   <p class="name">Product</p>
   <input type = "text" v-model = "productEntry"  placeholder = "Enter product"><br>
@@ -14,21 +9,13 @@
   <input type = "text" v-model = "descriptionEntry"  placeholder = "Enter description"><br>
   <p class="name">Quantity</p>
   <input type = "text" v-model = "quantityEntry"  placeholder = "Enter quantity"><br>
-  <input type = "file" ref ="myfile"><br>
-  <button style = "border:none;" @click ="upload">
-  <img
-    alt=""
-    class="image-11"
-    src="https://static.overlay-tech.com/assets/e4257055-2a1b-4782-94e7-73d4d70f7404.png"
-  />
-</button>
-<button style = "border:none;" @click ="addlisting">
-<img
-    alt=""
-    class="image-9"
-    src="https://static.overlay-tech.com/assets/e9921e71-ec44-4406-8cd7-3aac4fa3cc95.png"
-  />
-  </button>
+  <div class="upload-file">
+    <input type = "file" ref ="myfile" class="uf">
+  </div>
+  <br>
+
+  <button @click ="upload" class="upload"> Upload </button>
+  <!--<button style = "border:none;" @click ="addlisting"> + </button> REMOVE THIS COW MAKE UPLOAD BUTTON ON TOP HANDLE ALL BACKEND OPERATIONS-->
 </div>
 </template>
 
@@ -108,35 +95,25 @@ if (docSnap.exists()) {
 } else {
   await setDoc(this.sellerDocument, { myArrayField: [newListingRef.id] });
 }
-
-
-
-
-
   console.log("added listing with ID", newListingRef.id);
   location.reload()
       }
     }
   }
-
-    
 </script>
 
 
 
 <style scoped>
-.my-cart {
+.add-listing {
   background-color: rgb(247, 243, 243);
   border-radius: 24px;
-  padding: 24px 19px 97px 24px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   backdrop-filter: blur(42px);
-}
-.vector-2 {
-  width: 533px;
-  margin-bottom: 43px;
+  height: auto;
 }
 .add-a-listing {
   font-family: "Playfair Display";
@@ -144,7 +121,7 @@ if (docSnap.exists()) {
   font-weight: 700;
   line-height: 52px;
   color: rgba(7, 20, 59, 1);
-  margin-bottom: 43px;
+  margin-bottom: 20px;
   letter-spacing: 0.8px;
 }
 .name {
@@ -154,25 +131,18 @@ if (docSnap.exists()) {
   font-weight: 600;
   line-height: 28px;
   color: rgba(7, 20, 59, 1);
-  margin-bottom: 43px;
+  margin-bottom: 20px;
   letter-spacing: 0.32px;
 }
-.icon-text {
-  width: 177px;
-  height: 12px;
-  background-color: rgba(255, 255, 255, 1);
-  margin-bottom: 43px;
+.upload-file {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40%;
+}
+.upload {
+  background-color: rgba(234, 106, 18, 1);
   border-radius: 24px;
-  padding: 8px 16px;
-  border: 1px solid rgba(227, 225, 225, 1);
-}
-.image-11 {
-  width: 234px;
-  height: 40px;
-  margin-bottom: 43px;
-}
-.image-9 {
-  width: 57px;
-  height: 47px;
+  padding: 6px;
 }
 </style>

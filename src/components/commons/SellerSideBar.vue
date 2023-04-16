@@ -1,16 +1,16 @@
 <template>
   <div class="sidebar-3">
     <div class="frame-36360">
+      <img
+      alt=""
+      class="logo"
+      src="https://static.overlay-tech.com/assets/69b34eb3-3049-4346-b130-ed5bb7891b1d.png"
+      />
       <button class="listings" @click="goToListing()"></button>
       <button class="profile" @click="goToProfile()"></button>
       <button class="chat" @click="goToChat()"></button>
       <button class="logout" @click="signOut()"></button>
     </div>
-    <img
-      alt=""
-      class="image-24"
-      src="https://static.overlay-tech.com/assets/69b34eb3-3049-4346-b130-ed5bb7891b1d.png"
-    />
   </div>
 </template>
 
@@ -58,20 +58,16 @@ export default {
 <style lang="scss" scoped>
 .sidebar-3 {
   background-color: rgba(255, 255, 255, 1);
-  overflow: hidden;
-  padding: 5px 9px 370.41px 10px;
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
-  position: relative;
+  height: auto;
+  width: 8vw;
 }
 .frame-36360 {
-  padding: 24px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  position: absolute;
-  left: 13px;
-  bottom: -19.29px;
+  align-items: center;
 }
 .listings {
   width: 48px;
@@ -101,8 +97,9 @@ export default {
   background: url("https://static.overlay-tech.com/assets/c39e4bb5-5490-4628-81d8-66ae6429e792.png");
   border: 0;
 }
-.image-24 {
-  width: 114px;
-  height: 67.59px;
+.logo {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
 }
 </style>

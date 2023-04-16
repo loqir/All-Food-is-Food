@@ -1,24 +1,22 @@
 <template>
   <div class="seller-listing">
-    <SellerSideBar class="sidebar"/>
-    <div class="flex-wrapper-one">
-      <div class="relative-wrapper-one">
-        <SearchBar2/>
-        <ProfileBar id="profile-bar"/>
+    <SellerSideBar/>
+    <div class="container">
+      <div class="main-display">
+        <SearchBar2 id="sb"/>
+        <ProfileBar id="pb"/>
       </div>
-      <h1 class="header"> Your Listings </h1>
-      <div class="listing-container">
-        <div class="listings">
-          <div v-for="sellerListing in sellerListings" :key="sellerListing.id">
-            <ListingSELLERFINAL :sellerListing="sellerListing"/> 
+      <div class="content">
+        <h1 class="header"> Your listings </h1>
+        <div class="listing-add">
+          <div class="listings">
+            <ListingSELLERFINAL v-for="sellerListing in sellerListings" :key="sellerListing.id" :sellerListing="sellerListing" style="flex-basis: 33.33%;" class="listing"/>
           </div>
+          <AddListing/>
         </div>
       </div>
-    </div>
-    <div class="add-listing">
-      <AddListing/>
-    </div>
-    </div>
+      </div>
+      </div>
 
 </template>
 
@@ -83,73 +81,64 @@ export default {
     }
 }      
 
-
-
-
-
 </script>
 
 <style scoped>
 .seller-listing {
   background-color: rgba(250, 250, 250, 1);
-  height: 100vh;
+  height: 120vh;
   display: flex;
   align-items: flex-start;
   width: 100vw;
 }
-.sidebar {
-  width: 130px;
-}
-#profile-bar {
+#pb {
   width: 20%;
 }
-#search-bar {
-  border: none;
+.content {
+  width: 90vw; 
 }
-#search-bar:focus {
-  outline: none;
-}
-.flex-wrapper-one {
-  padding: 1px 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 80vw;
-}
-.relative-wrapper-one {
-  margin-bottom: 5vh;
-  position: relative;
-  width: 90vw;
-  display:flex;
-}
-.listings {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  height: 50%;
-  margin-bottom: 40px;
-}
-
-.listing {
-  width: 15%;
-  margin: 0;
-  align-self: flex-start;
-  justify-self: flex-start;
-  height: 110%;
-}
-
 .header {
+  margin: 20px;
   text-align: center;
   justify-self: center;
   align-self: center; 
 }
-
-.listing-container{ 
-  width: 100%;
-  height: 600px;
+.listing-add{
+  display:flex;
+  justify-content: space-around;
+}
+.listings {
+  width: 50%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 50%;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
   overflow-x:auto;
   overflow-y: auto;
+  height: 80vh;
+  padding: 20px;
+}
+.listing {
+  width: 30%;
+  margin: 0;
+  align-self: flex-start;
+  justify-self: flex-start;
+  height: 50%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.main-display {
+  display: flex;
+  align-items: flex-start;
 }
 
 </style>

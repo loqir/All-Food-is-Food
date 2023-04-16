@@ -55,7 +55,6 @@ export default {
       user: false,
       cartRef : null,
       cart : []
-
     }},
   methods: {
     redirectToSuccess() {
