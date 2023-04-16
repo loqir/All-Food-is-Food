@@ -1,28 +1,32 @@
 <template>
   <div class="buyer-listing">
-    <SideBar class="sidebar"/>
-    <div class="flex-wrapper-one">
-      <div class="relative-wrapper-one">
-        <SearchBar2/>
-        <ProfileBar id="profile-bar"/>
+    <SideBar/>
+    <div class="container">
+      <div class="main-display">
+        <SearchBar2 id="sb"/>
+        <ProfileBar id="pb"/>
       </div>
-      <h1 class="header"> Food Items </h1>
-      <div class="listing-container" style="flex-grow: 1;">
-        <div class="listings">
-          <ListingBUYERFINAL v-for="listing in filteredListings" :key="listing.id" style="flex-basis: 33.33%;" :listing="listing"/>
+        <div class="content">
+          <h1 class="header"> Food Items </h1>
+          <div class="listing-cart">
+            <div class="listings">
+              <ListingBUYERFINAL v-for="listing in filteredListings" :key="listing.id" style="flex-basis: 33.33%;" :listing="listing" class="listing"/>
+            </div>
+            <div class="cart">
+              <div v-if="uniqueCart.length">
+                <div v-for="item in uniqueCart" :key="item.id">
+                  <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" class="cart-item"/>
+                </div>
+              </div>
+              <div v-else>
+                <p>Your cart is empty.</p>
+              </div>
+            </div>
+          </div>
+          <button class="checkout" @click="goToPayment()">Checkout</button>
         </div>
-      </div>
     </div>
-    <h1>My Cart</h1>    
-    <div v-if="uniqueCart.length">
-      <div v-for="item in uniqueCart" :key="item.id">
-        <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" />
-      </div>
     </div>
-    <div v-else>
-      <p>Your cart is empty.</p>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -31,7 +35,7 @@ import SideBar from './commons/SideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 import Cart from './commons/Cart.vue'
 
-import ListingBUYERFINAL from '@/components/commons/ListingBUYERFINAL.vue'
+import ListingBUYERFINAL from '@/components/commons/BuyerListing.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
@@ -55,6 +59,10 @@ export default {
     }
   },
   methods: {
+    goToPayment() {
+          this.$router.push('/payment');
+        },
+        
     async populatelistingsarray() {
   const queryRef = query(collection(db, 'All Listings'));
 
@@ -73,8 +81,6 @@ childcall(x) {
 }
 
 // async populatecartarray() {
-
-
 //   const dataArray = [];
 //   cartRef.get().then((querySnapshot) => {
 //   // Iterate over each document in the collection
@@ -89,13 +95,6 @@ childcall(x) {
 // });
 //   this.cart = dataArray;
 // }
-
-
-
-
-
-
-
   },
   mounted() {
   const auth = getAuth();
@@ -161,65 +160,63 @@ computed: {
 <style scoped>
 .buyer-listing {
   background-color: rgba(250, 250, 250, 1);
-  height: 100vh;
+  height: 120vh;
   display: flex;
   align-items: flex-start;
-  width: 100vw;
 }
-.sidebar {
-  width: 130px;
-}
-#profile-bar {
-  width: 20%;
-}
-#search-bar {
-  border: none;
-}
-#search-bar:focus {
-  outline: none;
-}
-.flex-wrapper-one {
-  padding: 1px 0 0;
+.container{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 80vw;
+  margin: 0;
+  padding: 0;
 }
-.relative-wrapper-one {
-  margin-bottom: 5vh;
-  position: relative;
-  width: 90vw;
+.main-display {
+  display: flex;
+  align-items: flex-start;
+}
+#pb {
+  width: 20%;
+}
+.listing-cart{
   display:flex;
+  justify-content: flex-start;
 }
 .listings {
-  width: 100%;
+  width: 50%;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   height: 50%;
   margin-bottom: 40px;
   flex-wrap: wrap;
+  overflow-x:auto;
+  overflow-y: auto;
+  height: 600px;
 }
-
 .listing {
   width: 30%;
   margin: 0;
   align-self: flex-start;
   justify-self: flex-start;
-  height: 110%;
+  height: 60%;
 }
-
 .header {
   text-align: center;
-  justify-self: center;
-  align-self: center; 
 }
-
-.listing-container {
+.cart {
   width: 50%;
   height: 600px;
   overflow-x:auto;
   overflow-y: auto;
+}
+.cart-item {
+  height: 200px;
+}
+.checkout {
+  background-color: rgba(234, 106, 18, 1);
+  padding: 5px;
+  border-radius: 24px;
 }
 
 </style>>

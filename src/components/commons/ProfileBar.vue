@@ -17,20 +17,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 8vh;
+  width: 11vw;
 }
 .frame-37292 {
   width: 45px;
   height: 45px;
-  background-size: 100% 100%;
-  background-position: center;
-  background-image: url("https://static.overlay-tech.com/assets/16c9bbbc-6fe5-449d-9bf2-a4e45aa64b3f.png");
   margin-right: 16px;
   border-radius: 100px;
+  display: flex;
+  justify-content: center;
+}
+#bg {
+  width: 45px;
+  height: 45px;
+  background-size: 100% 100%;
+  background-position: center;
+  margin-right: 16px;
+  border-radius: 100px
 }
 .frame-270 {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
 }
 .austin-robertson {
   letter-spacing: 0.32px;
