@@ -52,7 +52,7 @@ const sellerListings = collection(db, "SellerListings");
 const AllListings = collection(db, "All Listings")
 
 export default {
-  components: { ProfileBar, SideBar, SearchBar2, 
+  components: { ProfileBar, SideBar, SearchBar2, SellerSideBar,
     ListingSELLERFINAL, AddListing},
 
 

@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-3">
     <div class="frame-36360">
-      <button class="listings" @click="goToListings()"></button>
+      <button class="listings" @click="goToListing()"></button>
       <button class="profile" @click="goToProfile()"></button>
       <button class="chat" @click="goToChat()"></button>
       <button class="logout" @click="signOut()"></button>
