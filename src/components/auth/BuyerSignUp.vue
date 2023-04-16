@@ -126,7 +126,7 @@ export default {
               const buyDocSnap = await getDoc(buyDocRef);
 
               const sellDocRef = doc(getFirestore(firebaseApp), "sellers", user.uid);
-              const SellDocSnap = await getDoc(sellDocRef);
+              const sellDocSnap = await getDoc(sellDocRef);
 
               if (buyDocSnap.exists()) {
                 alert("Buyer Account already exists. Please login instead.")
@@ -142,6 +142,7 @@ export default {
                   Email: user.email,
                   ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Fusersial.png?alt=media&token=0f7958a1-2621-4eeb-bb29-79ae437a8aa4"
                 });
+                this.$router.push("/googlenumber")
               }
               // IdP data available using getAdditionalUserInfo(result)
               // ...
@@ -150,12 +151,6 @@ export default {
               const errorCode = error.code;
               const errorMessage = error.message;
               // The email of the user's account used.
-              const email = error.customData.email;
-              // The AuthCredential type that was used.
-              const credential = GoogleAuthProvider.credentialFromError(error);
-              // ...
-
-              alert(errorCode)
             });
         },
 
