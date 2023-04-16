@@ -10,23 +10,12 @@
       <div class="listing-container">
         <div class="listings">
           <div v-for="sellerListing in sellerListings" :key="sellerListing.id">
-        <ListingSELLERFINAL :sellerListing="sellerListing"/>
-</div>
+            <ListingSELLERFINAL :sellerListing="sellerListing"/> 
+          </div>
         </div>
-        <!-- <Listing class="listing"/>
-        <Listing class="listing"/>
-      </div> -->
-      <!-- <div class="listings">
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-        <Listing class="listing"/>
       </div>
-      <div class="listings">
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-        <Listing class="listing"/>
-      </div> -->
-      </div>
+    </div>
+    <div class="add-listing">
       <AddListing/>
     </div>
     </div>
@@ -53,7 +42,7 @@ const AllListings = collection(db, "All Listings")
 
 export default {
   components: { ProfileBar, SideBar, SearchBar2, 
-    ListingSELLERFINAL, AddListing},
+    ListingSELLERFINAL, AddListing, SellerSideBar},
 
 
   name: "SellerListing",

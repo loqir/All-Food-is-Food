@@ -18,6 +18,7 @@ import PaymentSuccess from "../components/PaymentSuccess.vue"
 import ProfilePage from "../components/Profile.vue"
 import BuyerListings from "../components/BuyerListing.vue"
 import SellerListings from "../components/SellerListing.vue"
+import Cart from "../components/commons/Cart.vue"
 
 const routes = [
   {
@@ -116,6 +117,11 @@ const routes = [
     name: 'sellerlistings',
     component: SellerListings
   },
+  {
+    path: '/cart',
+    name: 'cart',
+    compoenet: Cart
+  }
 ]
 
 const router = createRouter({

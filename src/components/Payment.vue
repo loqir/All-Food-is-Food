@@ -7,11 +7,15 @@
         <ProfileBar id="profile-bar"/>
       </div>
       <div class="group-34518">
-        <div v-if="uniqueCart.length">
+        <div class="cart2" v-if="uniqueCart.length">
+        <div class="cart-container" v-if="uniqueCart.length">
           <div v-for="item in uniqueCart" :key="item.id">
             <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
           </div>
         </div>
+        <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{  totalValue }}
+        </div>
+      </div>
           <div class="empty" v-else>
             <p>Your cart is empty.</p>
           </div>
@@ -133,7 +137,8 @@ computed: {
   outline: none;
 }
 #cart{
-  width: 60%;
+  width: 100%;
+  margin-bottom: 100px;
 }
 .flex-wrapper-one {
   padding: 1px 0 0;
@@ -152,8 +157,8 @@ computed: {
 .group-34518 {
   margin-left: 20px;
   display: flex;
-  justify-content: space-around;
-  width: 80vw;
+  justify-content: space-between;
+  width: 80vw; 
 }
 .empty {
   display: flex;
@@ -161,13 +166,19 @@ computed: {
   justify-content: center;
   font-size: 30px;
 }
+.cart-container{
+  width: 50vw;
+  height: 600px;
+  overflow-x:auto;
+  overflow-y: auto;
+}
 .my-cart-three {
   width: 25%;
   height: calc(99.04% - 150px);
   background-color: rgba(255, 255, 255, 0.6);
   margin-top: 1px;
   border-radius: 24px;
-  padding: 126px 24px 126px 24px;
+  padding: 26px 24px 26px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -211,5 +222,10 @@ computed: {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.total-amount{
+  align-self: flex-end;
+  margin-top: 20px;
 }
 </style>

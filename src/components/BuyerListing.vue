@@ -8,7 +8,7 @@
       </div>
       <h1 class="header"> Food Items </h1>
       <div class="listing-container" style="flex-grow: 1;">
-        <div class="listings" style="display: flex; flex-wrap: wrap;">
+        <div class="listings">
           <ListingBUYERFINAL v-for="listing in filteredListings" :key="listing.id" style="flex-basis: 33.33%;" :listing="listing"/>
         </div>
       </div>
@@ -30,9 +30,7 @@ import ProfileBar from './commons/ProfileBar.vue';
 import SideBar from './commons/SideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 import Cart from './commons/Cart.vue'
-import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/commons/NavBar.vue'
-import SearchBar from '@/components/commons/SearchBar.vue'
+
 import ListingBUYERFINAL from '@/components/commons/ListingBUYERFINAL.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
@@ -200,6 +198,7 @@ computed: {
   justify-content: flex-start;
   height: 50%;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .listing {
@@ -217,18 +216,10 @@ computed: {
 }
 
 .listing-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+  width: 50%;
+  height: 600px;
+  overflow-x:auto;
+  overflow-y: auto;
 }
 
 </style>>

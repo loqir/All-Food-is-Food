@@ -1,32 +1,12 @@
 <template>
     <div class="CartContainer">
-   	   <div class="Header">
+			<!--
+				<div class="Header">
    	   	<h3 class="Heading">Shopping Cart</h3>
 			  <button style = "border:none;" v-on:click = "removecart">
-   	   	<h5 class="Action">Remove all</h5>
-		</button>
+   	   	<h5 class="Action">Remove all</h5> </button>
    	   </div>
-
-   	   <!-- <div class="Cart-Items">
-   	   	  <div class="image-box">
-   	   	  	<img class="img1" src="images/apple.png"/>
-   	   	  </div>
-   	   	  <div class="about">
-   	   	  	<h1 class="title">Apple Juice</h1>
-   	   	  	<h3 class="subtitle">250ml</h3>
-   	   	  </div>
-   	   	  <div class="counter">
-   	   	  	<div class="btn">+</div>
-   	   	  	<div class="count">2</div>
-   	   	  	<div class="btn">-</div>
-   	   	  </div>
-   	   	  <div class="prices">
-   	   	  	<div class="amount">$2.99</div>
-   	   	  	<div class="remove"><u>Remove</u></div>
-   	   	  </div>
-   	   </div> -->
-
-
+			-->
    	   <div class="Cart-Items pad">
    	   	  <div class="image-box">
    	   	  	<img class="img1" 
@@ -35,7 +15,6 @@
    	   	  </div>
    	   	  <div class="about">
    	   	  	<h1 class="title">{{ item.name }}</h1>
-   	   	  	<!-- <h3 class="subtitle">250ml</h3> -->
    	   	  </div>
    	   	  <div class="counter">
 			<button style = "border:none;" v-on:click = "decrement(item)">
@@ -47,7 +26,7 @@
 			</button>
    	   	  </div>
    	   	  <div class="prices">
-   	   	  	<div class="amount"> PRICE ${{ item.price}}</div>
+   	   	  	<div class="amount"> Price: ${{ item.price}}</div>
 			<button style = "border:none;" v-on:click = "deletefromcart(item)">
    	   	  	<div class="remove"><u>Remove</u></div>
 		</button>
@@ -60,9 +39,11 @@
    	 		<div class="Subtotal">Sub-Total</div>
    	 		<div class="items">{{cart.length}} items</div>
    	 	</div>
-   	 	<div class="total-amount"> $ {{  totalValue }}</div>
+				<!--<div class="total-amount"> $ {{  totalValue }}</div>
    	 </div>
-   	 <button class="button">Checkout</button></div>
+   	 <button class="button">Checkout</button></div>-->
+   	 </div>
+			</div>
    </div> 
 
 </template>
@@ -161,28 +142,13 @@ if (this.cartRef) {
  removecart() {
 	deleteDoc(this.cartRef)
  }
-
     },
-// 	computed: {
-//     async totalValue() {
-//       let total = 0;
-//       for (let listingID of this.cart) {
-// 		const docRef = doc(collection(db, "All Listings"), listingID);
-// 		const docSnap = await getDoc(docRef);
-// 		const price = docSnap.data().price;
-// 		console.log(price)
-//         total += price
-//       }
-//       return total;
-//     }
-//   },
 }
 </script>
 
 <style scoped>
 .CartContainer{
 	width: 100vw;
-	height: 100vh;
 	background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0px 10px 20px #1687d933;
@@ -223,6 +189,7 @@ if (this.cartRef) {
 .image-box{
 	width: 15%;
 	text-align: center;
+	object-fit: contain;
 }
 .about{
 	height: 100%;
@@ -231,7 +198,7 @@ if (this.cartRef) {
 .title{
 	padding-top: 10px;
 	line-height: 10px;
-	font-size: 32px;
+	font-size: 24px;
 	font-family: 'Open Sans';
 	font-weight: 800;
 	color: #202020;
