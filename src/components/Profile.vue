@@ -1,6 +1,7 @@
 <template>
   <div class="profile-page">
-    <SideBar class="sidebar"/>
+    <SideBar class="sidebar" v-if="isBuyer"/>
+    <SellerSideBar class="sidebar" v-else/>
     <div class="flex-wrapper-one">
       <div class="relative-wrapper-one">
         <SearchBar2/>
@@ -133,6 +134,7 @@
 
 <script>
 import SideBar from './commons/SideBar.vue';
+import SellerSideBar from './commons/SellerSideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 
 import Logout from '@/components/Logout.vue'
@@ -147,7 +149,7 @@ import { ref,uploadBytes } from "firebase/storage"
 import { getDownloadURL } from "firebase/storage"
 
 export default {
-  components: { ProfileBar, SideBar, SearchBar2},
+  components: { ProfileBar, SideBar, SearchBar2, SellerSideBar},
   name: "ProfilePage",
 
     data() {
