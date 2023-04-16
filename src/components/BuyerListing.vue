@@ -6,17 +6,17 @@
         <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
         <ProfileBar id="pb"/>
       </div>
-        <div class="content">
-          <h1 class="header"> Food Items </h1>
-          <div class="listing-cart">
-            <div class="listings">
-              <ListingBUYERFINAL v-for="listing in filteredListings" :key="listing.id" style="flex-basis: 33.33%;" :listing="listing" class="listing"/>
-            </div>
-            <div class="cart">
-              <div v-if="uniqueCart.length">
-                <div v-for="item in uniqueCart" :key="item.id">
-                  <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" class="cart-item"/>
-                </div>
+      <div class="content">
+        <h1 class="header"> Food Items </h1>
+        <div class="listing-cart">
+          <div class="listings">
+            <ListingBUYERFINAL v-for="listing in filteredListings" :key="listing.id" style="flex-basis: 33.33%;" :listing="listing" class="listing"/>
+          </div>
+          <div class="cart">
+            <div v-if="uniqueCart.length">
+              <div v-for="item in uniqueCart" :key="item.id">
+                <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" class="cart-item"/>
+               </div>
               </div>
               <div v-else>
                 <p>Your cart is empty.</p>
@@ -62,7 +62,7 @@ export default {
     goToPayment() {
           this.$router.push('/payment');
         },
-        
+
     async populatelistingsarray() {
   const queryRef = query(collection(db, 'All Listings'));
 
@@ -163,13 +163,17 @@ computed: {
   height: 120vh;
   display: flex;
   align-items: flex-start;
+  width: 100vw;
 }
-.container{
+.container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0;
   padding: 0;
+}
+.content {
+  width: 90vw;
 }
 .main-display {
   display: flex;
@@ -192,21 +196,22 @@ computed: {
   flex-wrap: wrap;
   overflow-x:auto;
   overflow-y: auto;
-  height: 600px;
+  height: 80vh;
+  padding: 20px;
 }
 .listing {
   width: 30%;
   margin: 0;
   align-self: flex-start;
   justify-self: flex-start;
-  height: 60%;
+  height: 50%;
 }
 .header {
   text-align: center;
 }
 .cart {
   width: 50%;
-  height: 600px;
+  height: 80vh;
   overflow-x:auto;
   overflow-y: auto;
 }
@@ -217,6 +222,7 @@ computed: {
   background-color: rgba(234, 106, 18, 1);
   padding: 5px;
   border-radius: 24px;
+  margin-top: 50px;
 }
 
 </style>>

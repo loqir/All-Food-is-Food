@@ -85,7 +85,7 @@ export default {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
   height: auto;
-  width: 9vw;
+  width: 8vw;
 }
 .frame-36360 {
   padding: 10px;
@@ -112,14 +112,6 @@ export default {
   margin-bottom: 24px;
   background: url("https://static.overlay-tech.com/assets/2ae22b5e-3487-497c-8813-491e81f933b4.png");
   border: 0;
-}
-.profile2 {
-  width: 48px;
-  height: 46.59px;
-  margin-bottom: 24px;
-  background: url("https://static.overlay-tech.com/assets/2ae22b5e-3487-497c-8813-491e81f933b4.png");
-  border: 0;
-  border-radius: 50%;
 }
 .cart {
   width: 48px;
