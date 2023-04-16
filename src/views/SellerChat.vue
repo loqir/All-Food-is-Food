@@ -1,5 +1,5 @@
 <template>
-  <NavBar/>
+  <SellerSideBar/>
     <h1>{{ title }}</h1>
     <div v-if="loggedin">
       <div v-for="chat in chats" class="p-2">
@@ -16,14 +16,11 @@
       <div v-for="chat in openedChats">
         <SellerChatComp :client="chat"></SellerChatComp>
       </div>
-      <button @click="logout">logout</button>
-    </div>
-    <div v-else>
-      <button @click="login">login</button>
     </div>
   </template>
     
     <script>
+    import SellerSideBar from '../components/commons/SellerSideBar.vue'
     import { db, auth } from '../firebase.js';
     import { GoogleAuthProvider, signInWithPopup , signOut } from 'firebase/auth';
     import {
@@ -42,12 +39,13 @@
     import firebaseApp from '@/firebase.js'
     import NavBar from '@/components/commons/NavBar.vue'
     import SellerChatComp from '../components/SellerChatComp.vue';
+import SellerSideBarVue from '../components/commons/SellerSideBar.vue';
 
     export default {
       name: 'SellerChat',
       components: {
         SellerChatComp,
-        NavBar
+        SellerSideBar
       },
       data: () => {
         return {

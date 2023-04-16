@@ -68,12 +68,8 @@
             <p class="username-or-email-address-two">
               or sign up with Google
             </p>
-            <div class="socail-links">
-                <img
-                  alt=""
-                  class="union"
-                  src="https://static.overlay-tech.com/assets/63a48114-e7f9-4446-93de-56ea1cd1922b.png"
-                />
+              <div class="socail-links">
+                <input class="union" type="image" src="https://static.overlay-tech.com/assets/63a48114-e7f9-4446-93de-56ea1cd1922b.png" @click="googoSignIn"/>
               </div>
             </div>
             <p class="already-have-an-account-sign-in">
@@ -98,6 +94,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { getFirestore } from "firebase/firestore";
 import { doc, setDoc, getDoc, collection, getDocs, query, where } from "firebase/firestore"; 
+import {signInWithPopup,  GoogleAuthProvider } from "firebase/auth";
+
 
 export default {
   name: "BuyerSignUp",
@@ -109,11 +107,53 @@ export default {
         password2: "",
         firstName: "",
         lastName: "",
-        phone: ""
+        phone: "",
       }
     },
 
   methods: {
+        googoSignIn() {
+          const auth = getAuth();
+          const provider = new GoogleAuthProvider();
+          signInWithPopup(auth, provider)
+            .then(async (result) => {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              const credential = GoogleAuthProvider.credentialFromResult(result);
+              const token = credential.accessToken;
+              // The signed-in user info.
+              const user = result.user;
+              const buyDocRef = doc(getFirestore(firebaseApp), "buyers", user.uid);
+              const buyDocSnap = await getDoc(buyDocRef);
+
+              const sellDocRef = doc(getFirestore(firebaseApp), "sellers", user.uid);
+              const sellDocSnap = await getDoc(sellDocRef);
+
+              if (buyDocSnap.exists()) {
+                alert("Buyer Account already exists. Please login instead.")
+                this.$router.push("/login");
+              } else if (sellDocSnap.exists()) {
+                alert("Email already used for a Seller Account.")
+                this.$router.go(0);
+              } else {
+                await setDoc(doc(getFirestore(firebaseApp), "buyers", user.uid), {
+                  FirstName: user.displayName.split(" ").at(0),
+                  LastName: user.displayName.split(" ").at(1),
+                  Phone: user.phoneNumber,
+                  Email: user.email,
+                  ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Fusersial.png?alt=media&token=0f7958a1-2621-4eeb-bb29-79ae437a8aa4"
+                });
+                this.$router.push("/googlenumber")
+              }
+              // IdP data available using getAdditionalUserInfo(result)
+              // ...
+            }).catch((error) => {
+              // Handle Errors here.
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // The email of the user's account used.
+            });
+        },
+
         async createBuyer() {
           const buyersRef = collection(getFirestore(firebaseApp), "buyers");
           const q = query(buyersRef, where("Email", "==", this.email))
@@ -147,7 +187,7 @@ export default {
                     ProfilePic: "https://firebasestorage.googleapis.com/v0/b/bt3103-989bb.appspot.com/o/images%2Fusersial.png?alt=media&token=0f7958a1-2621-4eeb-bb29-79ae437a8aa4"
                 });
 
-                this.$router.push('/buyerlistingview')
+                this.$router.push('/buyerlistings')
             })
             .catch((error) => {
                 const errorCode = error.code;
