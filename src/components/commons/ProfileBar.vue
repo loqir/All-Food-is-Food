@@ -44,6 +44,7 @@
   height: 100%;
 }
 .austin-robertson {
+  padding-top: 5px;
   letter-spacing: 0.32px;
   font-size: 16px;
 }
