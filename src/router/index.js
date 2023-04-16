@@ -8,6 +8,7 @@ import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/auth/LogIn.vue"
 import BuyerSignUp from "../components/auth/BuyerSignUp.vue"
+import GoogleNumber from "../components/auth/GoogleNumber.vue"
 import SellerSignUp from "../components/auth/SellerSignUp.vue"
 import PasswordResetSuccess from "../components/auth/PasswordResetSuccess.vue"
 import PasswordReset from "../components/auth/PasswordReset.vue"
@@ -65,6 +66,11 @@ const routes = [
     path: '/buyersignup',
     name: "BuyerSignUp",
     component: BuyerSignUp
+  },
+  {
+    path: '/googlenumber',
+    name: "GoogleNumber",
+    component: GoogleNumber
   },
   {
     path: '/sellersignup',
