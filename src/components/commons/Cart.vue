@@ -85,16 +85,20 @@ export default {
     });
   },
   computed: {
-    async totalValue() {
+    totalValue() {
       let totalValue = 0;
-      for (let uniqueitem of this.uniqueCart) {
-        await price = parseFloat(uniqueitem.price);
-		const count = this.cart.filter(cartitem => cartitem == uniqueitem).length
-		console.log(price)
-		console.log(count)
-		
-        totalValue += price * count ;
-        
+	  let id = 'placeholder'
+	  let obj = 'placeholder'
+      for (let item of this.cart) {
+		if (typeof item === 'string') {
+			id = item
+			if (id === obj.id) {
+			totalValue += obj.price
+			}
+		} else {
+			obj = item
+			totalValue += obj.price
+		}
       }
 	  console.log("total value " + totalValue)
       return totalValue;

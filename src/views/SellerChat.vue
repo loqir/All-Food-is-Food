@@ -39,7 +39,7 @@
     import firebaseApp from '@/firebase.js'
     import NavBar from '@/components/commons/NavBar.vue'
     import SellerChatComp from '../components/SellerChatComp.vue';
-import SellerSideBarVue from '../components/commons/SellerSideBar.vue';
+    import SellerSideBarVue from '../components/commons/SellerSideBar.vue';
 
     export default {
       name: 'SellerChat',
