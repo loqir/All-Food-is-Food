@@ -83,7 +83,7 @@
       if (sellDocSnap.exists()) {
           this.isAdmin = true
       }
-      console.log(this.isAdmin)
+
     },
     toggleChat: function (chat) {
     // Check if the chat is already opened
