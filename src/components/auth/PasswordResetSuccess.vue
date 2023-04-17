@@ -25,9 +25,9 @@
             included link to reset your password.
           </p>
         </div>
-        <div class="sign-in-button">
-          <router-link to="/login">Back to Sign in</router-link>
-        </div>
+        <button @click="goBack" class="sign-in-button">
+          Back to Sign In
+        </button>
       </div>
     </div>
   </div>
@@ -35,7 +35,13 @@
 
 <script>
 export default {
-  name: "Email"
+  name: "Email",
+
+  methods: {
+    goBack() {
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 
@@ -111,6 +117,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: rgba(255, 255, 255, 1);
 }
 .text {
   width: 140px;
