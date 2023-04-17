@@ -14,7 +14,7 @@
               <Cart :item="item" :quantity="cartQuantities[item.id]" @sendtotalvalue = "childcall($event)" :uniqueCart = "uniqueCart" :cart = "cart" id="cart"/>
             </div>
           </div>
-        <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{ totalValue.toFixed(1) }}</div>
+        <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{ totalValue.toFixed(1)  }}</div>
       </div>
       <div class="empty" v-else>
             <p>Your cart is empty.</p>

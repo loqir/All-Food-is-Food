@@ -18,7 +18,7 @@
 			</button>
    	   	  </div>
    	   	  <div class="prices">
-   	   	  	<div class="amount"> Price: ${{ item.price}}</div>
+   	   	  	<div class="amount"> Price: $ {{ item.price }}</div>
 			<button style = "border:none;" v-on:click = "deletefromcart(item)">
    	   	  	<div class="remove"><u>Remove</u></div>
 		</button>
