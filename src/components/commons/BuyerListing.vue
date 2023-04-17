@@ -8,9 +8,11 @@
     <p class="price"> ${{ listing.price }}</p>
     <p class="description"> Description : {{ listing.description }}</p>
     <p class="qty">Qty : {{ listing.qty }} </p>
-    <p class="seller-name"> Seller : {{listing.Seller}} </p>
-    <button @click = "addtocart(listing)" class="add"> + </button>
-  </div>
+    <div class="last-row">
+      <p class="seller-name"> Seller : {{listing.Seller}}</p>
+      <button @click = "addtocart(listing)" class="add"> + </button>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -102,6 +104,12 @@ location.reload()
     background-color: coral;
     margin-bottom: 10px;
     margin-right: 10px;
+
+  }
+  .last-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
   }
 
 </style>

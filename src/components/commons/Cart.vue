@@ -197,7 +197,6 @@ if (this.cartRef) {
 }
 .title{
 	padding-top: 10px;
-	line-height: 10px;
 	font-size: 24px;
 	font-family: 'Open Sans';
 	font-weight: 800;
