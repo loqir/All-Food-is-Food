@@ -1,19 +1,19 @@
 <template>
-    <div class="container">
-      <div class="image-container">
-        <img class="image" 
-        :src= sellerListing.image>
-      </div>
-      <p class="title"> {{ sellerListing.name }}</p>
-      <p class="price"> ${{ sellerListing.price }}</p>
-      <p class="description">Description : {{ sellerListing.description }}</p>
-      <p class="qty">Qty : {{ sellerListing.qty }}</p>
-      <div class="last-row">
-        <p class="seller-name"> {{sellerListing.Seller}} </p>
-        <button @click = "deletefromListings(sellerListing)" class="add"> - </button>
-      </div>
+  <div class="container">
+    <div class="image-container">
+      <img class="image" 
+      :src= sellerListing.image>
     </div>
-  </template>
+    <p class="title"> {{ sellerListing.name }}</p>
+    <p class="price"> ${{ sellerListing.price }}</p>
+    <p class="description">Description : {{ sellerListing.description }}</p>
+    <p class="qty">Qty : {{ sellerListing.qty === 0 ? 'SOLD OUT' : sellerListing.qty }}</p>
+    <div class="last-row">
+      <p class="seller-name"> {{sellerListing.Seller}} </p>
+      <button @click = "deletefromListings(sellerListing)" class="add"> - </button>
+    </div>
+  </div>
+</template>
   
 <script>
 import firebaseApp from '@/firebase.js'

@@ -7,7 +7,7 @@
     <p class="title"> {{ listing.name }}</p>
     <p class="price"> ${{ listing.price }}</p>
     <p class="description"> Description : {{ listing.description }}</p>
-    <p class="qty">Qty : {{ listing.qty }} </p>
+    <p class="qty">Qty : {{ listing.qty === 0 ? 'SOLD OUT' : listing.qty }}</p>
     <div class="last-row">
       <p class="seller-name"> Seller : {{listing.Seller}}</p>
       <button @click = "addtocart(listing)" class="add"> + </button>
