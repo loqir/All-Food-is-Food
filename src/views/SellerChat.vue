@@ -1,6 +1,6 @@
 <template>
   <SellerSideBar/>
-    <h1>{{ title }}</h1>
+    <h1 style = "text-align: center">{{ title }}</h1>
     <div v-if="loggedin">
       <div v-for="chat in chats" class="p-2">
         <div
