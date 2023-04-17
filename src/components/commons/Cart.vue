@@ -69,42 +69,53 @@ export default {
     data() {
       return {
       user : false,
-      cartRef : ""
+      cartRef : "",
+	  asdvalue : 0
       }
 
     },
-	mounted() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        this.user = user;
-        const specificbuyer = doc(BuyersCart, this.user.uid);
-        this.cartRef = specificbuyer;
-		this.$emit("sendtotalvalue", this.totalValue)
-      }
-    });
-  },
-  computed: {
-    totalValue() {
-      let totalValue = 0;
-	  let id = 'placeholder'
-	  let obj = 'placeholder'
-      for (let item of this.cart) {
-		if (typeof item === 'string') {
-			id = item
-			if (id === obj.id) {
-			totalValue += obj.price
-			}
-		} else {
-			obj = item
-			totalValue += obj.price
-		}
-      }
-	  console.log("total value " + totalValue)
-	  //this.totalValue = totalValue
-      return totalValue;
-    },
-  },
+	async mounted() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      this.user = user;
+      const specificbuyer = doc(BuyersCart, this.user.uid);
+      this.cartRef = specificbuyer;
+      const totalValue = await this.calculateTotalValue();
+      console.log(totalValue);
+      this.$emit("sendtotalvalue", totalValue);
+    }
+  });
+},
+//   computed :{
+// 	async totalValue() {
+//     let value = 0;
+//     const docSnap = await getDoc(this.cartRef)
+//     const fkingcart = await docSnap.data().myArrayField
+//     const promises = [];
+//     for (let item of fkingcart) {
+//       if (typeof item === 'string') {
+//         const docRef = doc(db, "All Listings", item)
+//         promises.push(getDoc(docRef)
+//           .then((doc) => {
+//             if (doc.exists()) {
+//               const price = doc.data().price
+//               console.log("string price " + price)
+//               value += price
+//             }
+//           }));
+//       }
+//       else {
+//         console.log("object price " + item.price)
+//         value += item.price
+//       }
+//     }
+//     await Promise.all(promises);
+//     console.log("total valuefejifjei " + value)
+//     return value;
+//   }
+	
+//   },
 
     methods: {
       async deletefromcart(itemtoDelete) {
@@ -139,9 +150,7 @@ if (this.cartRef) {
 		abc.push(item.id)
 	}
 
-	await updateDoc(this.cartRef, { myArrayField: abc});
-	// this.totalValue -= item.price
-	console.log("decrement")
+	await updateDoc(this.cartRef, { myArrayField: abc})
 	this.$emit("sendtotalvalue", this.totalValue)
 	location.reload()
 
@@ -153,8 +162,6 @@ if (this.cartRef) {
 		abc.push(item.id)
 	}
 	await updateDoc(this.cartRef, { myArrayField: abc});
-	// this.totalValue += item.price
-	console.log("increment")
 	this.$emit("sendtotalvalue", this.totalValue)
 	location.reload()
 
@@ -164,7 +171,37 @@ if (this.cartRef) {
  },
  removecart() {
 	deleteDoc(this.cartRef)
- }
+ },
+ async calculateTotalValue() {
+    let value = 0;
+    const docSnap = await getDoc(this.cartRef);
+    const fkingcart = await docSnap.data().myArrayField;
+    const promises = [];
+    for (let item of fkingcart) {
+      if (typeof item === 'string') {
+        const docRef = doc(db, "All Listings", item);
+        promises.push(
+          getDoc(docRef).then((doc) => {
+            if (doc.exists()) {
+              const price = doc.data().price;
+              console.log("string price " + price);
+              value += price;
+            }
+          })
+        );
+      } else {
+        console.log("object price " + item.price);
+        value += item.price;
+      }
+    }
+    await Promise.all(promises);
+    console.log("total valuefejifjei " + value);
+    return value;
+  },
+  
+  async totalValue() {
+    return await this.calculateTotalValue();
+  }
     },
 }
 </script>
