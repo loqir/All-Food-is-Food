@@ -45,7 +45,7 @@
                 <p class="username-or-email-address">
                   Company UEN
                 </p>
-                <input class="email-input" type="number" placeholder="UEN" v-model="uen">
+                <input class="email-input" type="tel" placeholder="UEN" v-model="uen">
               </div>
             </div>
             <div class="frame-35366">
