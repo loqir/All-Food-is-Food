@@ -52,7 +52,7 @@ import firebaseApp from '@/firebase.js'
     const listingDoc = await getDoc(listingRef);
     // const qty = listingDoc.data().qty;
     console.log( " QTY " +  listing.qty)
-    if (listing.qty == 0 || counts[listingid] >= listing.qty) {
+    if (counts[listingid] >= listing.qty || listing.qty == 0) {
   alert("Maximum quantity exceeded or No Stock left");
 } else {
       const newList = [...currList, listing.id];
@@ -60,7 +60,7 @@ import firebaseApp from '@/firebase.js'
       location.reload();
     }
   } else {
-    if (listing.qty == 0 || counts[listingid] >= listing.qty) {
+    if (listing.qty == 0) {
   alert("Maximum quantity exceeded or No Stock left");
 } else {
     await setDoc(this.buyerDocument, { myArrayField: [listingid] });
