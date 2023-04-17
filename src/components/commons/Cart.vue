@@ -155,20 +155,29 @@ if (this.cartRef) {
 	location.reload()
 
  },
- async increment(item){
-	this.cart.push(item)
-	const abc  = []
-	for (let item of this.cart) {
-		abc.push(item.id)
-	}
-	await updateDoc(this.cartRef, { myArrayField: abc});
-	this.$emit("sendtotalvalue", this.totalValue)
-	location.reload()
+ async increment(item) {
+  const itemid = item.id;
+  const qty = item.qty;
+  const docSnap = await getDoc(this.cartRef);
+  const currList = docSnap.data().myArrayField || [];
+  const counts = currList.reduce((acc, itemid) => {
+    acc[itemid] = (acc[itemid] || 0) + 1;
+    return acc;
+  }, {});
+  if (counts[itemid] >= qty) {
+    alert("Maximum quantity exceeded");
+  } else {
+    this.cart.push(item);
+    const abc = [];
+    for (let item of this.cart) {
+      abc.push(item.id);
+    }
+    await updateDoc(this.cartRef, { myArrayField: abc });
+    this.$emit("sendtotalvalue", this.totalValue);
+    location.reload()
+  }
+},
 
-	// this.totalValue += item.price
-
-
- },
  removecart() {
 	deleteDoc(this.cartRef)
  },

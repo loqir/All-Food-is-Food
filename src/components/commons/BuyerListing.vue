@@ -56,12 +56,14 @@ import firebaseApp from '@/firebase.js'
     } else {
       const newList = [...currList, listing.id];
       await setDoc(this.buyerDocument, { myArrayField: newList });
+      location.reload();
     }
   } else {
     await setDoc(this.buyerDocument, { myArrayField: [listingid] });
+    location.reload();
   }
 
-  location.reload();
+
 }
          },
      mounted() {
