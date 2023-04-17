@@ -164,9 +164,9 @@ if (this.cartRef) {
     acc[itemid] = (acc[itemid] || 0) + 1;
     return acc;
   }, {});
-  if (counts[itemid] >= qty) {
-    alert("Maximum quantity exceeded");
-  } else {
+  if (counts[listingid] >= qty || qty == 0) {
+  alert("Maximum quantity exceeded or No Stock left");
+} else {
     this.cart.push(item);
     const abc = [];
     for (let item of this.cart) {

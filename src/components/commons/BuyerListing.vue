@@ -51,9 +51,9 @@ import firebaseApp from '@/firebase.js'
     const listingRef = doc(db, "All Listings", listingid);
     const listingDoc = await getDoc(listingRef);
     const qty = listingDoc.data().qty;
-    if (counts[listingid] >= qty) {
-      alert("Maximum quantity exceeded");
-    } else {
+    if (counts[listingid] >= qty || qty == 0) {
+  alert("Maximum quantity exceeded or No Stock left");
+} else {
       const newList = [...currList, listing.id];
       await setDoc(this.buyerDocument, { myArrayField: newList });
       location.reload();
