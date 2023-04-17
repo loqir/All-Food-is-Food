@@ -2,15 +2,11 @@
   <div class="navigation-bar">
           <div class="icon-text">
             <div class="iconly-light-search">
-              <button @click ="search">
-              <img
-                alt=""
-                class="vector"
-                src="https://static.overlay-tech.com/assets/55aa4959-8ce7-48c7-8d1e-e843d9c46e20.svg"
-              />
-            </button>
+              <button @click ="search" class="search">
+                <img src="https://static.overlay-tech.com/assets/55aa4959-8ce7-48c7-8d1e-e843d9c46e20.svg">
+              </button>
             </div>
-            <input type="text" placeholder="Find your food" v-model = "searchEntry" class="icon-text" id="search-bar">
+            <input type="text" placeholder="Search" v-model = "searchEntry" class="input" id="search-bar">
           </div>
         </div>
 </template>
@@ -55,6 +51,7 @@ export default {
   overflow: hidden;
   border-radius: 24px;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid rgba(227, 225, 225, 1);
@@ -63,15 +60,23 @@ export default {
   padding-left: 5px;
 }
 .iconly-light-search {
-  margin-right: 8px;
-  padding: 1.17px 1.17px 1.75px 1.75px;
   display: flex;
   align-items: center;
-  width: 11.08px;
-  height: 11.08px;
+  justify-content: flex-end;
+  height: 100%;
+  width: 20%;
 }
-.vector {
-  flex: 1;
-  align-self: stretch;
-  object-fit: cover;
-}</style>
+
+.input {
+  display: flex;
+  justify-content: flex-start;
+  width: 20vw;
+}
+.search {
+  border: 0;
+  height: 100%;
+  border-radius: 0 24px 24px 0;
+  padding: 0;
+  width: 100%; 
+}
+</style>
