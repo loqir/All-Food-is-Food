@@ -80,10 +80,9 @@
       const sellDocRef = doc(getFirestore(firebaseApp), "sellers", uid);
       const sellDocSnap = await getDoc(sellDocRef);
 
-      if (sellDocSnap.exists()) {
+      if (sellDocSnap.data().CompanyName === "AllFoodIsFood") {
           this.isAdmin = true
       }
-      console.log(this.isAdmin)
     },
     toggleChat: function (chat) {
     // Check if the chat is already opened
