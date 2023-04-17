@@ -57,7 +57,9 @@ export default {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        if (errorCode == "auth/missing-email" || errorCode == "auth/invalid-email") {
+        console.log(errorCode)
+
+        if (errorCode == "auth/missing-email" || errorCode == "auth/invalid-email" || errorCode == "auth/user-not-found") {
           alert("Please Enter a Valid Email")
         }
       })
