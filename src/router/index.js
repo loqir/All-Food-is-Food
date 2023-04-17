@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import NotFound from '@/views/NotFound.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/auth/LogIn.vue"
 import BuyerSignUp from "../components/auth/BuyerSignUp.vue"
@@ -16,11 +15,6 @@ import BuyerListings from "../components/BuyerListing.vue"
 import SellerListings from "../components/SellerListing.vue"
 
 const routes = [
-  {
-    path: '/:catchAll(.*)',
-    name: 'NotFound',
-    component: NotFound
-  },
   {
     path: '/',
     name: 'LandingPage',
@@ -72,7 +66,7 @@ const routes = [
     component: Payment
   },
   {
-    path: '/PaymentSuccess',
+    path: '/paymentSuccess',
     name: 'paymentsuccess',
     component: PaymentSuccess
   },

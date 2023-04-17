@@ -138,8 +138,6 @@ import SideBar from './commons/SideBar.vue';
 import SellerSideBar from './commons/SellerSideBar.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 
-import Logout from '@/components/Logout.vue'
-import NavBar from '@/components/commons/NavBar.vue'
 import { getAuth, onAuthStateChanged, updateEmail } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"

@@ -27,7 +27,6 @@
     <script>
     import { db, auth } from '../firebase.js';
     import firebaseApp from '@/firebase.js'
-    import NavBar from '@/components/commons/NavBar.vue'
     import SideBar from '@/components/commons/SideBar.vue'
     import {
       onSnapshot,
@@ -46,7 +45,6 @@
     export default {
       name: 'BuyerChat',
       components: {
-        NavBar,
         SideBar
       },
       props: {},

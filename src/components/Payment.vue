@@ -16,7 +16,7 @@
           </div>
         <div v-if="uniqueCart.length" class="total-amount"> Total: $ {{ totalValue }}</div>
       </div>
-          <div class="empty" v-else>
+      <div class="empty" v-else>
             <p>Your cart is empty.</p>
           </div>
         <div class="my-cart-three">
@@ -160,7 +160,9 @@ computed: {
   display: flex;
   flex-direction: column; 
   justify-content: center;
+  align-items: center;
   font-size: 30px;
+  margin-left: 10vw;
 }
 .cart-container{
   width: 50vw;

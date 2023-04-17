@@ -19,7 +19,7 @@
                 <Cart :item="item" :quantity="cartQuantities[item.id]" :uniqueCart = "uniqueCart" :cart = "cart" class="cart-item"/>
                </div>
               </div>
-              <div v-else>
+              <div class="empty" v-else>
                 <p>Your cart is empty.</p>
               </div>
             </div>
@@ -231,5 +231,11 @@ computed: {
   margin-top: 50px;
   align-self: end;
 }
-
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 32px;
+}
 </style>>

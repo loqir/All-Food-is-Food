@@ -43,7 +43,7 @@ export default {
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
   position: relative;
   display: flex;
-  width: 69vw;
+  width: 59vw;
   height: 8vh;
   align-items: center;
 }
