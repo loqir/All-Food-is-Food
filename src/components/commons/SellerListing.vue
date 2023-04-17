@@ -8,8 +8,10 @@
       <p class="price"> ${{ sellerListing.price }}</p>
       <p class="description">Description : {{ sellerListing.description }}</p>
       <p class="qty">Qty : {{ sellerListing.qty }}</p>
-      <p class="seller-name"> {{sellerListing.Seller}} </p>
-      <button @click = "deletefromListings(sellerListing)" class="add"> - </button>
+      <div class="last-row">
+        <p class="seller-name"> {{sellerListing.Seller}} </p>
+        <button @click = "deletefromListings(sellerListing)" class="add"> - </button>
+      </div>
     </div>
   </template>
   
@@ -135,5 +137,10 @@ deleteDoc(docRef)
       margin-bottom: 10px;
       margin-right: 10px;
     }
+    .last-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
   
   </style>
