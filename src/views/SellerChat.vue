@@ -111,7 +111,7 @@
             this.loggedin = true;
             await this.isSeller(user.uid);
             if (this.isAdmin) {
-              this.title = 'Admin Chats';
+              this.title = 'Chats';
               const chatSnapshot = onSnapshot(
               query(collection(db, 'chats'), orderBy('date', 'desc')),
               (snapshot) => {
