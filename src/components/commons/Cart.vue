@@ -101,6 +101,7 @@ export default {
 		}
       }
 	  console.log("total value " + totalValue)
+	  //this.totalValue = totalValue
       return totalValue;
     },
   },
@@ -140,7 +141,8 @@ if (this.cartRef) {
 
 	await updateDoc(this.cartRef, { myArrayField: abc});
 	// this.totalValue -= item.price
-	// this.$emit("sendtotalvalue", this.totalValue)
+	console.log("decrement")
+	this.$emit("sendtotalvalue", this.totalValue)
 	location.reload()
 
  },
@@ -152,7 +154,8 @@ if (this.cartRef) {
 	}
 	await updateDoc(this.cartRef, { myArrayField: abc});
 	// this.totalValue += item.price
-	// this.$emit("sendtotalvalue", this.totalValue)
+	console.log("increment")
+	this.$emit("sendtotalvalue", this.totalValue)
 	location.reload()
 
 	// this.totalValue += item.price
