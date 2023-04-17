@@ -164,7 +164,7 @@ if (this.cartRef) {
     acc[itemid] = (acc[itemid] || 0) + 1;
     return acc;
   }, {});
-  if (counts[listingid] >= qty || qty == 0) {
+  if (counts[itemid] >= qty || qty == 0) {
   alert("Maximum quantity exceeded or No Stock left");
 } else {
     this.cart.push(item);
