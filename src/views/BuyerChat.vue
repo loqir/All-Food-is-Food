@@ -20,7 +20,7 @@
       <button @click="sendMessage" class="btn btn-primary">send</button>
       </div>
       <div v-else>
-        <h1>Please Login</h1>
+        <h1 style = "text-align: center">Please Login</h1>
       </div>
     </template>
     
