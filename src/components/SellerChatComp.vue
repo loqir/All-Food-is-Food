@@ -1,5 +1,5 @@
 <template>
-    <div>chat with : {{client.name}}</div>
+    <div class="chat-with">Chat with : {{client.firstName}} {{client.lastName}}</div>
     <div class="chatbox">
       <div v-for="message in messages">
         <div :class="message.admin ? 'admin' : 'client'">
@@ -110,5 +110,8 @@
   .admin {
     align-self: end;
     background-color: white;
+  }
+  .chat-with {
+    padding: 10px;
   }
   </style>

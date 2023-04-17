@@ -150,6 +150,7 @@ if (docSnap.exists()) {
   color: rgba(7, 20, 59, 1);
   margin-bottom: 20px;
   letter-spacing: 0.32px;
+  text-align: center;
 }
 .upload-file {
   display: flex;

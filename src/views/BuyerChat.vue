@@ -1,8 +1,12 @@
 <template>
-  <SideBar class="sidebar"/>
+  <div class="buyer-chat">
+  <div class="commons">
+    <SideBar class="sidebar"/>
+    <ProfileBar/>
+  </div>
     <div v-if="client.id" class = 'buyerchat'>
     <h1>{{ this.firstName }} {{ this.lastName }}</h1>
-      <div>chat with : Admin</div>
+      <div class="chat-with">Chat with : Test-seller </div>
       <div class="chatbox">
         <div v-for="message in messages">
           <div :class="message.admin ? 'client' : 'admin'">
@@ -22,12 +26,14 @@
       <div v-else>
         <h1 style = "text-align: center">Please Login</h1>
       </div>
+    </div>
     </template>
     
     <script>
     import { db, auth } from '../firebase.js';
     import firebaseApp from '@/firebase.js'
     import SideBar from '@/components/commons/SideBar.vue'
+    import ProfileBar from "../components/commons/ProfileBar.vue"
     import {
       onSnapshot,
       collection,
@@ -45,7 +51,8 @@
     export default {
       name: 'BuyerChat',
       components: {
-        SideBar
+        SideBar,
+        ProfileBar,
       },
       props: {},
       data: () => {
@@ -129,6 +136,11 @@
     </script>
     
     <style>
+    .buyer-chat {
+      display: flex;
+      flex-direction: column;
+      height: 95vh;
+    }
     .buyerchat{
       text-align: center;
     }
@@ -167,5 +179,12 @@
     .admin {
       align-self: start;
       background-color: #fdff8f;
+    }
+    .commons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .chat-with {
+      padding: 10px;
     }
     </style>

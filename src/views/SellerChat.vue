@@ -1,5 +1,9 @@
 <template>
-  <SellerSideBar/>
+  <div class="seller-chat">
+  <div class="commons">
+    <SellerSideBar/>
+    <ProfileBar/>
+  </div>
     <h1 style = "text-align: center">{{ title }}</h1>
     <div v-if="loggedin">
       <div v-for="chat in chats" class="p-2">
@@ -17,12 +21,14 @@
         <SellerChatComp :client="chat"></SellerChatComp>
       </div>
     </div>
+  </div>
   </template>
     
     <script>
     import SellerSideBar from '../components/commons/SellerSideBar.vue'
     import { db, auth } from '../firebase.js';
     import { GoogleAuthProvider, signInWithPopup , signOut } from 'firebase/auth';
+    import ProfileBar from '../components/commons/ProfileBar.vue';
     import {
       onSnapshot,
       collection,
@@ -44,7 +50,8 @@
       name: 'SellerChat',
       components: {
         SellerChatComp,
-        SellerSideBar
+        SellerSideBar,
+        ProfileBar,
       },
       data: () => {
         return {
@@ -162,10 +169,13 @@
     </script>
 
 <style scoped>
-.btn-primary{
-  background-color:rgba(234, 106, 18, 1)
-}
-.btn-secondary{
-  background-color:#B2C248
+ .seller-chat {
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+ }
+.commons {
+      display: flex;
+      justify-content: space-between;
 }
 </style>
