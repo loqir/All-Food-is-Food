@@ -63,11 +63,11 @@ export default {
     }},
   methods: {
     redirectToSuccess() {
-      for (let uniqueitem of this.uniqueitems) {
-            console.log(uniqueitem.id);
-            const qtytodecrease = this.uniqueqty[uniqueitem.id];
-            const ABC = doc(db, "All Listings", uniqueitem.id);
-            runTransaction(db, async (transaction) => {
+    for (let uniqueitem of this.uniqueitems) {
+        console.log(uniqueitem.id);
+        const qtytodecrease = this.uniqueqty[uniqueitem.id];
+        const ABC = doc(db, "All Listings", uniqueitem.id);
+        runTransaction(db, async (transaction) => {
             const docSnapshot = await transaction.get(ABC);
             const data = docSnapshot.data();
   
@@ -75,12 +75,15 @@ export default {
             const newValue = data.qty - qtytodecrease;
   
             // Update the field
+
             transaction.update(ABC, { qty: newValue });
-});
-          }
-          deleteDoc(this.cartRef)
-      this.$router.push('/paymentsuccess');
-    },
+            
+        });
+    }
+    deleteDoc(this.cartRef);
+    this.$router.push('/paymentsuccess');
+},
+
     childcall(x) {
   this.totalValue = x
   console.log("DASDS " + this.totalValue)
