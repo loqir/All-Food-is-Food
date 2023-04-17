@@ -73,6 +73,7 @@ export default {
   
             // Calculate the new value based on the previous value
             const newValue = data.qty - qtytodecrease;
+            console.log(newValue)
   
             // Update the field
 
