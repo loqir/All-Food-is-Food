@@ -1,11 +1,12 @@
 <template>
   <div class="profile-page">
-    <SideBar class="sidebar" v-if="isBuyer"/>
-    <SellerSideBar class="sidebar" v-else/>
-    <div class="flex-wrapper-one">
-      <div class="relative-wrapper-one">
-        <SearchBar2/>
-        <ProfileBar id="profile-bar"/>
+    <div class="container">
+      <div class="main-display">
+        <img src="../assets/logo.png" class="logo">
+        <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
+        <SideBar class="sidebar" v-if="isBuyer"/>
+        <SellerSideBar class="sidebar" v-else/>
+        <ProfileBar id="pb"/>
       </div>
     <div class="component-2">
     <div class="online-order" v-if="isBuyer">
@@ -366,44 +367,38 @@ export default {
 <style scoped>
 .profile-page {
   background-color: rgba(250, 250, 250, 1);
-  height: 100vh;
+  height: 120vh;
   display: flex;
   align-items: flex-start;
   width: 100vw;
 }
-.sidebar {
-  width: 130px;
+.logo {
+  align-self: center;
 }
-#profile-bar {
+#pb {
   width: 20%;
 }
-#search-bar {
-  border: none;
-}
-#search-bar:focus {
-  outline: none;
-}
-.flex-wrapper-one {
-  padding: 1px 0 0;
+.container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 80vw;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
-.relative-wrapper-one {
-  margin-bottom: 20vh;
-  position: relative;
-  align-items: center;
-  width: 90vw;
-  display:flex;
-
+.main-display {
+  display: flex;
+  align-items: flex-start;
 }
 .component-2 {
+  margin-left: 5vw;
+  margin-top: 20vh;
   display: flex;
   flex-direction: row-reverse;
   width: 80vw;
   justify-content: space-around;
   align-items: center;
+  align-self: center;
 }
 .online-order {
   background-color: rgba(255, 255, 255, 0.6);

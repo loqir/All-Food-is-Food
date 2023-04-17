@@ -1,19 +1,20 @@
 <template>
   <div class="navigation-bar">
-          <div class="icon-text">
-            <div class="iconly-light-search">
-              <button @click ="search" class="search">
-                <img src="https://static.overlay-tech.com/assets/55aa4959-8ce7-48c7-8d1e-e843d9c46e20.svg">
-              </button>
-            </div>
-            <input type="text" placeholder="Search" v-model = "searchEntry" class="input" id="search-bar">
-          </div>
-        </div>
+    <div class="icon-text">
+      <div class="iconly-light-search">
+        <button @click ="search" class="search">
+          <img src="https://static.overlay-tech.com/assets/55aa4959-8ce7-48c7-8d1e-e843d9c46e20.svg">
+        </button>
+      </div>
+      <input type="text" placeholder="Search" v-model = "searchEntry" class="input" id="search-bar">
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "SearchBar2",
+  components: {},
   data() {
       return {
         searchEntry: ""
@@ -42,7 +43,7 @@ export default {
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
   position: relative;
   display: flex;
-  width: 80vw;
+  width: 69vw;
   height: 8vh;
   align-items: center;
 }

@@ -1,7 +1,7 @@
 <template>
 <router-view/>
 <br>
-<div>
+<div style="text-align: center">
   © 2023 AllFoodIsFood. All Rights Reserved.
 </div>
 

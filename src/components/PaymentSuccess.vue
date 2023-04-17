@@ -1,12 +1,12 @@
 <template>
   <div class="payment-success-page">
-    <SideBar class="sidebar"/>
-    <div class="flex-wrapper-one">
-      <div class="relative-wrapper-one">
-        <SearchBar2/>
-        <ProfileBar id="profile-bar"/>
-
-  </div>
+    <div class="container">
+      <div class="main-display">
+        <img src="../assets/logo.png" class="logo">
+        <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
+        <SideBar/>
+        <ProfileBar id="pb"/>
+      </div>
     <img
       alt=""
       class="group-34514"
@@ -47,7 +47,7 @@ export default {
   name: "Payment-Success",
   methods: {
     redirectToListings() {
-      this.$router.push('/buyerlistingview');
+      this.$router.push('/buyerlistings');
     },
   } 
 };
@@ -56,36 +56,30 @@ export default {
 <style lang="scss" scoped>
 .payment-success-page {
   background-color: rgba(250, 250, 250, 1);
-  padding-bottom: 10vh;
+  height: 120vh;
   display: flex;
   align-items: flex-start;
   width: 100vw;
 }
-.sidebar {
-  width: 130px;
+.logo {
+  align-self: center;
 }
-#profile-bar {
+#pb {
   width: 20%;
 }
-#search-bar {
-  border: none;
-}
-#search-bar:focus {
-  outline: none;
-}
-.flex-wrapper-one {
-  padding: 1px 0 0;
+.container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 80vw;
+  margin: 0;
+  padding: 0;
 }
-.relative-wrapper-one {
-  margin-bottom: 5vh;
-  position: relative;
-  align-items: flex-end;
+.content {
+  width: 90vw; 
+}
+.main-display {
   display: flex;
-  width: 90vw;
+  align-items: flex-start;
 }
 .group-34514 {
   width: 100vw;
