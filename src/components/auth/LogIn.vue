@@ -25,21 +25,15 @@
                 <input type="password" placeholder="Enter Password" class="email-input" v-model="password">
               </div>
               <div class="frame-449">
-                <div class="frame-448">
-                  <div class="checkbox-2">
-                    <input type="checkbox" class="tick">
-                  </div>
-                  <p class="password">Remember me?</p>
-                </div>
                 <router-link class="password-two" to="/passwordreset">Forget Password</router-link>
               </div>
             </div>
-            <button @click="logIn" class="sign-in-two">Sign in</button>
+            <button @click="logIn" class="sign-in-two">Sign In</button>
           </div>
         </div>
         <div class="frame-35355">
           <p class="username-or-email-address-two">
-            or sign in with Google
+            or Sign In with Google
           </p>
           <div class="gmail">
             <input class="union" type="image" src="https://static.overlay-tech.com/assets/63a48114-e7f9-4446-93de-56ea1cd1922b.png" @click="googoSignIn"/>
@@ -165,6 +159,8 @@ export default {
                 alert("Please enter a valid password")
               } else if (errorCode == "auth/wrong-password") {
                 alert("Invalid Email/Password. Please try again.")
+              } else if (errorCode ==  "auth/user-not-found") {
+                alert("Invalid Email/Password. Please try again")
               }
               // alert(errorCode)
 
@@ -292,7 +288,6 @@ export default {
 .password-two {
   font-family: "Poppins";
   width: 8vw;
-  text-align: end;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
