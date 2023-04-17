@@ -160,3 +160,12 @@
       },
     };
     </script>
+
+<style scoped>
+.btn-primary{
+  background-color:rgba(234, 106, 18, 1)
+}
+.btn-secondary{
+  background-color:#B2C248
+}
+</style>
