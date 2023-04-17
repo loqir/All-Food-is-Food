@@ -39,17 +39,29 @@ import firebaseApp from '@/firebase.js'
      },
  
      methods: {
-         async addtocart(listing) {
-    const docSnap = await getDoc(this.buyerDocument);
-if (docSnap.exists()) {
-  const currList = docSnap.data().myArrayField || [];
-  const newList = [...currList, listing.id];
-  await setDoc(this.buyerDocument, { myArrayField: newList });
-} else {
-  await setDoc(this.buyerDocument, { myArrayField: [listing.id] });
-}
+      async addtocart(listing) {
+      const listingid = listing.id
+  const docSnap = await getDoc(this.buyerDocument);
+  if (docSnap.exists()) {
+    const currList = docSnap.data().myArrayField || [];
+    const counts = currList.reduce((acc, listingid) => {
+      acc[listingid] = (acc[listingid] || 0) + 1;
+      return acc;
+    }, {});
+    const listingRef = doc(db, "All Listings", listingid);
+    const listingDoc = await getDoc(listingRef);
+    const qty = listingDoc.data().qty;
+    if (counts[listingid] >= qty) {
+      alert("Maximum quantity exceeded");
+    } else {
+      const newList = [...currList, listing.id];
+      await setDoc(this.buyerDocument, { myArrayField: newList });
+    }
+  } else {
+    await setDoc(this.buyerDocument, { myArrayField: [listingid] });
+  }
 
-location.reload()
+  location.reload();
 }
          },
      mounted() {

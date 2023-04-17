@@ -42,7 +42,7 @@ import Cart from './commons/Cart.vue';
 import SearchBar2 from './commons/SearchBar2.vue';
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import firebaseApp from '@/firebase.js'
-import { getFirestore, collection, query, getDocs, doc, getDoc } from "firebase/firestore"
+import { getFirestore, collection, query, getDocs, doc, getDoc, runTransaction, deleteDoc } from "firebase/firestore"
 
 const db = getFirestore(firebaseApp)
 const AllListings = collection(db, "All Listings")
@@ -56,11 +56,29 @@ export default {
       user: false,
       cartRef : null,
       cart : [],
-      totalValue : 0
+      totalValue : 0,
+      uniqueitems : [],
+      uniqueqty : []
 
     }},
   methods: {
     redirectToSuccess() {
+      for (let uniqueitem of this.uniqueitems) {
+            console.log(uniqueitem.id);
+            const qtytodecrease = this.uniqueqty[uniqueitem.id];
+            const ABC = doc(db, "All Listings", uniqueitem.id);
+            runTransaction(db, async (transaction) => {
+            const docSnapshot = await transaction.get(ABC);
+            const data = docSnapshot.data();
+  
+            // Calculate the new value based on the previous value
+            const newValue = data.qty - qtytodecrease;
+  
+            // Update the field
+            transaction.update(ABC, { qty: newValue });
+});
+          }
+          deleteDoc(this.cartRef)
       this.$router.push('/paymentsuccess');
     },
     childcall(x) {
@@ -70,31 +88,32 @@ export default {
   },
   mounted() {
   const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       this.user = user;
       this.cartRef = doc(BuyersCart, this.user.uid);
-      getDoc(this.cartRef).then(async (docA) => {
-        if (docA.exists()) {
-          // Access a specific field in the document data
-          this.cart = docA.data().myArrayField;
-          console.log("cart not empty")
-          for (let i = 0; i < this.cart.length; i++) {
-            const listingID = this.cart[i]
-            console.log(" LISTING ID IS " + listingID)
-            const docRef = doc(AllListings, listingID)
-            const docSnapshot = await getDoc(docRef);
-            this.cart[i] = docSnapshot.data()
-            console.log(this.user.uid)
-          }
-        } else {
-          // Document doesn't exist
-          this.cart = []
-          console.log("cart empty")
+      const docA = await getDoc(this.cartRef);
+      if (docA.exists()) {
+        // Access a specific field in the document data
+        this.cart = docA.data().myArrayField;
+        console.log("cart not empty");
+        for (let i = 0; i < this.cart.length; i++) {
+          const listingID = this.cart[i];
+          console.log(" LISTING ID IS " + listingID);
+          const docRef = doc(AllListings, listingID);
+          const docSnapshot = await getDoc(docRef);
+          this.cart[i] = docSnapshot.data();
+          console.log(this.user.uid);
+          this.uniqueitems = this.uniqueCart;
+          this.uniqueqty = this.cartQuantities;
         }
-      });
+      } else {
+        // Document doesn't exist
+        this.cart = [];
+        console.log("cart empty");
+      }
     }
-  })
+  });
 },
 computed: {
   uniqueCart() {

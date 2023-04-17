@@ -77,6 +77,10 @@ export default {
 //   }
 // },
        async addlisting() {
+        if (this.quantityEntry < 1) {
+          alert("Please enter a valid positive number")
+        }
+        else {
         const fileId = uuidv4();
   const fileName = `${fileId}_${this.$refs.myfile.files[0].name}`;
   const storageRef = ref(storage, `images/${fileName}`);
@@ -111,6 +115,7 @@ if (docSnap.exists()) {
   location.reload()
       }
     }
+  }
   }
 </script>
 
