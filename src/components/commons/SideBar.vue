@@ -80,7 +80,7 @@ export default {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 10px 30px 0 rgba(234, 106, 18, 0.05);
   height: 8vh;
-  width: 20vw;
+  width: 30vw;
 }
 .frame-36360 {
   display: flex;

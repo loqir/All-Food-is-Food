@@ -6,9 +6,11 @@
         {{message.text}}
         </div>
       </div>
-    </div>
+    </div>\
+    <center>
     <input type="text" size="100" @keypress.enter="sendMessage" ref="newMessage" placeholder="new message ...">
     <button @click="sendMessage()" class="btn btn-primary">send</button>
+    </center>
   </template>
   
   <script>
@@ -79,7 +81,7 @@
         height: 50vh;
         overflow: scroll;
         flex-direction: column-reverse; 
-        background-color: brown;
+        background-color: rgba(234, 106, 18, 1);
         border-radius: 5px;
         display: flex;
        

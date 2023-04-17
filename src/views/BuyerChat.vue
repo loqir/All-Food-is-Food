@@ -1,6 +1,6 @@
 <template>
   <SideBar class="sidebar"/>
-    <div v-if="client.id">
+    <div v-if="client.id" class = 'buyerchat'>
     <h1>{{ this.firstName }} {{ this.lastName }}</h1>
       <div>chat with : Admin</div>
       <div class="chatbox">
@@ -27,7 +27,6 @@
     <script>
     import { db, auth } from '../firebase.js';
     import firebaseApp from '@/firebase.js'
-    import NavBar from '@/components/commons/NavBar.vue'
     import SideBar from '@/components/commons/SideBar.vue'
     import {
       onSnapshot,
@@ -46,7 +45,6 @@
     export default {
       name: 'BuyerChat',
       components: {
-        NavBar,
         SideBar
       },
       props: {},
@@ -130,6 +128,9 @@
     </script>
     
     <style>
+    .buyerchat{
+      text-align: center;
+    }
     .sidebar {
       width: 130px;
     }

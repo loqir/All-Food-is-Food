@@ -17,7 +17,6 @@
 .user {
   display: flex;
   align-items: center;
-  justify-content: center;
   height: 8vh;
   width: 11vw;
 }
@@ -28,12 +27,14 @@
   border-radius: 100px;
   display: flex;
   justify-content: center;
+  margin-left: 15px;
 }
 #bg {
   width: 45px;
   height: 45px;
   background-size: 100% 100%;
   background-position: center;
+  margin-left: 5px;
   margin-right: 16px;
   border-radius: 100px
 }
