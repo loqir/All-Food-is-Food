@@ -69,8 +69,7 @@ export default {
     data() {
       return {
       user : false,
-      cartRef : "",
-	  totalValue : 0
+      cartRef : ""
       }
 
     },
@@ -81,16 +80,25 @@ export default {
         this.user = user;
         const specificbuyer = doc(BuyersCart, this.user.uid);
         this.cartRef = specificbuyer;
-        let total = 0;
-        for (let item of this.cart) {
-			console.log(item.price)
-          total += item.price;
-        }
-        this.totalValue = total;
-		console.log("DSADSA " + this.totalValue)
 		this.$emit("sendtotalvalue", this.totalValue)
       }
     });
+  },
+  computed: {
+    async totalValue() {
+      let totalValue = 0;
+      for (let uniqueitem of this.uniqueCart) {
+        await price = parseFloat(uniqueitem.price);
+		const count = this.cart.filter(cartitem => cartitem == uniqueitem).length
+		console.log(price)
+		console.log(count)
+		
+        totalValue += price * count ;
+        
+      }
+	  console.log("total value " + totalValue)
+      return totalValue;
+    },
   },
 
     methods: {
@@ -127,8 +135,9 @@ if (this.cartRef) {
 	}
 
 	await updateDoc(this.cartRef, { myArrayField: abc});
+	// this.totalValue -= item.price
+	// this.$emit("sendtotalvalue", this.totalValue)
 	location.reload()
-	this.totalValue -= item.price
 
  },
  async increment(item){
@@ -138,7 +147,8 @@ if (this.cartRef) {
 		abc.push(item.id)
 	}
 	await updateDoc(this.cartRef, { myArrayField: abc});
-	this.totalValue += item.price
+	// this.totalValue += item.price
+	// this.$emit("sendtotalvalue", this.totalValue)
 	location.reload()
 
 	// this.totalValue += item.price
