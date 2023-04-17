@@ -6,11 +6,11 @@
         {{message.text}}
         </div>
       </div>
-    </div>\
-    <center>
+    </div>
+    <div style = "text-align: center">
     <input type="text" size="100" @keypress.enter="sendMessage" ref="newMessage" placeholder="new message ...">
     <button @click="sendMessage()" class="btn btn-primary">send</button>
-    </center>
+  </div>
   </template>
   
   <script>
@@ -39,14 +39,16 @@
               date:Date.now()
             }
         )
+
+  
+          let updateLatestMessage = {...this.client,
+            latestMessage:this.$refs.newMessage.value}
+          delete updateLatestMessage.id;
+          setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
+          this.$refs.newMessage.value = '';
         } else {
             alert("Please enter message")
         }
-  
-        let updateLatestMessage = {...this.client,latestMessage:this.$refs.newMessage.value}
-        delete updateLatestMessage.id;
-        setDoc(doc(db,'chats/'+this.client.id),updateLatestMessage);
-        this.$refs.newMessage.value = '';
       }
     }
     ,

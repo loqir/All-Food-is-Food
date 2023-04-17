@@ -82,22 +82,23 @@
                     text: this.$refs.newMessage.value,
                     date: Date.now(),
                 });
-            } else {
+
+    
+            let updateLatestMessage = {
+              ...this.client,
+              latestMessage: this.$refs.newMessage.value,
+              seen: false,
+              date: Date.now(),
+              lastName: this.lastName,
+              firstName: this.firstName
+
+            };
+            delete updateLatestMessage.id;
+            setDoc(doc(db, 'chats/' + this.client.id), updateLatestMessage);
+            this.$refs.newMessage.value = '';
+          } else {
                 alert("Please enter message")
             }
-    
-          let updateLatestMessage = {
-            ...this.client,
-            latestMessage: this.$refs.newMessage.value,
-            seen: false,
-            date: Date.now(),
-            lastName: this.lastName,
-            firstName: this.firstName
-
-          };
-          delete updateLatestMessage.id;
-          setDoc(doc(db, 'chats/' + this.client.id), updateLatestMessage);
-          this.$refs.newMessage.value = '';
         },
       },
       mounted() {
