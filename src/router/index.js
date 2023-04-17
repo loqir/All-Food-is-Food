@@ -1,10 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import AboutView from '@/views/AboutView.vue'
 import NotFound from '@/views/NotFound.vue'
-import OldProfile from '@/views/OldProfile.vue'
-import SellerListingView from '@/views/SellerListingView.vue'
-import BuyerListingView from '@/views/BuyerListingView.vue'
 import LandingPage from "../components/LandingPage.vue"
 import LogIn from "../components/auth/LogIn.vue"
 import BuyerSignUp from "../components/auth/BuyerSignUp.vue"
@@ -22,35 +17,9 @@ import SellerListings from "../components/SellerListing.vue"
 
 const routes = [
   {
-    path: '/home',
-    name: 'HomeView',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'AboutView',
-    component: AboutView
-  },
-  {
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: NotFound
-  },
-  {
-    path: '/oldprofile',
-    name: 'OldProfile',
-    component: OldProfile
-  },
-  {
-    path: '/sellerlistingview',
-    name: 'SellerListingView',
-    component: SellerListingView
-  },
-  ,
-  {
-    path: '/buyerlistingview',
-    name: 'BuyerListingView',
-    component: BuyerListingView
   },
   {
     path: '/',

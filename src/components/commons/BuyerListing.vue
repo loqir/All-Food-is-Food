@@ -104,7 +104,6 @@ location.reload()
     background-color: coral;
     margin-bottom: 10px;
     margin-right: 10px;
-
   }
   .last-row {
     display: flex;

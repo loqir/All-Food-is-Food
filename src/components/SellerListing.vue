@@ -1,9 +1,10 @@
 <template>
   <div class="seller-listing">
-    <SellerSideBar/>
     <div class="container">
       <div class="main-display">
+        <img src="../assets/logo.png" class="logo">
         <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
+        <SellerSideBar/>
         <ProfileBar id="pb"/>
       </div>
       <div class="content">
@@ -105,6 +106,9 @@ export default {
   display: flex;
   align-items: flex-start;
   width: 100vw;
+}
+.logo {
+  align-self: center;
 }
 #pb {
   width: 20%;

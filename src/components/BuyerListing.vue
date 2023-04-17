@@ -1,9 +1,10 @@
 <template>
   <div class="buyer-listing">
-    <SideBar/>
     <div class="container">
       <div class="main-display">
+        <img src="../assets/logo.png" class="logo">
         <SearchBar2 :searchEntry = "searchEntry" @findfood = "childcall($event)"/>
+        <SideBar/>
         <ProfileBar id="pb"/>
       </div>
       <div class="content">
@@ -23,8 +24,8 @@
               </div>
             </div>
           </div>
-          <button class="checkout" @click="goToPayment()">Checkout</button>
         </div>
+        <button class="checkout" @click="goToPayment()">Checkout</button>
     </div>
     </div>
 </template>
@@ -165,6 +166,9 @@ computed: {
   align-items: flex-start;
   width: 100vw;
 }
+.logo {
+  align-self: center;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -225,6 +229,7 @@ computed: {
   padding: 5px;
   border-radius: 24px;
   margin-top: 50px;
+  align-self: end;
 }
 
 </style>>
